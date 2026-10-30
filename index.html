@@ -204,7 +204,11 @@
   <div class="stars">⭐ <span id="starCount">0</span></div>
   <button class="iconbtn" id="setBtn" aria-label="settings">⚙️</button>
 </header>
-<main id="app"></main>
+<main id="app"><div id="nojs" style="text-align:center;font-size:24px;line-height:1.6;padding:30px 10px">
+  ⚠️ 앱이 아직 시작되지 않았어요.<br><br>
+  <b>Chrome</b>(크롬) 브라우저로 열어 주세요.<br>
+  <span style="font-size:18px;color:#8A84A0">카카오톡이나 파일 미리보기 화면에서는 앱이 움직이지 않아요.</span>
+</div></main>
 <div id="buddy" aria-hidden="true"><div id="bubble"></div><div id="buddyFace">🐰</div></div>
 <div class="modal" id="gate">
   <div class="sheet" style="text-align:center">
@@ -437,7 +441,7 @@ function celebrate(sym){
 // ---------- home ----------
 function home(){
   clearAuto();
-  speechSynthesis && speechSynthesis.cancel && speechSynthesis.cancel();
+  try{ window.speechSynthesis && speechSynthesis.cancel(); }catch(e){}
   document.title = t().title;
   app.innerHTML = `<h1>${t().title}</h1>
   <div class="menu">
