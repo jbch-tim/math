@@ -1,0 +1,1991 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<title>은서의 프랑스어 놀이</title>
+<meta name="apple-mobile-web-app-title" content="은서 프랑스어">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="theme-color" content="#EEF6FF">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Jua&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#EEF6FF; --card:#FFFFFF; --ink:#33395A; --soft:#8590AE;
+    --pink:#FF8FAB; --blue:#6EC6FF; --green:#7ED957; --yellow:#FFD166; --purple:#B79CFF; --orange:#FFB37A; --red:#FF7B7B;
+  }
+  *{box-sizing:border-box;-webkit-tap-highlight-color:transparent;user-select:none;-webkit-user-select:none}
+  html,body{margin:0;min-height:100%}
+  body{background:var(--bg);color:var(--ink);font-family:'Jua',system-ui,sans-serif;display:flex;flex-direction:column;align-items:center;overflow-x:hidden}
+  header{width:100%;max-width:900px;display:flex;justify-content:space-between;align-items:center;padding:14px 18px}
+  .flag{display:inline-flex;height:.8em;width:1.2em;border-radius:3px;overflow:hidden;vertical-align:-.05em;box-shadow:0 0 0 1px #0001}
+  .flag i{flex:1}.flag i:nth-child(1){background:#2B59C3}.flag i:nth-child(2){background:#fff}.flag i:nth-child(3){background:#E5484D}
+  .stars{font-size:28px;background:#fff;border-radius:40px;padding:6px 18px;box-shadow:0 3px 0 #0001}
+  .iconbtn{font-size:28px;background:#fff;border:none;border-radius:50%;width:56px;height:56px;box-shadow:0 3px 0 #0001;cursor:pointer;font-family:inherit}
+  main{width:100%;max-width:900px;flex:1;display:flex;flex-direction:column;align-items:center;padding:0 16px 110px}
+  h1{font-size:40px;margin:6px 0 4px;text-align:center}
+  .sub{font-size:22px;color:var(--soft);margin:0 0 16px;text-align:center}
+  button{font-family:inherit;color:var(--ink)}
+
+  /* home: themes */
+  .themes{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;width:100%}
+  .th{border:none;border-radius:26px;padding:14px 6px 12px;font-size:24px;cursor:pointer;box-shadow:0 6px 0 #0002;
+      display:flex;flex-direction:column;align-items:center;gap:4px;transition:transform .1s;position:relative}
+  .th:active{transform:translateY(4px);box-shadow:0 2px 0 #0002}
+  .th .big{font-size:50px;line-height:1.1}
+  .th .frn{font-size:16px;opacity:.75}
+  .th .meter{width:80%;height:9px;background:#ffffff88;border-radius:6px;overflow:hidden;margin-top:4px}
+  .th .meter i{display:block;height:100%;background:#fff}
+  .th .crown{position:absolute;top:6px;right:10px;font-size:22px}
+  .homerow{display:grid;grid-template-columns:1fr 1fr;gap:14px;width:100%;margin-top:18px}
+  .homerow .big-btn{font-size:24px;line-height:1.3}
+  .homerow small{font-size:18px;opacity:.85}
+  .reviewbtn{width:100%;margin:4px 0 18px;background:var(--red);color:#fff}
+
+  /* theme page */
+  .modes{display:grid;grid-template-columns:1fr 1fr;gap:14px;width:100%;max-width:620px}
+  .modes button{border:none;border-radius:26px;padding:20px 8px;font-size:26px;cursor:pointer;box-shadow:0 6px 0 #0002;display:flex;flex-direction:column;align-items:center;gap:6px}
+  .modes button:active{transform:translateY(4px);box-shadow:0 2px 0 #0002}
+  .modes .big{font-size:52px} .modes small{font-size:17px;opacity:.8}
+  .wordlist{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin-top:20px;max-width:700px}
+  .chip{background:#fff;border:none;border-radius:16px;padding:8px 12px;font-size:20px;box-shadow:0 2px 0 #0001;cursor:pointer;display:flex;align-items:center;gap:6px}
+  .chip .lv{font-size:13px;color:var(--soft)}
+  .chip.m2{background:#E9F9DE}.chip.m4{background:#FFF3C4}
+
+  /* card visuals */
+  .pic{display:flex;align-items:center;justify-content:center;line-height:1}
+  .dotc{display:inline-block;border-radius:50%;box-shadow:inset 0 -6px 0 #0002, 0 0 0 3px #0001}
+  .numpic{font-size:1em;font-weight:bold;color:var(--purple)}
+
+  /* learn */
+  .card{background:#fff;border-radius:32px;box-shadow:0 6px 0 #0001;padding:22px 20px 18px;width:100%;max-width:560px;text-align:center;cursor:pointer}
+  .card .pic{font-size:130px;height:150px}
+  .card .fw{font-size:52px;margin-top:10px;color:#2B59C3;word-break:keep-all}
+  .card .pr{font-size:30px;color:var(--pink);margin-top:4px}
+  .card .ko{font-size:28px;color:var(--soft);margin-top:6px}
+  .card.flip{animation:flip .35s}
+  @keyframes flip{0%{transform:scale(.9) rotateY(25deg);opacity:.4}100%{transform:none;opacity:1}}
+  .nav{display:flex;gap:16px;margin-top:18px;align-items:center}
+  .nav button{font-size:38px;width:86px;height:86px;border-radius:50%;border:none;background:var(--yellow);box-shadow:0 5px 0 #0002;cursor:pointer}
+  .nav button.alt{background:#fff}
+  .nav button:active{transform:translateY(3px)}
+  .count{font-size:22px;color:var(--soft);margin-top:10px}
+
+  /* quiz */
+  .progress{display:flex;gap:8px;margin:2px 0 10px;flex-wrap:wrap;justify-content:center}
+  .dot{width:20px;height:20px;border-radius:50%;background:#DCE3F2}
+  .dot.done{background:var(--yellow)} .dot.miss{background:#FFC9C9}
+  .question{font-size:30px;margin:4px 0 12px;text-align:center;min-height:40px}
+  .again-tag{font-size:18px;background:#FFE3E3;color:#C0392B;border-radius:12px;padding:4px 10px;margin-bottom:6px}
+  .speak{display:flex;gap:14px;margin-bottom:18px}
+  .speak button{border:none;border-radius:50%;width:120px;height:120px;font-size:60px;background:var(--blue);box-shadow:0 6px 0 #0002;cursor:pointer}
+  .speak button.slow{width:84px;height:84px;font-size:40px;background:#fff;align-self:center}
+  .speak button:active{transform:translateY(4px)}
+  .speak button.ping{animation:ping .8s}
+  @keyframes ping{30%{transform:scale(1.12)}}
+  .target{background:#fff;border-radius:30px;box-shadow:0 5px 0 #0001;padding:14px 26px;text-align:center;margin-bottom:16px;min-width:220px}
+  .target .pic{font-size:110px;height:120px}
+  .target .ko{font-size:28px;color:var(--soft)}
+  .choices{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;width:100%;max-width:620px}
+  .choices.c3{grid-template-columns:repeat(3,1fr)}
+  .choice{border:none;border-radius:26px;background:#fff;box-shadow:0 6px 0 #0002;cursor:pointer;padding:12px 6px;min-height:120px;
+          display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;transition:transform .1s}
+  .choice:active{transform:translateY(4px)}
+  .choice .pic{font-size:70px;height:80px}
+  .choice .ko{font-size:19px;color:var(--soft)}
+  .choice .fw{font-size:30px;color:#2B59C3;word-break:keep-all;line-height:1.15}
+  .choice .pr{font-size:19px;color:var(--pink)}
+  .choices.text .choice{min-height:96px}
+  .choices.long{grid-template-columns:1fr} .choices.long .choice{min-height:76px} .choices.long .fw{font-size:26px}
+  .choice.right{background:var(--green)} .choice.right .fw,.choice.right .pr,.choice.right .ko{color:#fff}
+  .choice.wrong{opacity:.3;animation:shake .4s}
+  .choice.hint{outline:5px dashed var(--green);outline-offset:-5px;animation:hop .7s infinite}
+  @keyframes shake{25%{transform:translateX(-8px)}75%{transform:translateX(8px)}}
+  @keyframes hop{50%{transform:translateY(-6px)}}
+
+  /* memory game */
+  .mem{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;width:100%;max-width:640px}
+  .mc{aspect-ratio:3/4;border:none;border-radius:20px;cursor:pointer;position:relative;perspective:600px;background:none;padding:0}
+  .mc .in{position:absolute;inset:0;transition:transform .35s;transform-style:preserve-3d}
+  .mc.open .in,.mc.done .in{transform:rotateY(180deg)}
+  .mc .f,.mc .b{position:absolute;inset:0;border-radius:20px;backface-visibility:hidden;-webkit-backface-visibility:hidden;display:flex;flex-direction:column;align-items:center;justify-content:center;box-shadow:0 5px 0 #0002;padding:4px}
+  .mc .f{background:var(--purple);font-size:40px;color:#fff}
+  .mc .b{background:#fff;transform:rotateY(180deg)}
+  .mc.done .b{background:#E9F9DE}
+  .mc .b .pic{font-size:56px;height:62px}
+  .mc .b .fw{font-size:22px;color:#2B59C3;text-align:center;line-height:1.1;word-break:keep-all}
+  .mc .b .pr{font-size:15px;color:var(--pink)}
+
+  /* end, misc */
+  .celebrate{position:fixed;inset:0;display:flex;align-items:center;justify-content:center;pointer-events:none;font-size:160px;animation:pop .9s ease forwards;z-index:7}
+  @keyframes pop{0%{transform:scale(.2);opacity:0}40%{transform:scale(1.15);opacity:1}100%{transform:scale(1);opacity:0}}
+  .end{text-align:center}
+  .end .trophy{font-size:130px}
+  .end .row{display:flex;gap:12px;justify-content:center;margin-top:20px;flex-wrap:wrap}
+  .big-btn{font-size:28px;border:none;border-radius:26px;padding:16px 26px;cursor:pointer;box-shadow:0 5px 0 #0002}
+  .big-btn:active{transform:translateY(3px)}
+  .modal{position:fixed;inset:0;background:#0006;display:none;align-items:center;justify-content:center;padding:16px;z-index:8}
+  .modal.open{display:flex}
+  .sheet{background:#fff;border-radius:26px;padding:24px;width:100%;max-width:440px;max-height:92vh;overflow-y:auto}
+  .sheet h2{margin:0 0 14px;font-size:30px}
+  .opt{margin:14px 0}
+  .opt label{display:block;font-size:21px;margin-bottom:6px}
+  .seg{display:flex;gap:8px}
+  .seg button{flex:1;font-size:20px;padding:10px 4px;border-radius:14px;border:2px solid #E3E8F3;background:#fff;cursor:pointer}
+  .seg button.on{background:var(--purple);border-color:var(--purple);color:#fff}
+  #vsel{flex:1;font-family:inherit;font-size:17px;padding:8px;border-radius:12px;border:2px solid #E3E8F3;background:#fff;color:var(--ink);min-width:0}
+  .small{font-size:20px;border:none;border-radius:18px;padding:10px 16px;background:#fff;box-shadow:0 3px 0 #0001;cursor:pointer;white-space:nowrap}
+  .note{font-family:system-ui,sans-serif;font-size:14px;color:var(--soft);line-height:1.5;margin-top:16px}
+  .pad{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;max-width:260px;margin:0 auto}
+  .pad button{font-size:28px;padding:12px;border-radius:16px;border:none;background:#F1F4FA;cursor:pointer}
+  .shake{animation:shake .4s}
+  #buddy{position:fixed;right:12px;bottom:12px;z-index:4;display:flex;align-items:flex-end;gap:6px;cursor:pointer}
+  #buddyFace{font-size:68px;line-height:1;filter:drop-shadow(0 4px 0 #0001)}
+  #bubble{background:#fff;border-radius:18px 18px 4px 18px;padding:10px 14px;font-size:21px;box-shadow:0 3px 0 #0001;max-width:230px;opacity:0;transform:translateY(8px) scale(.9);transition:.25s;pointer-events:none}
+  #bubble.show{opacity:1;transform:none}
+  #buddy.jump #buddyFace{animation:jump .6s}
+  #buddy.sad #buddyFace{animation:wob .6s}
+  @keyframes jump{30%{transform:translateY(-30px) rotate(-8deg)}60%{transform:translateY(0) scale(1.1,.9)}}
+  @keyframes wob{25%{transform:rotate(-10deg)}75%{transform:rotate(10deg)}}
+  .conf{position:fixed;top:-20px;width:12px;height:18px;border-radius:3px;z-index:6;pointer-events:none;animation:fall linear forwards}
+  @keyframes fall{to{top:105vh;transform:rotate(720deg) translateX(40px)}}
+  .friends{display:grid;grid-template-columns:repeat(5,1fr);gap:10px;width:100%;max-width:600px}
+  .fr{aspect-ratio:1;border:none;border-radius:20px;background:#fff;box-shadow:0 4px 0 #0001;display:flex;flex-direction:column;align-items:center;justify-content:center;cursor:pointer}
+  .fr .fe{font-size:44px}.fr .fn{font-size:14px;color:var(--soft)}
+  .fr.me{outline:4px solid var(--yellow)} .fr.locked{opacity:.5}
+  .cal-top{display:flex;align-items:center;gap:18px;font-size:28px;margin-bottom:12px}
+  .cal{display:grid;grid-template-columns:repeat(7,1fr);gap:6px;width:100%;max-width:560px}
+  .cal-h{text-align:center;font-size:20px;color:var(--soft)}
+  .cal-d{background:#fff;border-radius:14px;aspect-ratio:1;display:flex;align-items:center;justify-content:center;position:relative;box-shadow:0 2px 0 #0001}
+  .cal-d .n{font-size:14px;color:var(--soft);position:absolute;top:3px;left:7px}
+  .cal-d .s{font-size:32px}
+  .cal-d.got{background:#FFF3C4} .cal-d.today{outline:3px solid var(--purple)}
+  /* report */
+  .rp-sum{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;width:100%;margin-bottom:6px}
+  .rp-sum div{background:#fff;border-radius:18px;padding:12px 6px;text-align:center;box-shadow:0 3px 0 #0001}
+  .rp-sum b{display:block;font-size:32px} .rp-sum span{font-size:15px;color:var(--soft)}
+  .rp-h{align-self:flex-start;font-size:25px;margin:22px 0 8px}
+  .rp-row{background:#fff;border-radius:16px;padding:10px 14px;box-shadow:0 3px 0 #0001;width:100%;margin-bottom:8px}
+  .rp-top{display:flex;justify-content:space-between;font-size:20px}
+  .rp-bar{height:10px;background:#EEF1F7;border-radius:6px;margin-top:6px;overflow:hidden} .rp-bar i{display:block;height:100%;background:var(--green)}
+  .rp-weak{display:flex;flex-wrap:wrap;gap:8px;width:100%}
+  .rp-weak span{background:#FFE3E3;border-radius:14px;padding:8px 12px;font-size:20px} .rp-weak small{font-size:14px;color:var(--soft)}
+  .rp-note{align-self:flex-start;font-family:system-ui,sans-serif;font-size:14px;color:var(--soft);line-height:1.5}
+
+  /* levels, write, status */
+  .lvtabs{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;width:100%;margin-bottom:18px}
+  .lvt{border:none;border-radius:18px;background:#fff;box-shadow:0 4px 0 #0001;padding:10px 4px;font-size:21px;cursor:pointer;display:flex;flex-direction:column;align-items:center;border-bottom:6px solid var(--lc)}
+  .lvt small{font-size:14px;color:var(--soft)} .lvt.on{background:var(--lc)} .lvt.on small{color:var(--ink)} .lvt.locked{opacity:.55}
+  .th.nextb{background:#fff;border:3px dashed #C9D2E6;box-shadow:none;cursor:default;color:var(--soft)} .th.nextb .meter{background:#EEF1F7} .th.nextb .meter i{background:var(--green)}
+  .lockbox{background:#fff;border-radius:24px;padding:22px;text-align:center;font-size:22px;line-height:1.5;width:100%;box-shadow:0 4px 0 #0001}
+  .modes .span2{grid-column:span 2}
+  .stlegend{font-size:16px;color:var(--soft);margin:16px 0 0}
+  .chip.st2{background:#FFF3C4} .chip.st3{background:#E9F9DE} .chip b{color:var(--purple)}
+  .tpic{display:inline-block;font-size:.42em;background:#FFF3C4;color:var(--ink);border-radius:.3em;padding:.15em .35em;line-height:1.2;white-space:nowrap}
+  .target.wt{padding:8px 22px;margin-bottom:8px} .target.wt .pic{font-size:80px;height:88px}
+  .speak.sm{margin-bottom:10px} .speak.sm button{width:76px;height:76px;font-size:38px} .speak.sm button.slow{width:60px;height:60px;font-size:28px}
+  .slots{display:flex;flex-wrap:wrap;gap:6px;justify-content:center;align-items:flex-end;margin:6px 0 16px;min-height:64px;max-width:720px}
+  .slots .pre{font-size:34px;color:var(--soft);margin-right:6px;align-self:center}
+  .slots .fix{font-size:34px;align-self:center} .slots .gap{width:18px}
+  .slot{width:46px;height:58px;border:none;border-bottom:4px solid #B8C2DA;background:#fff;border-radius:12px 12px 4px 4px;font-size:32px;color:#2B59C3;cursor:pointer;box-shadow:0 2px 0 #0001}
+  .slots.ws .slot{width:auto;min-width:90px;padding:0 10px;font-size:24px}
+  .slot.good{background:#DDF6CF;border-color:var(--green)} .slot.bad{background:#FFE0E0;border-color:var(--red);animation:shake .4s}
+  .tiles{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;max-width:720px}
+  .tile{min-width:56px;height:60px;padding:0 12px;border:none;border-radius:16px;background:var(--yellow);box-shadow:0 5px 0 #0002;font-size:30px;cursor:pointer}
+  .tiles.ws .tile{font-size:22px;background:#CDE9FF}
+  .tile:active{transform:translateY(3px)} .tile.used{visibility:hidden}
+  .sbar{display:flex;height:14px;border-radius:7px;overflow:hidden;background:#EEF1F7;margin-top:8px} .sbar i{display:block;height:100%}
+  .sbar .s3{background:#3DBE5B} .sbar .s2{background:#FFD166} .sbar .s1{background:#B7E4A0}
+  .rp-meta{font-family:system-ui,sans-serif;font-size:13px;color:var(--soft);margin-top:4px}
+  .rp-explain{background:#fff;border-radius:18px;padding:6px 16px;width:100%;font-family:system-ui,sans-serif;font-size:15px;line-height:1.6;box-shadow:0 3px 0 #0001}
+  .rlv{align-self:flex-start;font-size:20px;color:var(--soft);margin:12px 0 2px}
+  @media (max-width:560px){ .lvt{font-size:16px;padding:8px 2px} .lvt small{font-size:11px}
+    .slot{width:34px;height:46px;font-size:24px} .slots .pre,.slots .fix{font-size:24px} .slots.ws .slot{min-width:64px;font-size:18px}
+    .tile{min-width:44px;height:50px;font-size:24px;padding:0 8px} .tiles.ws .tile{font-size:17px} .tiles{gap:7px} .lockbox{font-size:18px} }
+  /* skills */
+  .skbtn{background:linear-gradient(90deg,#8E5BE8,#FF8FAB)}
+  .cjtab{display:flex;flex-direction:column;gap:8px;width:100%;max-width:560px}
+  .cjrow{border:none;background:#fff;border-radius:16px;box-shadow:0 3px 0 #0001;padding:10px 14px;display:flex;align-items:center;gap:12px;cursor:pointer;text-align:left}
+  .cjrow .cjp{font-size:16px;color:var(--soft);width:96px} .cjrow .fw{font-size:30px;flex:1} .cjrow .pr{font-size:18px;color:var(--pink)}
+  .cjrow.now{background:#FFF3C4}
+  .target.cjq{padding:16px 26px} .cjbig{font-size:46px;color:#2B59C3} .cjbig b{color:var(--ink)}
+  .target.sq .fw{font-size:32px;color:#2B59C3;word-break:keep-all}
+  .nav #mic{background:var(--green);font-size:44px} .nav #mic.listening{background:var(--red);animation:hop .8s infinite}
+  @media (max-width:560px){ .cjrow .fw{font-size:22px} .cjrow .cjp{width:72px;font-size:13px} .cjbig{font-size:34px} .target.sq .fw{font-size:24px} }
+  /* reading */
+  .readbtn{width:100%;margin-top:14px;background:linear-gradient(90deg,#2B59C3,#6EC6FF);color:#fff;display:flex;justify-content:center;align-items:baseline;gap:10px}
+  .readbtn small{font-size:17px;opacity:.85}
+  .rlist{display:flex;flex-direction:column;gap:10px;width:100%;max-width:640px}
+  .ritem{border:none;background:#fff;border-radius:20px;box-shadow:0 4px 0 #0001;padding:12px 14px;display:flex;align-items:center;gap:12px;cursor:pointer;text-align:left}
+  .ritem .ri{font-size:38px} .ritem .rt{flex:1;font-size:23px;display:flex;flex-direction:column} .ritem .rt small{font-size:15px;color:var(--soft);font-family:system-ui,sans-serif}
+  .ritem .rd{font-size:24px} .ritem .rx{font-size:18px;color:var(--soft);padding:6px 10px;border-radius:12px;background:#F1F4FA} .ritem .rx.ask{background:var(--red);color:#fff}
+  .tin{width:100%;max-width:640px;font-size:20px;padding:12px;border-radius:16px;border:2px solid #DCE3F2;margin-bottom:10px;font-family:system-ui,sans-serif;user-select:text;-webkit-user-select:text}
+  .rules{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;width:100%;max-width:700px}
+  .rule{border:none;border-radius:18px;background:#fff;box-shadow:0 4px 0 #0001;padding:10px 4px;cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:2px;border-bottom:6px solid var(--c);position:relative}
+  .rule b{font-size:22px;color:var(--c)} .rule span{font-size:16px;color:var(--soft)} .rule em{position:absolute;top:2px;right:6px;font-style:normal;font-size:14px}
+  .rule.on{background:#FFF8D6;transform:translateY(-3px)}
+  .rulebox{background:#fff;border-radius:26px;box-shadow:0 5px 0 #0001;padding:18px;margin-top:16px;width:100%;max-width:700px;border-top:8px solid var(--c);text-align:center}
+  .rulebox .rk{font-size:40px;color:var(--c)} .rulebox .rk span{color:var(--ink)} .rulebox .rtip{font-size:21px;color:var(--soft);margin:4px 0 12px}
+  .rex{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
+  .exw{border:none;background:#F6F8FC;border-radius:18px;padding:12px 6px;cursor:pointer;display:flex;flex-direction:column;align-items:center}
+  .exw .fw{font-size:34px;color:#33395A} .exw .pr{font-size:20px;color:var(--pink)}
+  .ph{font-weight:bold} .ph.sil{color:#BCC3D3;font-weight:normal}
+  .choice .fw .ph.sil{color:#C4CAD8}
+  .legend{display:flex;flex-wrap:wrap;gap:6px 12px;justify-content:center;margin:16px 0;max-width:700px;font-size:18px;background:#fff;border-radius:16px;padding:10px}
+  .legend small{color:var(--soft);font-size:14px}
+  .tools{display:flex;gap:10px;margin:6px 0 14px;flex-wrap:wrap;justify-content:center}
+  .sent{background:#fff;border-radius:24px;box-shadow:0 4px 0 #0001;padding:16px;width:100%;max-width:700px;margin-bottom:12px;border:3px solid transparent}
+  .sent.now{border-color:var(--yellow);background:#FFFBEA}
+  .swords{font-size:38px;line-height:1.5;color:#33395A}
+  .wd{cursor:pointer;border-radius:10px;padding:0 3px;display:inline-block}
+  .wd.tap{animation:tap .5s} @keyframes tap{40%{background:#FFF3C4;transform:scale(1.08)}}
+  .wd.say{background:#FFE58A;transform:scale(1.08);transition:.15s}
+  .wd.got{background:#DDF6CF} .wd.miss{background:#FFE0E0}
+  .spr{font-size:24px;color:var(--pink);margin-top:4px} .sko{font-size:20px;color:var(--soft);margin-top:2px}
+  .sbtn{display:flex;gap:8px;margin-top:10px;flex-wrap:wrap} .sbtn .small{font-size:18px;padding:8px 12px;background:#F1F4FA}
+  .sbtn .mic{background:var(--green)} .sbtn .mic.listening{background:var(--red);color:#fff;animation:hop .8s infinite}
+  .heard{font-family:system-ui,sans-serif;font-size:15px;color:var(--soft);margin-top:6px}
+  @media (max-width:560px){ .rules{grid-template-columns:repeat(3,1fr)} .rule b{font-size:17px} .rule span{font-size:13px}
+    .swords{font-size:27px} .spr{font-size:19px} .sko{font-size:16px} .exw .fw{font-size:26px} .rulebox .rk{font-size:30px} .rulebox .rtip{font-size:17px}
+    .ritem .rt{font-size:19px} .readbtn small{font-size:14px} }
+  @media (max-width:560px){
+    h1{font-size:30px} .sub{font-size:18px}
+    .themes{gap:10px} .th{font-size:18px;padding:10px 4px;border-radius:20px} .th .big{font-size:38px} .th .frn{font-size:13px}
+    .homerow .big-btn{font-size:18px;padding:12px 6px} .homerow small{font-size:14px}
+    .modes button{font-size:21px;padding:16px 6px} .modes .big{font-size:42px} .modes small{font-size:14px}
+    .card .pic{font-size:100px;height:115px} .card .fw{font-size:40px} .card .pr{font-size:24px} .card .ko{font-size:22px}
+    .nav button{width:70px;height:70px;font-size:30px}
+    .choice{min-height:100px} .choice .pic{font-size:54px;height:62px} .choice .fw{font-size:23px} .choice .pr,.choice .ko{font-size:15px}
+    .choices.long .fw{font-size:20px}
+    .speak button{width:96px;height:96px;font-size:48px} .speak button.slow{width:68px;height:68px;font-size:32px}
+    .target .pic{font-size:84px;height:92px} .target .ko{font-size:22px}
+    .question{font-size:24px}
+    .mem{gap:7px} .mc .b .pic{font-size:38px;height:44px} .mc .b .fw{font-size:15px} .mc .b .pr{font-size:11px} .mc .f{font-size:30px}
+    .big-btn{font-size:21px;padding:14px 16px}
+    .rp-sum b{font-size:24px} .rp-sum span{font-size:12px} .rp-top{font-size:16px}
+    .cal-d .s{font-size:22px} .cal-d .n{font-size:11px}
+    #buddyFace{font-size:54px}
+    .pic .dotc{transform:scale(.75)}
+  }
+</style>
+</head>
+<body>
+<header>
+  <button class="iconbtn" id="homeBtn" aria-label="home">🏠</button>
+  <div class="stars">⭐ <span id="starCount">0</span></div>
+  <button class="iconbtn" id="setBtn" aria-label="settings">⚙️</button>
+</header>
+<main id="app"><div style="text-align:center;font-size:24px;line-height:1.6;padding:30px 10px">
+  ⚠️ 앱이 아직 시작되지 않았어요.<br><br><b>Chrome</b>(크롬)이나 <b>Safari</b>(사파리)로 열어 주세요.<br>
+  <span style="font-size:18px;color:#8590AE">카카오톡이나 파일 미리보기 화면에서는 앱이 움직이지 않아요.</span>
+</div></main>
+<div id="buddy" aria-hidden="true"><div id="bubble"></div><div id="buddyFace">🐰</div></div>
+
+<div class="modal" id="gate">
+  <div class="sheet" style="text-align:center">
+    <h2>🔒 부모님 확인</h2>
+    <p style="font-size:20px;color:var(--soft);margin:0 0 6px">곱셈 답을 입력하세요</p>
+    <div style="font-size:44px" id="gateEq"></div>
+    <div id="gateIn" style="font-size:40px;min-height:52px;border-bottom:3px solid #E3E8F3;margin:6px auto 14px;width:140px"></div>
+    <div class="pad" id="pad"></div>
+    <div style="margin-top:14px"><button class="small" id="gateCancel">취소</button></div>
+  </div>
+</div>
+
+<div class="modal" id="modal">
+  <div class="sheet">
+    <h2>설정 (부모님용)</h2>
+    <div class="opt"><label>단계 열기</label>
+      <div class="seg" data-key="allLv"><button data-v="off">자동 (묶음 80% 외우면)</button><button data-v="on">모두 열기</button></div></div>
+    <div class="opt"><label>한 번에 풀 문제 수</label>
+      <div class="seg" data-key="nq"><button data-v="5">5</button><button data-v="8">8</button><button data-v="10">10</button></div></div>
+    <div class="opt"><label>보기 개수</label>
+      <div class="seg" data-key="nc"><button data-v="3">3개 (쉬움)</button><button data-v="4">4개</button></div></div>
+    <div class="opt"><label>한글 발음 보이기</label>
+      <div class="seg" data-key="pron"><button data-v="on">보이기</button><button data-v="quiz">퀴즈에선 숨기기</button><button data-v="off">숨기기</button></div></div>
+    <div class="opt"><label>한국어 뜻 보이기</label>
+      <div class="seg" data-key="ko"><button data-v="on">보이기</button><button data-v="off">숨기기</button></div></div>
+    <div class="opt"><label>프랑스어 목소리</label>
+      <div class="seg" data-key="voice"><button data-v="on">🔊 켜기</button><button data-v="off">🔇 끄기</button></div></div>
+    <div class="opt"><label>목소리 고르기 (⭐ = 더 자연스러운 목소리)</label>
+      <div style="display:flex;gap:8px"><select id="vsel"></select><button class="small" id="vtest">▶</button></div></div>
+    <div class="opt"><label>말 빠르기</label>
+      <div class="seg" data-key="rate"><button data-v="slow">천천히</button><button data-v="normal">보통</button></div></div>
+    <div class="opt"><label>끝나면 자동으로 다음 판</label>
+      <div class="seg" data-key="auto"><button data-v="on">ON</button><button data-v="off">OFF</button></div></div>
+    <div class="opt"><label>효과음</label>
+      <div class="seg" data-key="sfx"><button data-v="on">ON</button><button data-v="off">OFF</button></div></div>
+    <button class="big-btn" style="background:var(--blue);width:100%;margin-top:6px" id="reportBtn">📊 학습 보고서</button>
+    <div style="text-align:right;margin-top:18px"><button class="big-btn" style="background:var(--yellow)" id="closeSet">OK</button></div>
+    <p class="note">처음에는 문제 5개, 보기 3개로 시작해 주세요. 단어를 익히면 "한글 발음 → 퀴즈에선 숨기기"로 바꿔서 프랑스어 철자를 직접 읽게 하면 좋아요. 기록은 이 기기에만 저장되고, 로그인이 필요 없어요.</p>
+  </div>
+</div>
+
+<script>
+// ---------- 단어 묶음 ----------
+// [프랑스어, 한글 발음, 한국어 뜻, 그림]  그림이 'c:#색' 이면 색깔 동그라미, 'n:숫자' 이면 숫자
+const THEMES = [
+ {id:'hello', ko:'인사', fr:'Bonjour !', icon:'👋', color:'var(--yellow)', words:[
+  ['Bonjour','봉주르','안녕하세요','👋'],['Salut','살뤼','안녕 (친구에게)','🙋‍♀️'],['Au revoir','오르부아','잘 가요','🖐️'],
+  ['Merci','메르시','고마워요','🙏'],["S'il vous plaît",'실부플레','부탁해요','🥺'],['Oui','위','네','👍'],['Non','농','아니요','👎'],
+  ['Ça va ?','사바','잘 지내?','🙂'],['Pardon','파르동','미안해요','😅'],['Bonne nuit','본뉘','잘 자요','🌙']]},
+ {id:'school', ko:'학교', fr:"À l'école", icon:'🎒', color:'var(--blue)', words:[
+  ["l'école",'레콜','학교','🏫'],['un crayon','앵 크레용','연필','✏️'],['un stylo','앵 스틸로','볼펜','🖊️'],['un livre','앵 리브르','책','📕'],
+  ['un cahier','앵 카이에','공책','📒'],['un sac à dos','앵 삭아도','책가방','🎒'],['des ciseaux','데 시조','가위','✂️'],['une règle','윈 레글','자','📏'],
+  ['une chaise','윈 셰즈','의자','🪑'],['un ordinateur','앵 노르디나퇴르','컴퓨터','💻'],['le professeur','르 프로페쇠르','선생님','🧑‍🏫'],['un ami','앵 나미','친구','🧑‍🤝‍🧑']]},
+ {id:'class', ko:'교실에서 쓰는 말', fr:'En classe', icon:'🙋', color:'var(--pink)', sentence:true, words:[
+  ["Je m'appelle Eunseo.",'주마펠 은서','제 이름은 은서예요','😊'],["J'ai besoin d'aide.",'제 브주앵 데드','도와주세요','🆘'],
+  ['Je ne comprends pas.','주느 콩프랑 파','이해가 안 돼요','🤔'],['Répétez, s\'il vous plaît.','레페테 실부플레','다시 말해 주세요','🔁'],
+  ['Je peux aller aux toilettes ?','주푀 알레 오투알레트','화장실 가도 돼요?','🚻'],["J'ai fini.",'제 피니','다 했어요','✅'],
+  ['Je ne sais pas.','주느 세 파','몰라요','🤷‍♀️'],["J'ai soif.",'제 수아프','목말라요','🥤'],["J'ai faim.",'제 팽','배고파요','🍽️'],["J'ai mal.",'제 말','아파요','🤕']]},
+ {id:'color', ko:'색깔', fr:'Les couleurs', icon:'🎨', color:'var(--purple)', words:[
+  ['rouge','루즈','빨간색','c:#E5484D'],['bleu','블뢰','파란색','c:#2F7BEA'],['jaune','존','노란색','c:#FFD23F'],['vert','베르','초록색','c:#3DBE5B'],
+  ['orange','오랑주','주황색','c:#FF8A1F'],['violet','비올레','보라색','c:#8E5BE8'],['rose','로즈','분홍색','c:#FF8FC0'],['noir','누아르','검은색','c:#262626'],
+  ['blanc','블랑','흰색','c:#FFFFFF'],['brun','브랭','갈색','c:#8B5A2B']]},
+ {id:'num', ko:'숫자', fr:'Les nombres', icon:'🔢', color:'var(--green)', words:[
+  ['un','앵','하나 (1)','n:1'],['deux','되','둘 (2)','n:2'],['trois','트루아','셋 (3)','n:3'],['quatre','카트르','넷 (4)','n:4'],['cinq','생크','다섯 (5)','n:5'],
+  ['six','시스','여섯 (6)','n:6'],['sept','세트','일곱 (7)','n:7'],['huit','위트','여덟 (8)','n:8'],['neuf','뇌프','아홉 (9)','n:9'],['dix','디스','열 (10)','n:10']]},
+ {id:'family', ko:'가족', fr:'La famille', icon:'👨‍👩‍👧‍👦', color:'var(--orange)', words:[
+  ['la famille','라 파미유','가족','👨‍👩‍👧‍👦'],['maman','마망','엄마','👩'],['papa','파파','아빠','👨'],['un frère','앵 프레르','남자 형제 (오빠·남동생)','👦'],
+  ['une sœur','윈 쇠르','여자 형제 (언니·여동생)','👧'],['un bébé','앵 베베','아기','👶'],['grand-maman','그랑마망','할머니','👵'],['grand-papa','그랑파파','할아버지','👴']]},
+ {id:'food', ko:'음식', fr:'La nourriture', icon:'🍎', color:'#9EE6CF', words:[
+  ['une pomme','윈 폼','사과','🍎'],['une banane','윈 바난','바나나','🍌'],['du pain','뒤 팽','빵','🍞'],['du lait','뒤 레','우유','🥛'],
+  ["de l'eau",'드 로','물','💧'],['du fromage','뒤 프로마주','치즈','🧀'],['un œuf','앵 뇌프','달걀','🥚'],['du riz','뒤 리','밥 (쌀)','🍚'],
+  ['du jus','뒤 쥐','주스','🧃'],['un biscuit','앵 비스퀴','과자','🍪']]},
+ {id:'animal', ko:'동물', fr:'Les animaux', icon:'🐶', color:'#C9E77B', words:[
+  ['un chien','앵 시앵','강아지','🐶'],['un chat','앵 샤','고양이','🐱'],['un oiseau','앵 누아조','새','🐦'],['un poisson','앵 푸아송','물고기','🐟'],
+  ['un lapin','앵 라팽','토끼','🐰'],['un cheval','앵 슈발','말','🐴'],['une vache','윈 바슈','소','🐮'],['un ours','앵 누르스','곰','🐻'],
+  ['une souris','윈 수리','쥐','🐭'],['un canard','앵 카나르','오리','🦆']]},
+ {id:'body', ko:'몸', fr:'Le corps', icon:'👀', color:'#FF9F9F', words:[
+  ['la tête','라 테트','머리','🙆‍♀️'],['les yeux','레 지외','눈','👀'],['le nez','르 네','코','👃'],['la bouche','라 부슈','입','👄'],
+  ['les oreilles','레 조레유','귀','👂'],['la main','라 맹','손','✋'],['le pied','르 피에','발','🦶'],['les cheveux','레 슈뵈','머리카락','💇‍♀️']]}
+];
+THEMES.forEach(th=>{ th.items = th.words.map(w=>({id:th.id+':'+w[0], fr:w[0], pr:w[1], ko:w[2], pic:w[3], th:th.id})); });
+const ITEM = {}; THEMES.forEach(th=>th.items.forEach(it=>ITEM[it.id]=it));
+const themeOf = id => THEMES.find(t=>t.id===id);
+// ---------- 2단계 ~ 4단계 (A1 → A2) ----------
+// 그림이 't:글자' 이면 큰 글자 카드
+const LEVELS = [
+ {n:1, name:'1단계', cefr:'A1 입문', color:'#FFD166'},
+ {n:2, name:'2단계', cefr:'A1', color:'#6EC6FF'},
+ {n:3, name:'3단계', cefr:'A2 시작', color:'#B79CFF'},
+ {n:4, name:'4단계', cefr:'A2', color:'#FF8FAB'}
+];
+THEMES.forEach(th=>th.lv=th.lv||1);
+THEMES.push(
+ // ===== 2단계 · A1 =====
+ {lv:2, id:'num2', ko:'숫자 11–100', fr:'Les nombres', icon:'💯', color:'var(--green)', words:[
+  ['onze','옹즈','열하나 (11)','n:11'],['douze','두즈','열둘 (12)','n:12'],['treize','트레즈','열셋 (13)','n:13'],['quatorze','카토르즈','열넷 (14)','n:14'],
+  ['quinze','캥즈','열다섯 (15)','n:15'],['seize','세즈','열여섯 (16)','n:16'],['dix-sept','디세트','열일곱 (17)','n:17'],['dix-huit','디즈위트','열여덟 (18)','n:18'],
+  ['dix-neuf','디즈뇌프','열아홉 (19)','n:19'],['vingt','뱅','스물 (20)','n:20'],['trente','트랑트','서른 (30)','n:30'],['quarante','카랑트','마흔 (40)','n:40'],
+  ['cinquante','생캉트','쉰 (50)','n:50'],['soixante','수아상트','예순 (60)','n:60'],['soixante-dix','수아상트디스','일흔 (70)','n:70'],
+  ['quatre-vingts','카트르뱅','여든 (80)','n:80'],['quatre-vingt-dix','카트르뱅디스','아흔 (90)','n:90'],['cent','상','백 (100)','n:100']]},
+ {lv:2, id:'days', ko:'요일·날', fr:'Les jours', icon:'📅', color:'var(--blue)', words:[
+  ['lundi','랭디','월요일','t:월'],['mardi','마르디','화요일','t:화'],['mercredi','메르크르디','수요일','t:수'],['jeudi','죄디','목요일','t:목'],
+  ['vendredi','방드르디','금요일','t:금'],['samedi','삼디','토요일','t:토'],['dimanche','디망슈','일요일','t:일'],
+  ["aujourd'hui",'오주르뒤','오늘','t:오늘'],['demain','드맹','내일','t:내일'],['hier','이에르','어제','t:어제'],['la semaine','라 스멘','일주일','t:7일'],['le mois','르 무아','한 달','t:한 달']]},
+ {lv:2, id:'months', ko:'달 (월)', fr:'Les mois', icon:'🗓️', color:'#9EE6CF', words:[
+  ['janvier','장비에','1월','t:1월'],['février','페브리에','2월','t:2월'],['mars','마르스','3월','t:3월'],['avril','아브릴','4월','t:4월'],
+  ['mai','메','5월','t:5월'],['juin','쥐앵','6월','t:6월'],['juillet','쥐이예','7월','t:7월'],['août','우트','8월','t:8월'],
+  ['septembre','셉탕브르','9월','t:9월'],['octobre','옥토브르','10월','t:10월'],['novembre','노방브르','11월','t:11월'],['décembre','데상브르','12월','t:12월']]},
+ {lv:2, id:'weather', ko:'날씨·계절', fr:'La météo', icon:'⛅', color:'var(--yellow)', sentence:true, words:[
+  ['Il fait beau.','일페 보','날씨가 좋아요','☀️'],['Il fait chaud.','일페 쇼','더워요','🥵'],['Il fait froid.','일페 프루아','추워요','🥶'],
+  ['Il pleut.','일 플뢰','비가 와요','🌧️'],['Il neige.','일 네주','눈이 와요','❄️'],['Il y a du vent.','일리아 뒤 방','바람이 불어요','🌬️'],
+  ['le printemps','르 프랭탕','봄','🌷'],["l'été",'레테','여름','🏖️'],["l'automne",'로톤','가을','🍁'],["l'hiver",'리베르','겨울','⛄']]},
+ {lv:2, id:'clothes', ko:'옷', fr:'Les vêtements', icon:'🧥', color:'var(--pink)', words:[
+  ['un manteau','앵 망토','외투','🧥'],['un chandail','앵 샹다유','윗옷 (셔츠·스웨터)','👕'],['un pantalon','앵 팡탈롱','바지','👖'],['une robe','윈 로브','원피스','👗'],
+  ['des bottes','데 보트','부츠','👢'],['des souliers','데 술리에','신발','👟'],['une casquette','윈 카스케트','모자 (야구모자)','🧢'],['des gants','데 강','장갑','🧤'],
+  ['un foulard','앵 풀라르','목도리','🧣'],['des lunettes','데 뤼네트','안경','👓'],['des chaussettes','데 쇼세트','양말','🧦']]},
+ {lv:2, id:'house', ko:'집', fr:'La maison', icon:'🏠', color:'var(--orange)', words:[
+  ['la maison','라 메종','집','🏠'],['la cuisine','라 퀴진','부엌','🍳'],['la chambre','라 샹브르','방 (침실)','🛏️'],['la salle de bain','라 살 드 뱅','욕실','🛁'],
+  ['le salon','르 살롱','거실','🛋️'],['la porte','라 포르트','문','🚪'],['la fenêtre','라 프네트르','창문','🪟'],['la télé','라 텔레','TV','📺'],["l'escalier",'레스칼리에','계단','🪜'],['le jardin','르 자르댕','마당 (정원)','🌻']]},
+ {lv:2, id:'feel', ko:'기분', fr:'Les émotions', icon:'😊', color:'#FF9F9F', sentence:true, words:[
+  ['Je suis contente.','주 쉬 콩탕트','기뻐요','😀'],['Je suis triste.','주 쉬 트리스트','슬퍼요','😢'],['Je suis fatiguée.','주 쉬 파티게','피곤해요','😴'],
+  ["J'ai peur.",'제 푀르','무서워요','😨'],['Je suis fâchée.','주 쉬 파셰','화났어요','😠'],['Je suis malade.','주 쉬 말라드','아파요 (병)','🤒'],
+  ['Je suis prête.','주 쉬 프레트','준비됐어요','🙌'],['Je suis surprise.','주 쉬 쉬르프리즈','깜짝 놀랐어요','😲']]},
+ {lv:2, id:'etre', ko:'être · avoir', fr:'Être et avoir', icon:'🙋‍♀️', color:'#C9E77B', sentence:true, words:[
+  ['je suis','주 쉬','나는 ~이에요','🙋‍♀️'],['tu es','튀 에','너는 ~이야','👉'],['il est','일레','그는 ~이에요','👦'],['elle est','엘레','그녀는 ~이에요','👧'],
+  ['nous sommes','누 솜','우리는 ~이에요','👨‍👩‍👧'],['ils sont','일 송','그들은 ~이에요','👫'],
+  ["j'ai",'제','나는 ~가 있어요','🤲'],['tu as','튀 아','너는 ~가 있어','🫴'],['il a','일라','그는 ~가 있어요','🎁'],['nous avons','누자봉','우리는 ~가 있어요','🏡']]},
+ {lv:2, id:'time', ko:'시간', fr:"L'heure", icon:'🕒', color:'var(--purple)', sentence:true, words:[
+  ['Il est une heure.','일레 윈뇌르','1시예요','🕐'],['Il est deux heures.','일레 되죄르','2시예요','🕑'],['Il est trois heures et demie.','일레 트루아죄르 에 드미','3시 반이에요','🕞'],
+  ['Il est midi.','일레 미디','낮 12시예요','🕛'],['Il est minuit.','일레 미뉘','밤 12시예요','🌙'],['le matin','르 마탱','아침','🌅'],
+  ["l'après-midi",'라프레미디','오후','☀️'],['le soir','르 수아르','저녁','🌆'],['une heure','윈뇌르','한 시간','⏱️'],['une minute','윈 미뉘트','1분','⏲️']]},
+ // ===== 3단계 · A2 시작 =====
+ {lv:3, id:'places', ko:'동네', fr:'Le quartier', icon:'🏪', color:'var(--orange)', words:[
+  ["l'épicerie",'레피스리','식료품 가게','🛒'],['la pharmacie','라 파르마시','약국','💊'],['la banque','라 방크','은행','🏦'],["l'hôpital",'로피탈','병원','🏥'],
+  ['la bibliothèque','라 비블리오테크','도서관','📚'],['le parc','르 파르크','공원','🌳'],["l'église",'레글리즈','교회','⛪'],['le restaurant','르 레스토랑','식당','🍽️'],
+  ['le dépanneur','르 데파뇌르','편의점','🏪'],["l'arrêt d'autobus",'라레 도토뷔스','버스 정류장','🚏'],['le métro','르 메트로','지하철','🚇']]},
+ {lv:3, id:'transport', ko:'탈것', fr:'Les transports', icon:'🚌', color:'var(--blue)', words:[
+  ["l'autobus",'로토뷔스','버스','🚌'],["l'auto",'로토','자동차','🚗'],['le vélo','르 벨로','자전거','🚲'],['le train','르 트랭','기차','🚆'],
+  ["l'avion",'라비옹','비행기','✈️'],['le bateau','르 바토','배','⛵'],['à pied','아 피에','걸어서','🚶‍♀️'],['le taxi','르 탁시','택시','🚕']]},
+ {lv:3, id:'hobby', ko:'취미·운동', fr:'Les loisirs', icon:'⚽', color:'var(--green)', sentence:true, words:[
+  ['Je joue au soccer.','주 주 오 소케르','축구를 해요','⚽'],['Je fais du vélo.','주 페 뒤 벨로','자전거를 타요','🚴‍♀️'],['Je nage.','주 나주','수영해요','🏊‍♀️'],
+  ['Je dessine.','주 데신','그림을 그려요','🎨'],['Je chante.','주 샹트','노래해요','🎤'],['Je lis.','주 리','책을 읽어요','📖'],['Je danse.','주 당스','춤춰요','💃'],
+  ['Je joue du piano.','주 주 뒤 피아노','피아노를 쳐요','🎹'],['Je patine.','주 파틴','스케이트를 타요','⛸️'],['Je regarde la télé.','주 르가르드 라 텔레','TV를 봐요','📺']]},
+ {lv:3, id:'subjects', ko:'과목·학교 하루', fr:"La journée d'école", icon:'📝', color:'var(--yellow)', words:[
+  ['le français','르 프랑세','프랑스어','🗣️'],['les maths','레 마트','수학','➗'],["l'anglais",'랑글레','영어','🔤'],['les sciences','레 시앙스','과학','🔬'],
+  ["l'éducation physique",'레뒤카시옹 피지크','체육','🏃‍♀️'],['les arts plastiques','레자르 플라스티크','미술','🖍️'],['la musique','라 뮈지크','음악','🎵'],
+  ['la récréation','라 레크레아시옹','쉬는 시간','🛝'],['le dîner','르 디네','점심 (밥)','🍱'],['les devoirs','레 드부아르','숙제','📝'],['un examen','앵 네그자맹','시험','💯']]},
+ {lv:3, id:'questions', ko:'물어보기', fr:'Poser des questions', icon:'❓', color:'var(--pink)', sentence:true, words:[
+  ["Comment tu t'appelles ?",'코망 튀 타펠','이름이 뭐야?','🙂'],['Quel âge as-tu ?','켈라주 아튀','몇 살이야?','🎂'],['Où habites-tu ?','우 아비트튀','어디 살아?','🏠'],
+  ["Qu'est-ce que c'est ?",'케스크 세','이게 뭐예요?','❓'],['Combien ça coûte ?','콩비앵 사 쿠트','얼마예요?','💲'],['Quelle heure est-il ?','켈뢰르 에틸','몇 시예요?','🕒'],
+  ['Où sont les toilettes ?','우 송 레 투알레트','화장실이 어디예요?','🚻'],['Pourquoi ?','푸르쿠아','왜요?','🤔'],['Quand ?','캉','언제요?','📅'],["Qui est-ce ?",'키 에스','누구예요?','👤']]},
+ {lv:3, id:'verbs', ko:'자주 쓰는 말 (동사)', fr:'Les verbes', icon:'🏃‍♀️', color:'var(--purple)', sentence:true, words:[
+  ["Je vais à l'école.",'주 베 아 레콜','학교에 가요','🏫'],['Je viens de Corée.','주 비앵 드 코레','한국에서 왔어요','🇰🇷'],['Je fais mes devoirs.','주 페 메 드부아르','숙제를 해요','📝'],
+  ["Je veux de l'eau.",'주 뵈 드 로','물을 마시고 싶어요','💧'],['Je peux jouer ?','주 푀 주에','놀아도 돼요?','🎲'],['Je mange une pomme.','주 망주 윈 폼','사과를 먹어요','🍎'],
+  ['Je bois du lait.','주 부아 뒤 레','우유를 마셔요','🥛'],['Je dors.','주 도르','자요','😴'],["J'aime lire.",'젬 리르','책 읽기를 좋아해요','📖'],['Je sais nager.','주 세 나제','수영할 줄 알아요','🏊‍♀️']]},
+ {lv:3, id:'jobs', ko:'직업', fr:'Les métiers', icon:'🧑‍🚒', color:'#FF9F9F', words:[
+  ['un médecin','앵 메드생','의사','🩺'],['une infirmière','위냉피르미에르','간호사','👩‍⚕️'],['un pompier','앵 퐁피에','소방관','🧑‍🚒'],['un policier','앵 폴리시에','경찰','👮'],
+  ['un cuisinier','앵 퀴지니에','요리사','🧑‍🍳'],['un pasteur','앵 파스퇴르','목사님','📖'],['un chauffeur','앵 쇼푀르','운전기사','🚖'],['un fermier','앵 페르미에','농부','🧑‍🌾'],['une enseignante','위낭세냥트','선생님 (여자)','👩‍🏫']]},
+ {lv:3, id:'routine', ko:'하루 일과', fr:'Ma journée', icon:'⏰', color:'#9EE6CF', sentence:true, words:[
+  ['Je me lève.','주 므 레브','일어나요','⏰'],['Je me brosse les dents.','주 므 브로스 레 당','이를 닦아요','🪥'],["Je m'habille.",'주 마비유','옷을 입어요','👕'],
+  ['Je déjeune.','주 데죈','아침을 먹어요','🥣'],["Je prends l'autobus.",'주 프랑 로토뷔스','버스를 타요','🚌'],['Je rentre à la maison.','주 랑트르 아 라 메종','집에 돌아와요','🏠'],
+  ['Je mange le souper.','주 망주 르 수페','저녁을 먹어요','🍲'],['Je prends ma douche.','주 프랑 마 두슈','샤워해요','🚿'],['Je me couche.','주 므 쿠슈','잠자리에 들어요','🛏️']]},
+ // ===== 4단계 · A2 =====
+ {lv:4, id:'past', ko:'어제 한 일 (과거)', fr:'Le passé composé', icon:'⏪', color:'var(--purple)', sentence:true, words:[
+  ["J'ai mangé.",'제 망제','먹었어요','🍽️'],["J'ai joué.",'제 주에','놀았어요','⚽'],["J'ai fini mes devoirs.",'제 피니 메 드부아르','숙제를 끝냈어요','✅'],
+  ["J'ai vu un film.",'제 뷔 앵 필름','영화를 봤어요','🎬'],["J'ai lu un livre.",'제 뤼 앵 리브르','책을 읽었어요','📖'],["Je suis allée à l'école.",'주 쉬잘레 아 레콜','학교에 갔어요','🏫'],
+  ['Je suis rentrée à la maison.','주 쉬 랑트레 아 라 메종','집에 돌아왔어요','🏠'],["J'ai bien dormi.",'제 비앵 도르미','잘 잤어요','😴'],["J'ai pris l'autobus.",'제 프리 로토뷔스','버스를 탔어요','🚌'],
+  ['Hier, il a neigé.','이에르 일라 네제','어제 눈이 왔어요','❄️']]},
+ {lv:4, id:'future', ko:'내일 할 일 (미래)', fr:'Le futur proche', icon:'⏩', color:'var(--blue)', sentence:true, words:[
+  ['Je vais manger.','주 베 망제','먹을 거예요','🍽️'],['Je vais jouer dehors.','주 베 주에 드오르','밖에서 놀 거예요','🛝'],['Je vais étudier.','주 베 제튀디에','공부할 거예요','📚'],
+  ["Je vais aller à l'église.",'주 베 알레 아 레글리즈','교회에 갈 거예요','⛪'],['Demain, il va pleuvoir.','드맹 일바 플뢰부아르','내일 비가 올 거예요','🌧️'],
+  ['Nous allons voyager.','누잘롱 부아야제','우리는 여행할 거예요','✈️'],['Je vais téléphoner à ma grand-mère.','주 베 텔레포네 아 마 그랑메르','할머니께 전화할 거예요','📞'],['Je vais me coucher.','주 베 므 쿠셰','잘 거예요','🛏️']]},
+ {lv:4, id:'health', ko:'아플 때', fr:'La santé', icon:'🤒', color:'#FF9F9F', sentence:true, words:[
+  ["J'ai mal à la tête.",'제 말 아 라 테트','머리가 아파요','🤕'],["J'ai mal au ventre.",'제 말 오 방트르','배가 아파요','🤢'],["J'ai mal à la gorge.",'제 말 아 라 고르주','목이 아파요','😷'],
+  ["J'ai de la fièvre.",'제 들라 피에브르','열이 나요','🤒'],['Je tousse.','주 투스','기침해요','😮‍💨'],['Je dois voir le médecin.','주 두아 부아르 르 메드생','의사 선생님께 가야 해요','🩺'],
+  ['Je me sens mieux.','주 므 상 미외','좀 나아졌어요','😊'],["Appelez mes parents, s'il vous plaît.",'아플레 메 파랑 실부플레','부모님께 전화해 주세요','📞']]},
+ {lv:4, id:'adj', ko:'반대말', fr:'Les contraires', icon:'↔️', color:'var(--green)', words:[
+  ['grand','그랑','큰','🦒'],['petit','프티','작은','🐭'],['chaud','쇼','뜨거운','🔥'],['froid','프루아','차가운','🧊'],['nouveau','누보','새로운','🆕'],['vieux','비외','오래된 (늙은)','🏚️'],
+  ['rapide','라피드','빠른','🐇'],['lent','랑','느린','🐢'],['facile','파실','쉬운','😌'],['difficile','디피실','어려운','😵'],['heureux','외뢰','행복한','😄'],['fort','포르','힘센','💪']]},
+ {lv:4, id:'shop', ko:'가게에서', fr:'Au magasin', icon:'🛍️', color:'var(--orange)', sentence:true, words:[
+  ["Je voudrais un jus, s'il vous plaît.",'주 부드레 앵 쥐 실부플레','주스 주세요','🧃'],['Ça coûte deux dollars.','사 쿠트 되 돌라르','2달러예요','💵'],
+  ['Je cherche des souliers.','주 셰르슈 데 술리에','신발을 찾고 있어요','👟'],['Avez-vous un sac ?','아베부 앵 삭','봉투 있어요?','🛍️'],
+  ['Je vais payer par carte.','주 베 페예 파르 카르트','카드로 낼게요','💳'],['Où est la caisse ?','우 에 라 케스','계산대가 어디예요?','🧾'],
+  ["C'est trop cher.",'세 트로 셰르','너무 비싸요','😮'],['Merci, bonne journée !','메르시 본 주르네','감사합니다, 좋은 하루 되세요!','👋']]},
+ {lv:4, id:'church', ko:'교회에서', fr:"À l'église", icon:'⛪', color:'var(--yellow)', words:[
+  ['Dieu','디외','하나님','✨'],['Jésus','제쥐','예수님','✝️'],['la Bible','라 비블','성경','📖'],['prier','프리에','기도하다','🙏'],['chanter','샹테','찬양하다 (노래하다)','🎵'],
+  ['la prière','라 프리에르','기도','🤲'],["l'amour",'라무르','사랑','❤️'],['la paix','라 페','평안','🕊️'],['la joie','라 주아','기쁨','😊'],['Amen','아멘','아멘','🙌'],["Dieu t'aime.",'디외 템','하나님은 너를 사랑하셔','💖']]}
+);
+// ---------- 단어 묶음 (진도에 맞춰 열림) ----------
+// b: 묶음 번호. 앞 묶음을 80% 외우면 다음 묶음이 열려요.
+THEMES.push(
+ // ===== 1단계 · 묶음 2 =====
+ {lv:1, b:2, id:'fruit', ko:'과일·채소', fr:'Fruits et légumes', icon:'🍓', color:'#FF9F9F', words:[
+  ['une fraise','윈 프레즈','딸기','🍓'],['une orange','위노랑주','오렌지','🍊'],['une poire','윈 푸아르','배','🍐'],['des raisins','데 레쟁','포도','🍇'],
+  ['une cerise','윈 스리즈','체리','🍒'],['un citron','앵 시트롱','레몬','🍋'],['une tomate','윈 토마트','토마토','🍅'],['une carotte','윈 카로트','당근','🥕'],
+  ['une pomme de terre','윈 폼 드 테르','감자','🥔'],['un oignon','앵 노뇽','양파','🧅'],['du maïs','뒤 마이스','옥수수','🌽'],['un brocoli','앵 브로콜리','브로콜리','🥦']]},
+ {lv:1, b:2, id:'things', ko:'집 물건', fr:'Les objets', icon:'🔑', color:'var(--blue)', words:[
+  ['une table','윈 타블','탁자','t:탁자'],['un lit','앵 리','침대','🛏️'],['une lampe','윈 랑프','전등','💡'],['un téléphone','앵 텔레폰','전화기','☎️'],
+  ['une clé','윈 클레','열쇠','🔑'],['une tasse','윈 타스','찻잔','☕'],['une assiette','위나시에트','접시','🍽️'],['une fourchette','윈 푸르셰트','포크','🍴'],
+  ['un couteau','앵 쿠토','칼','🔪'],['une cuillère','윈 퀴이에르','숟가락','🥄'],['un verre','앵 베르','유리컵','🥃'],['une boîte','윈 부아트','상자','📦']]},
+ {lv:1, b:2, id:'animal2', ko:'동물 2', fr:'Les animaux 2', icon:'🦁', color:'#C9E77B', words:[
+  ['un éléphant','앵 넬레팡','코끼리','🐘'],['un lion','앵 리옹','사자','🦁'],['un singe','앵 생주','원숭이','🐒'],['un tigre','앵 티그르','호랑이','🐯'],
+  ['un serpent','앵 세르팡','뱀','🐍'],['une girafe','윈 지라프','기린','🦒'],['un mouton','앵 무통','양','🐑'],['un cochon','앵 코숑','돼지','🐷'],
+  ['une poule','윈 풀','닭','🐔'],['une grenouille','윈 그르누유','개구리','🐸'],['un papillon','앵 파피용','나비','🦋'],['une abeille','위나베유','벌','🐝']]},
+ {lv:1, b:2, id:'body2', ko:'몸 2', fr:'Le corps 2', icon:'💪', color:'var(--orange)', words:[
+  ['le bras','르 브라','팔','💪'],['la jambe','라 장브','다리','🦵'],['le dos','르 도','등','t:등'],['le ventre','르 방트르','배','t:배'],['le cou','르 쿠','목','t:목'],
+  ['le doigt','르 두아','손가락','☝️'],['le genou','르 주누','무릎','t:무릎'],["l'épaule",'레폴','어깨','t:어깨'],['les dents','레 당','이 (치아)','🦷'],['la langue','라 랑그','혀','👅']]},
+ {lv:1, b:2, id:'verbs1', ko:'기본 동사', fr:'Les verbes', icon:'🏃‍♀️', color:'var(--purple)', words:[
+  ['manger','망제','먹다','🍽️'],['boire','부아르','마시다','🥤'],['dormir','도르미르','자다','😴'],['jouer','주에','놀다','🧸'],['aller','알레','가다','🚶‍♀️'],['venir','브니르','오다','👋'],
+  ['voir','부아르','보다','👀'],['écouter','에쿠테','듣다','👂'],['parler','파를레','말하다','🗣️'],['lire','리르','읽다','📖'],['écrire','에크리르','쓰다','✍️'],['courir','쿠리르','달리다','🏃‍♀️']]},
+ {lv:1, b:2, id:'school2', ko:'학교 사람·장소', fr:"L'école 2", icon:'🏫', color:'var(--yellow)', words:[
+  ['la classe','라 클라스','교실 (반)','🧑‍🏫'],["l'élève",'렐레브','학생','🧒'],['la directrice','라 디렉트리스','교장 선생님 (여)','👩‍💼'],["la cour d'école",'라 쿠르 데콜','운동장','🛝'],
+  ['le gymnase','르 짐나즈','체육관','🏀'],['la cafétéria','라 카페테리아','급식실','🍱'],["l'autobus scolaire",'로토뷔스 스콜레르','스쿨버스','🚌'],['le casier','르 카지에','사물함','🗄️']]},
+ {lv:1, b:2, id:'polite', ko:'인사 2', fr:'Les politesses', icon:'🎉', color:'var(--pink)', sentence:true, words:[
+  ['Bonsoir !','봉수아르','안녕하세요 (저녁)','🌆'],['Bienvenue !','비앵브뉘','환영해요','🤗'],['À demain !','아 드맹','내일 봐요','📅'],['À bientôt !','아 비앵토','곧 봐요','👋'],
+  ['Excusez-moi.','엑스퀴제무아','실례합니다','🙇‍♀️'],['De rien.','드 리앵','천만에요','😊'],['Bon appétit !','보나페티','맛있게 드세요','🍽️'],['Félicitations !','펠리시타시옹','축하해요','🎉'],
+  ['Joyeux anniversaire !','주아외자니베르세르','생일 축하해요','🎂'],['Bonne fin de semaine !','본 팽 드 스멘','주말 잘 보내요','🌈']]},
+
+ // ===== 2단계 · 묶음 2 =====
+ {lv:2, b:2, id:'family2', ko:'가족 2', fr:'La famille 2', icon:'👪', color:'var(--orange)', words:[
+  ["l'oncle",'롱클','삼촌 (이모부·고모부)','🧔'],['la tante','라 탕트','이모 (고모)','👩‍🦰'],['le cousin','르 쿠쟁','사촌 (남자)','👦'],['la cousine','라 쿠진','사촌 (여자)','👱‍♀️'],
+  ['les parents','레 파랑','부모님','👫'],['le fils','르 피스','아들','🧒'],['la fille','라 피유','딸','👧'],['le mari','르 마리','남편','🤵'],['la femme','라 팜','아내 (여자)','👰'],['les enfants','레장팡','아이들','🧒🧒']]},
+ {lv:2, b:2, id:'food2', ko:'음식 2', fr:'La nourriture 2', icon:'🍝', color:'#9EE6CF', words:[
+  ['la viande','라 비앙드','고기','🥩'],['le poulet','르 풀레','닭고기','🍗'],['la soupe','라 수프','수프 (국)','🍲'],['les pâtes','레 파트','파스타','🍝'],['la pizza','라 피자','피자','🍕'],
+  ['le gâteau','르 가토','케이크','🎂'],['la crème glacée','라 크렘 글라세','아이스크림','🍦'],['le beurre','르 뵈르','버터','🧈'],['le sucre','르 쉬크르','설탕','🍬'],['le sel','르 셀','소금','🧂'],
+  ['le thé','르 테','차','🍵'],['les céréales','레 세레알','시리얼','🥣']]},
+ {lv:2, b:2, id:'class2', ko:'교실 물건', fr:'En classe 2', icon:'🖍️', color:'var(--blue)', words:[
+  ['le tableau','르 타블로','칠판','t:칠판'],['la gomme','라 곰','지우개','t:지우개'],['le bureau','르 뷔로','책상','t:책상'],['la colle','라 콜','풀','🧴'],
+  ['le crayon de couleur','르 크레용 드 쿨뢰르','색연필','🖍️'],['le dictionnaire','르 딕시오네르','사전','📘'],['la feuille','라 푀유','종이 (한 장)','📄'],
+  ['la calculatrice','라 칼퀼라트리스','계산기','🧮'],['le taille-crayon','르 타유크레용','연필깎이','✏️']]},
+ {lv:2, b:2, id:'adj1', ko:'꾸미는 말', fr:'Les adjectifs', icon:'🌟', color:'var(--yellow)', words:[
+  ['joli','졸리','예쁜','🌸'],['gentil','장티','친절한','🤝'],['méchant','메샹','못된','😈'],['long','롱','긴','📏'],['court','쿠르','짧은','✂️'],
+  ['gros','그로','뚱뚱한 (큰)','🐘'],['jeune','죈','젊은 (어린)','👶'],['propre','프로프르','깨끗한','✨'],['sale','살','더러운','🐷'],['vide','비드','빈','🫙']]},
+ {lv:2, b:2, id:'verbs2b', ko:'동사 2', fr:'Les verbes 2', icon:'🛒', color:'var(--green)', words:[
+  ['aimer','에메','좋아하다','❤️'],['marcher','마르셰','걷다','🚶‍♀️'],['regarder','르가르데','바라보다','📺'],['chercher','셰르셰','찾다','🔍'],['trouver','트루베','발견하다','💡'],
+  ['donner','도네','주다','🎁'],['aider','에데','돕다','🤝'],['travailler','트라바예','일하다 (공부하다)','💼'],['laver','라베','씻다 (빨다)','🧼'],['fermer','페르메','닫다','🚪'],
+  ['ouvrir','우브리르','열다','📂'],['acheter','아슈테','사다','🛒']]},
+ // ===== 2단계 · 묶음 3 =====
+ {lv:2, b:3, id:'nature', ko:'자연', fr:'La nature', icon:'🌳', color:'var(--green)', words:[
+  ['le soleil','르 솔레유','해','☀️'],['la lune','라 륀','달','🌙'],["l'étoile",'레투알','별','⭐'],['le ciel','르 시엘','하늘','🌌'],['le nuage','르 뉘아주','구름','☁️'],
+  ['la pluie','라 플뤼','비','🌧️'],['la neige','라 네주','눈','❄️'],["l'arbre",'라르브르','나무','🌳'],['la fleur','라 플뢰르','꽃','🌷'],['la mer','라 메르','바다','🌊'],
+  ['la montagne','라 몽타뉴','산','⛰️'],['la rivière','라 리비에르','강','🏞️']]},
+ {lv:2, b:3, id:'where', ko:'어디에 있어요?', fr:'Où ?', icon:'📦', color:'var(--blue)', words:[
+  ['sur','쉬르','위에','t:위'],['sous','수','아래에','t:아래'],['dans','당','안에','t:안'],['devant','드방','앞에','t:앞'],['derrière','데리에르','뒤에','t:뒤'],
+  ['à côté de','아 코테 드','옆에','t:옆'],['entre','앙트르','사이에','t:사이'],['près de','프레 드','가까이','t:가까이'],['loin de','루앵 드','멀리','t:멀리'],
+  ['à gauche','아 고슈','왼쪽에','⬅️'],['à droite','아 드루아트','오른쪽에','➡️'],['ici','이시','여기','📍']]},
+ {lv:2, b:3, id:'small', ko:'작은 말', fr:'Les petits mots', icon:'🔗', color:'var(--purple)', words:[
+  ['et','에','그리고','t:그리고'],['ou','우','또는','t:또는'],['mais','메','하지만','t:하지만'],['avec','아베크','~와 함께','t:함께'],['sans','상','~없이','t:없이'],
+  ['pour','푸르','~을 위해','t:위해'],['très','트레','아주','t:아주'],['aussi','오시','~도 (또한)','t:또한'],['beaucoup','보쿠','많이','t:많이'],['un peu','앵 푀','조금','t:조금'],
+  ['toujours','투주르','항상','t:항상'],['jamais','자메','절대 안','t:절대']]},
+ {lv:2, b:3, id:'move', ko:'몸 움직임', fr:'Bouger', icon:'🤸', color:'var(--pink)', words:[
+  ['sauter','소테','뛰다 (점프)','🤸'],['tomber','통베','떨어지다 (넘어지다)','🍂'],['pleurer','플뢰레','울다','😭'],['rire','리르','웃다','😂'],['sourire','수리르','미소 짓다','😊'],
+  ['crier','크리에','소리치다','📢'],['toucher','투셰','만지다','👆'],['porter','포르테','들다 (입다)','🎒'],['tirer','티레','당기다','🪢'],['pousser','푸세','밀다','🛒'],
+  ["s'asseoir",'사수아르','앉다','🪑'],['se lever','스 르베','일어서다','🧍‍♀️']]},
+ {lv:2, b:3, id:'toys', ko:'장난감·놀이', fr:'Les jeux', icon:'🧸', color:'var(--yellow)', words:[
+  ['la poupée','라 푸페','인형','🪆'],['le jouet','르 주에','장난감','🧸'],['le casse-tête','르 카스테트','퍼즐','🧩'],['les cartes','레 카르트','카드','🃏'],
+  ['le jeu de société','르 죄 드 소시에테','보드게임','🎲'],['la balançoire','라 발랑수아르','그네','t:그네'],['la glissade','라 글리사드','미끄럼틀','🛝'],
+  ['le cerf-volant','르 세르볼랑','연','🪁'],['la corde à danser','라 코르드 아 당세','줄넘기','🪢'],['le ballon','르 발롱','공','⚽']]},
+ {lv:2, b:3, id:'animal3', ko:'캐나다 동물', fr:'Les animaux du Canada', icon:'🦫', color:'#C9E77B', words:[
+  ['un castor','앵 카스토르','비버','🦫'],['un orignal','앵 노리냘','무스 (큰 사슴)','🦌'],['un écureuil','앵 네퀴뢰유','다람쥐','🐿️'],['un renard','앵 르나르','여우','🦊'],
+  ['un loup','앵 루','늑대','🐺'],['un hibou','앵 이부','부엉이','🦉'],['une tortue','윈 토르튀','거북이','🐢'],['un raton laveur','앵 라통 라뵈르','너구리','🦝'],
+  ['une baleine','윈 발렌','고래','🐋'],['un dauphin','앵 도팽','돌고래','🐬'],['un requin','앵 르캥','상어','🦈'],['un hamster','앵 암스테르','햄스터','🐹']]},
+
+ // ===== 3단계 · 묶음 2 =====
+ {lv:3, b:2, id:'city', ko:'도시', fr:'La ville', icon:'🏙️', color:'var(--blue)', words:[
+  ['la rue','라 뤼','길 (거리)','🛣️'],['la ville','라 빌','도시','🏙️'],['le magasin','르 마가쟁','가게','🏬'],['le marché','르 마르셰','시장','🧺'],['la gare','라 가르','기차역','🚉'],
+  ["l'aéroport",'라에로포르','공항','🛫'],['le pont','르 퐁','다리','🌉'],['le feu de circulation','르 푀 드 시르퀼라시옹','신호등','🚦'],['le trottoir','르 트로투아르','인도','🚶'],
+  ['le centre commercial','르 상트르 코메르시알','쇼핑몰','🛍️'],['le musée','르 뮈제','박물관','🏛️'],['la piscine','라 피신','수영장','🏊']]},
+ {lv:3, b:2, id:'sport', ko:'운동', fr:'Les sports', icon:'🏒', color:'var(--green)', words:[
+  ['le hockey','르 오케','하키','🏒'],['le basketball','르 바스케트볼','농구','🏀'],['le ski','르 스키','스키','⛷️'],['la natation','라 나타시옹','수영','🏊‍♀️'],["l'équipe",'레키프','팀','👥'],
+  ['le match','르 마치','경기','🏟️'],['gagner','가녜','이기다','🏆'],['perdre','페르드르','지다 (잃다)','😞'],["l'entraîneur",'랑트레뇌르','코치','📣'],['le volleyball','르 볼레볼','배구','🏐']]},
+ {lv:3, b:2, id:'tech', ko:'기기', fr:'La technologie', icon:'📱', color:'var(--purple)', words:[
+  ['la tablette','라 타블레트','태블릿','📲'],['le cellulaire','르 셀륄레르','휴대폰','📱'],["l'écran",'레크랑','화면','🖥️'],['le clavier','르 클라비에','자판','⌨️'],
+  ['internet','앵테르네트','인터넷','🌐'],['le courriel','르 쿠리엘','이메일','📧'],['le mot de passe','르 모 드 파스','비밀번호','🔒'],['la photo','라 포토','사진','📷'],
+  ['la vidéo','라 비데오','영상','🎥'],['le jeu vidéo','르 죄 비데오','비디오 게임','🎮']]},
+ {lv:3, b:2, id:'verbs3', ko:'동사 3', fr:'Les verbes 3', icon:'🧠', color:'var(--pink)', words:[
+  ['faire','페르','하다 (만들다)','🛠️'],['prendre','프랑드르','잡다 (타다)','✋'],['mettre','메트르','놓다 (입다)','👕'],['savoir','사부아르','알다','💡'],['pouvoir','푸부아르','할 수 있다','💪'],
+  ['vouloir','불루아르','원하다','🙏'],['devoir','드부아르','해야 하다','📋'],['dire','디르','말하다','💬'],['sortir','소르티르','나가다','🚪'],['partir','파르티르','떠나다','🧳'],
+  ['attendre','아탕드르','기다리다','⏳'],['comprendre','콩프랑드르','이해하다','🤔']]},
+ {lv:3, b:2, id:'when', ko:'시간 말', fr:'Quand ?', icon:'⏳', color:'var(--yellow)', words:[
+  ['maintenant','맹트낭','지금','t:지금'],['bientôt','비앵토','곧','t:곧'],['tôt','토','일찍','t:일찍'],['tard','타르','늦게','t:늦게'],['avant','아방','전에','t:전에'],
+  ['après','아프레','후에','t:후에'],['souvent','수방','자주','t:자주'],['parfois','파르푸아','가끔','t:가끔'],["d'abord",'다보르','먼저','t:먼저'],['ensuite','앙스위트','그다음','t:그다음'],
+  ['enfin','앙팽','마침내','t:마침내'],['déjà','데자','벌써','t:벌써']]},
+ // ===== 3단계 · 묶음 3 =====
+ {lv:3, b:3, id:'character', ko:'성격', fr:'Le caractère', icon:'🙂', color:'var(--orange)', words:[
+  ['drôle','드롤','웃긴','🤡'],['timide','티미드','수줍은','😳'],['calme','칼름','차분한','😌'],['poli','폴리','예의 바른','🙇'],['curieux','퀴리외','호기심 많은','🧐'],
+  ['patient','파시앙','참을성 있는','⏳'],['sérieux','세리외','진지한','😐'],['fier','피에르','자랑스러운','🦚'],['inquiet','앵키에','걱정하는','😟'],['courageux','쿠라죄','용감한','🦸‍♀️'],
+  ['paresseux','파레쇠','게으른','🦥'],['travaillant','트라바양','부지런한','🐜']]},
+ {lv:3, b:3, id:'chores', ko:'집안일', fr:'Les tâches', icon:'🧹', color:'var(--blue)', sentence:true, words:[
+  ['ranger ma chambre','랑제 마 샹브르','방 정리하기','🧸'],['nettoyer','네투아예','청소하기','🧹'],['faire la vaisselle','페르 라 베셀','설거지하기','🍽️'],['faire mon lit','페르 몽 리','이불 정리하기','🛏️'],
+  ['sortir les poubelles','소르티르 레 푸벨','쓰레기 버리기','🗑️'],["passer l'aspirateur",'파세 라스피라퇴르','청소기 돌리기','t:청소기'],['mettre la table','메트르 라 타블','상 차리기','🍴'],
+  ['plier les vêtements','플리에 레 베트망','옷 개기','👕'],['arroser les plantes','아로제 레 플랑트','화분에 물 주기','🪴'],['cuisiner','퀴지네','요리하기','🍳']]},
+ {lv:3, b:3, id:'dates', ko:'날짜', fr:'Les dates', icon:'📆', color:'var(--purple)', words:[
+  ['premier','프르미에','첫 번째','🥇'],['deuxième','되지엠','두 번째','🥈'],['troisième','트루아지엠','세 번째','🥉'],['dernier','데르니에','마지막','🏁'],['la date','라 다트','날짜','📆'],
+  ["l'anniversaire",'라니베르세르','생일','🎂'],["l'année",'라네','해 (년)','t:1년'],['la fin de semaine','라 팽 드 스멘','주말','🌈'],['le calendrier','르 칼랑드리에','달력','🗓️'],['la fête','라 페트','파티 (명절)','🎉']]},
+ {lv:3, b:3, id:'taste', ko:'맛', fr:'Le goût', icon:'😋', color:'#FF9F9F', words:[
+  ['sucré','쉬크레','달콤한','🍭'],['salé','살레','짠','🧂'],['épicé','에피세','매운','🌶️'],['amer','아메르','쓴','☕'],['acide','아시드','신','🍋'],
+  ['délicieux','델리시외','아주 맛있는','😋'],['bon','봉','맛있는 (좋은)','👍'],['mauvais','모베','맛없는 (나쁜)','👎'],['frais','프레','신선한','🥬']]},
+ {lv:3, b:3, id:'montreal', ko:'몬트리올 생활', fr:'La vie à Montréal', icon:'🍁', color:'var(--red)', words:[
+  ['la tempête','라 탕페트','눈보라 (폭풍)','🌨️'],['le déneigement','르 데네주망','제설 (눈 치우기)','🚜'],['la poutine','라 푸틴','푸틴','🍟'],["le sirop d'érable",'르 시로 데라블','메이플 시럽','🍁'],
+  ['la cabane à sucre','라 카반 아 쉬크르','메이플 농장','🛖'],['la tuque','라 튀크','털모자','🧶'],['les mitaines','레 미텐','벙어리장갑','🧤'],["l'habit de neige",'라비 드 네주','방한복','🧥'],
+  ['le fleuve','르 플뢰브','큰 강','🌊'],['le banc de neige','르 방 드 네주','눈 더미','⛄'],['la patinoire','라 파티누아르','스케이트장','⛸️']]},
+ // ===== 3단계 · 묶음 4 =====
+ {lv:3, b:4, id:'instr', ko:'수업 지시', fr:'Les consignes', icon:'📋', color:'var(--yellow)', sentence:true, words:[
+  ['Lis.','리','읽어요','📖'],['Écris.','에크리','써요','✍️'],['Écoute.','에쿠트','들어요','👂'],['Répète.','레페트','따라 말해요','🔁'],['Regarde.','르가르드','봐요','👀'],
+  ['Encercle la bonne réponse.','앙세르클 라 본 레퐁스','정답에 동그라미 해요','⭕'],['Souligne le mot.','술리뉴 르 모','단어에 밑줄 그어요','t:밑줄'],['Coche la case.','코슈 라 카즈','칸에 체크해요','☑️'],
+  ['Relie les mots.','를리 레 모','단어를 선으로 이어요','🔗'],['Complète la phrase.','콩플레트 라 프라즈','문장을 완성해요','🧩'],['Ouvre ton livre.','우브르 통 리브르','책을 펴요','📂'],
+  ['Lève la main.','레브 라 맹','손을 들어요','🙋‍♀️'],['Range tes affaires.','랑주 테자페르','물건을 정리해요','🎒'],['Travaille en équipe.','트라바유 아네키프','팀으로 해요','👥']]},
+ {lv:3, b:4, id:'askprof', ko:'선생님께 말하기', fr:'Parler au prof', icon:'🙋‍♀️', color:'var(--pink)', sentence:true, words:[
+  ["Qu'est-ce que ça veut dire ?",'케스크 사 뵈 디르','그게 무슨 뜻이에요?','❓'],['Comment dit-on pomme en français ?','코망 디통 폼 앙 프랑세','"사과"는 프랑스어로 뭐예요?','🍎'],
+  ['Je peux avoir un crayon ?','주 푀 아부아르 앵 크레용','연필 하나 주실 수 있어요?','✏️'],["Est-ce que c'est correct ?",'에스크 세 코렉트','이거 맞아요?','✅'],
+  ["J'ai oublié mon cahier.",'제 우블리에 몽 카이에','공책을 잊어버렸어요','📒'],['Je suis en retard.','주 쉬 앙 르타르','늦었어요','⏰'],
+  ['Je ne me sens pas bien.','주느 므 상 파 비앵','몸이 안 좋아요','🤒'],["Peux-tu m'aider ?",'푀튀 메데','도와줄래?','🤝'],
+  ["Parle plus lentement, s'il te plaît.",'파를 플뤼 랑트망 실트플레','좀 더 천천히 말해 줘','🐢'],["Je n'ai pas compris.",'주 네 파 콩프리','이해 못 했어요','🤔']]},
+
+ // ===== 4단계 · 묶음 2 =====
+ {lv:4, b:2, id:'clinic', ko:'병원', fr:'Chez le médecin', icon:'🏥', color:'#FF9F9F', words:[
+  ['le dentiste','르 당티스트','치과 의사','🦷'],['le médicament','르 메디카망','약','💊'],['le pansement','르 팡스망','반창고','🩹'],["l'ambulance",'랑뷜랑스','구급차','🚑'],
+  ['le rhume','르 륌','감기','🤧'],['la toux','라 투','기침','😮‍💨'],['la blessure','라 블레쉬르','상처','🤕'],["l'urgence",'뤼르장스','응급실','🚨'],['le rendez-vous','르 랑데부','예약 (약속)','📅'],['la santé','라 상테','건강','💚']]},
+ {lv:4, b:2, id:'travel', ko:'여행', fr:'Le voyage', icon:'🧳', color:'var(--blue)', words:[
+  ['le voyage','르 부아야주','여행','✈️'],['la valise','라 발리즈','여행 가방','🧳'],['le billet','르 비예','표 (티켓)','🎫'],['le passeport','르 파스포르','여권','🛂'],["l'hôtel",'로텔','호텔','🏨'],
+  ['la carte','라 카르트','지도','🗺️'],['la plage','라 플라주','해변','🏖️'],['le pays','르 페이','나라','🌍'],['les vacances','레 바캉스','방학 (휴가)','🏝️'],['visiter','비지테','방문하다','📸'],
+  ['la tente','라 탕트','텐트','⛺'],['le camping','르 캉핑','캠핑','🏕️']]},
+ {lv:4, b:2, id:'faith', ko:'믿음의 말', fr:'Les mots de la foi', icon:'✝️', color:'var(--yellow)', words:[
+  ['la croix','라 크루아','십자가','✝️'],["l'ange",'랑주','천사','👼'],['le péché','르 페셰','죄','t:죄'],['le pardon','르 파르동','용서','🤝'],['la foi','라 푸아','믿음','🙏'],
+  ["l'espérance",'레스페랑스','소망','🌅'],['la grâce','라 그라스','은혜','🎁'],['le salut','르 살뤼','구원','🕊️'],['le Saint-Esprit','르 생테스프리','성령','🔥'],
+  ['la louange','라 루앙주','찬양','🎶'],['le culte','르 퀼트','예배','⛪'],['le baptême','르 바템','침례 (세례)','💧']]},
+ {lv:4, b:2, id:'conn', ko:'이어 주는 말', fr:'Les liens', icon:'🔗', color:'var(--purple)', words:[
+  ['parce que','파르스 크','왜냐하면','t:왜냐하면'],['donc','동크','그래서','t:그래서'],['alors','알로르','그러면','t:그러면'],['si','시','만약','t:만약'],['quand','캉','~할 때','t:~할 때'],
+  ['comme','콤','~처럼','t:~처럼'],['pendant','팡당','~동안','t:동안'],['depuis','드퓌','~부터','t:~부터'],["jusqu'à",'쥐스카','~까지','t:~까지'],['sauf','소프','~만 빼고','t:빼고']]},
+ {lv:4, b:2, id:'adj2', ko:'반대말 2', fr:'Les contraires 2', icon:'⚖️', color:'var(--green)', words:[
+  ['ouvert','우베르','열린','🔓'],['fermé','페르메','닫힌','🔒'],['vrai','브레','맞는 (진짜)','⭕'],['faux','포','틀린 (가짜)','❌'],['haut','오','높은','🏔️'],['bas','바','낮은','⬇️'],
+  ['lourd','루르','무거운','🏋️'],['léger','레제','가벼운','🪶'],['cher','셰르','비싼','💎'],['riche','리슈','부자인','💰'],['pauvre','포브르','가난한','🪙'],['clair','클레르','밝은','💡']]},
+ // ===== 4단계 · 묶음 3 =====
+ {lv:4, b:3, id:'env', ko:'자연과 환경', fr:"L'environnement", icon:'🌿', color:'var(--green)', words:[
+  ["l'environnement",'랑비론망','환경','🌿'],['la forêt','라 포레','숲','🌲'],['le lac','르 라크','호수','🏞️'],['la plante','라 플랑트','식물','🪴'],["l'air",'레르','공기','🌬️'],
+  ['la terre','라 테르','땅 (지구)','🌎'],['le recyclage','르 르시클라주','재활용','♻️'],['la pollution','라 폴뤼시옹','오염','🏭'],["l'énergie",'레네르지','에너지','⚡'],
+  ['protéger','프로테제','보호하다','🛡️'],['les déchets','레 데셰','쓰레기','🗑️'],['le compost','르 콩포스트','퇴비','🪱']]},
+ {lv:4, b:3, id:'jobs2', ko:'직업 2', fr:'Les métiers 2', icon:'👷', color:'var(--orange)', words:[
+  ['un avocat','앵 나보카','변호사','⚖️'],['un ingénieur','앵 냉제뇌르','엔지니어','👷'],['un vendeur','앵 방되르','판매원','🧑‍💼'],['un artiste','앵 나르티스트','예술가','🎨'],
+  ['un musicien','앵 뮈지시앵','음악가','🎻'],['un plombier','앵 플롱비에','배관공','🔧'],['un mécanicien','앵 메카니시앵','정비사','🚗'],['un facteur','앵 팍퇴르','우체부','📬'],
+  ['un pilote','앵 필로트','조종사','✈️'],['un boulanger','앵 불랑제','제빵사','🥖'],['un coiffeur','앵 쿠아푀르','미용사','💇'],['un scientifique','앵 시앙티피크','과학자','🔬']]},
+ {lv:4, b:3, id:'verbs4', ko:'동사 4', fr:'Les verbes 4', icon:'🎯', color:'var(--pink)', words:[
+  ['commencer','코망세','시작하다','🏁'],['finir','피니르','끝내다','✅'],['oublier','우블리에','잊다','🤦‍♀️'],['se souvenir','스 수브니르','기억하다','🧠'],['essayer','에세예','해 보다','🎯'],
+  ['réussir','레위시르','성공하다','🏆'],['apprendre','아프랑드르','배우다','📚'],['expliquer','엑스플리케','설명하다','👩‍🏫'],['montrer','몽트레','보여 주다','👉'],
+  ['répondre','레퐁드르','대답하다','💬'],['demander','드망데','묻다 (부탁하다)','❓'],['choisir','슈아지르','고르다','🤔']]},
+ {lv:4, b:3, id:'social', ko:'사람들과', fr:'Avec les autres', icon:'🤝', color:'var(--blue)', words:[
+  ['le voisin','르 부아쟁','이웃 (남자)','🏘️'],['la voisine','라 부아진','이웃 (여자)','🏡'],["l'invité",'랭비테','손님','🚪'],['le cadeau','르 카도','선물','🎁'],
+  ['rencontrer','랑콩트레','만나다','🤝'],['inviter','앵비테','초대하다','💌'],['remercier','르메르시에','감사하다','🙏'],["s'excuser",'섹스퀴제','사과하다','🙇‍♀️'],
+  ['partager','파르타제','나누다','🍕'],['le copain','르 코팽','친구 (남자)','🧑'],['la copine','라 코핀','친구 (여자)','👩']]},
+ // ===== 4단계 · 묶음 4 =====
+ {lv:4, b:4, id:'opinion', ko:'내 생각 말하기', fr:'Mon opinion', icon:'💭', color:'var(--purple)', sentence:true, words:[
+  ['Je pense que oui.','주 팡스 크 위','그런 것 같아요','👍'],['Je pense que non.','주 팡스 크 농','아닌 것 같아요','👎'],["Je suis d'accord.",'주 쉬 다코르','동의해요','🤝'],
+  ["Je ne suis pas d'accord.",'주느 쉬 파 다코르','동의하지 않아요','🙅‍♀️'],["J'aime mieux le chocolat.",'젬 미외 르 쇼콜라','초콜릿이 더 좋아요','🍫'],
+  ['Je préfère lire.','주 프레페르 리르','책 읽기가 더 좋아요','📖'],["C'est intéressant.",'세 탱테레상','흥미로워요','🤩'],["C'est plate.",'세 플라트','지루해요 (퀘벡 말)','🥱'],
+  ["C'est génial !",'세 제니알','멋져요!','🌟'],["C'est dommage.",'세 도마주','아쉬워요','😔'],['Ça dépend.','사 데팡','상황에 따라 달라요','🤷‍♀️'],["C'est facile pour moi.",'세 파실 푸르 무아','나한테는 쉬워요','😌']]},
+ {lv:4, b:4, id:'timeexp', ko:'언제 했어요?', fr:'Hier et demain', icon:'🗓️', color:'var(--blue)', words:[
+  ['hier soir','이에르 수아르','어젯밤','🌃'],['la semaine dernière','라 스멘 데르니에르','지난주','⏮️'],["l'année passée",'라네 파세','작년','t:작년'],['il y a deux jours','일리아 되 주르','이틀 전에','t:이틀 전'],
+  ['demain matin','드맹 마탱','내일 아침','🌅'],['la semaine prochaine','라 스멘 프로셴','다음 주','⏭️'],["l'été prochain",'레테 프로섕','다음 여름','🏖️'],['tout à coup','투타쿠','갑자기','⚡'],
+  ['un jour','앵 주르','어느 날','t:어느 날'],['finalement','피날망','결국','🏁'],['plus tard','플뤼 타르','나중에','⏳'],['ce soir','스 수아르','오늘 저녁','🌆']]},
+ {lv:4, b:4, id:'money', ko:'돈과 가게', fr:"L'argent", icon:'💵', color:'var(--yellow)', words:[
+  ["l'argent",'라르장','돈','💵'],['la monnaie','라 모네','잔돈','🪙'],['le prix','르 프리','가격','🏷️'],['le reçu','르 르쉬','영수증','🧾'],['payer','페예','돈을 내다','💳'],
+  ['coûter','쿠테','값이 ~이다','💲'],['vendre','방드르','팔다','🏪'],['les soldes','레 솔드','세일','🔖'],['la taille','라 타유','크기 (사이즈)','📐'],['rembourser','랑부르세','환불하다','↩️']]}
+);
+
+THEMES.push(
+ {lv:3, b:4, id:'house2', ko:'집 안 물건', fr:'Dans la maison', icon:'🚿', color:'var(--blue)', words:[
+  ['le frigo','르 프리고','냉장고','t:냉장고'],['le four','르 푸르','오븐','t:오븐'],["l'évier",'레비에','싱크대','🚰'],['la douche','라 두슈','샤워기','🚿'],['le miroir','르 미루아르','거울','🪞'],
+  ['la serviette','라 세르비에트','수건','t:수건'],['le savon','르 사봉','비누','🧼'],['le shampooing','르 샹푸앵','샴푸','🧴'],['la brosse à dents','라 브로스 아 당','칫솔','🪥'],
+  ['le dentifrice','르 당티프리스','치약','t:치약'],["l'oreiller",'로레예','베개','t:베개'],['la couverture','라 쿠베르튀르','이불','t:이불']]},
+ {lv:3, b:4, id:'clothes2', ko:'옷 2', fr:'Les vêtements 2', icon:'👚', color:'var(--pink)', words:[
+  ['une chemise','윈 슈미즈','셔츠','👔'],['un short','앵 쇼르트','반바지','🩳'],['une jupe','윈 쥐프','치마','t:치마'],['une veste','윈 베스트','재킷','🧥'],['un pyjama','앵 피자마','잠옷','t:잠옷'],
+  ['des sandales','데 상달','샌들','👡'],['un imperméable','앵 냉페르메아블','비옷','☔'],['une ceinture','윈 생튀르','허리띠','t:허리띠'],['un sac à main','앵 삭 아 맹','핸드백','👜'],
+  ['un chapeau','앵 샤포','모자','👒'],['des bas','데 바','양말 (퀘벡 말)','🧦'],['un maillot de bain','앵 마요 드 뱅','수영복','👙']]},
+ {lv:3, b:4, id:'shapes', ko:'모양', fr:'Les formes', icon:'🔺', color:'var(--purple)', words:[
+  ['un cercle','앵 세르클','동그라미','⚪'],['un carré','앵 카레','네모','⬜'],['un triangle','앵 트리앙글','세모','🔺'],['un rectangle','앵 렉탕글','직사각형','t:직사각형'],
+  ['une ligne','윈 리뉴','선','➖'],['un point','앵 푸앵','점','⚫'],['un cœur','앵 쾨르','하트','❤️'],['la forme','라 포름','모양','🔷'],['la couleur','라 쿨뢰르','색','🎨'],
+  ['foncé','퐁세','진한 (어두운)','🟫'],['pâle','팔','연한','t:연한'],['une flèche','윈 플레슈','화살표','➡️']]},
+ {lv:4, b:5, id:'feel2', ko:'감정 2', fr:'Les sentiments', icon:'💗', color:'#FF9F9F', words:[
+  ['la peur','라 푀르','두려움','😨'],['la colère','라 콜레르','화','😡'],['la tristesse','라 트리스테스','슬픔','😢'],['le bonheur','르 보뇌르','행복','😄'],['la surprise','라 쉬르프리즈','놀람','😲'],
+  ["l'ennui",'랑뉘','지루함','🥱'],['la honte','라 옹트','부끄러움','😳'],['la fierté','라 피에르테','자랑스러움','🦚'],["l'amitié",'라미티에','우정','🧑‍🤝‍🧑'],['la confiance','라 콩피앙스','믿음 (자신감)','💪']]},
+ {lv:4, b:5, id:'verbs5', ko:'동사 5', fr:'Les verbes 5', icon:'📨', color:'var(--green)', words:[
+  ['penser','팡세','생각하다','💭'],['croire','크루아르','믿다','🙏'],['sentir','상티르','느끼다 (냄새 맡다)','👃'],['entendre','앙탕드르','들리다','👂'],['recevoir','르스부아르','받다','📥'],
+  ['envoyer','앙부아예','보내다','📤'],['rester','레스테','머물다','🏠'],['revenir','르브니르','돌아오다','↩️'],['devenir','드브니르','되다','🦋'],['jeter','주테','버리다 (던지다)','🗑️'],
+  ['construire','콩스트뤼르','짓다','🏗️'],['conduire','콩뒤르','운전하다','🚗']]},
+ {lv:4, b:5, id:'weather2', ko:'날씨 2', fr:'La météo 2', icon:'🌡️', color:'var(--blue)', words:[
+  ['la température','라 탕페라튀르','기온','🌡️'],['le degré','르 드그레','도 (°C)','t:°C'],["l'orage",'로라주','뇌우','⛈️'],['le tonnerre','르 토네르','천둥','🔊'],["l'éclair",'레클레르','번개','⚡'],
+  ['le brouillard','르 브루야르','안개','🌫️'],['la glace','라 글라스','얼음','🧊'],['le verglas','르 베르글라','빙판','⛸️'],["l'arc-en-ciel",'라르캉시엘','무지개','🌈'],
+  ['humide','위미드','습한','💦'],['sec','세크','건조한','🏜️'],['la saison','라 세종','계절','🍂']]},
+ {lv:4, b:5, id:'study', ko:'공부 말', fr:'Les études', icon:'📚', color:'var(--yellow)', words:[
+  ['la note','라 노트','점수','💯'],['le bulletin','르 뷜탱','성적표','📊'],['la leçon','라 르송','수업 (과)','📖'],["l'exercice",'레그제르시스','연습 문제','📝'],['la question','라 케스티옹','질문','❓'],
+  ['la réponse','라 레퐁스','대답 (정답)','💬'],['le mot','르 모','단어','🔤'],['la phrase','라 프라즈','문장','📜'],['la page','라 파주','쪽 (페이지)','📄'],["l'erreur",'레뢰르','실수','❌'],
+  ["l'horaire",'로레르','시간표','🗓️'],['le projet','르 프로제','프로젝트','📁']]},
+ {lv:4, b:5, id:'meals', ko:'식사', fr:'Les repas', icon:'🍽️', color:'#9EE6CF', words:[
+  ['le déjeuner','르 데죄네','아침 식사 (퀘벡 말)','🥞'],['le souper','르 수페','저녁 식사 (퀘벡 말)','🍲'],['la collation','라 콜라시옹','간식','🍪'],['le repas','르 르파','식사','🍽️'],
+  ['le dessert','르 데세르','디저트','🍰'],['la boisson','라 부아송','음료','🥤'],['la recette','라 르세트','요리법','📖'],['le bol','르 볼','그릇','🥣'],['la bouteille','라 부테유','병','🍾']]},
+ {lv:4, b:5, id:'maths', ko:'수학 말', fr:'Les maths', icon:'➕', color:'var(--orange)', words:[
+  ['mille','밀','천 (1000)','n:1000'],['la moitié','라 무아티에','절반','🌓'],['le quart','르 카르','4분의 1','t:¼'],['le nombre','르 농브르','수','🔢'],['le chiffre','르 시프르','숫자 (0–9)','t:0–9'],
+  ['compter','콩테','세다','👆'],['additionner','아디시오네','더하다','➕'],['soustraire','수스트레르','빼다','➖'],['multiplier','뮐티플리에','곱하다','✖️'],
+  ['plus','플뤼스','더하기','t:+'],['moins','무앵','빼기','t:−'],['égale','에갈','같다 (=)','🟰']]}
+);
+
+THEMES.push({lv:2, b:3, id:'neg', ko:'아니에요 (부정문)', fr:'La négation', icon:'🚫', color:'var(--red)', sentence:true, words:[
+  ['Je ne mange pas de viande.','주느 망주 파 드 비앙드','고기를 안 먹어요','🥩'],["Je n'aime pas le froid.",'주 넴 파 르 프루아','추운 게 싫어요','🥶'],
+  ["Il n'est pas là.",'일 네 파 라','그는 여기 없어요','🚪'],["Ce n'est pas difficile.",'스 네 파 디피실','어렵지 않아요','😌'],
+  ['Je ne veux pas dormir.','주느 뵈 파 도르미르','자고 싶지 않아요','😝'],["Nous n'avons pas de devoirs.",'누 나봉 파 드 드부아르','숙제가 없어요','🎉'],
+  ['Elle ne joue pas dehors.','엘 느 주 파 드오르','그녀는 밖에서 안 놀아요','🏠'],['Je ne comprends pas la question.','주느 콩프랑 파 라 케스티옹','질문을 이해 못 해요','❓'],
+  ['Il ne fait pas beau.','일 느 페 파 보','날씨가 안 좋아요','☁️'],["Je n'ai pas faim.",'주 네 파 팽','배가 안 고파요','🙂']]});
+THEMES.forEach(th=>{ if(!th.items) th.items = th.words.map(w=>({id:th.id+':'+w[0], fr:w[0], pr:w[1], ko:w[2], pic:w[3], th:th.id})); });
+THEMES.forEach(th=>th.items.forEach(it=>ITEM[it.id]=it));
+THEMES.forEach(th=>th.b=th.b||1);
+const BUNDLES=[...new Set(THEMES.map(t=>t.lv*10+t.b))].sort((a,b)=>a-b).map(k=>({lv:Math.floor(k/10), b:k%10}));
+
+
+// ---------- 상태 (이 기기에만 저장) ----------
+let S = {allLv:'off', nq:5, nc:3, pron:'on', ko:'on', voice:'on', rate:'normal', auto:'on', sfx:'on', vname:'', buddy:'🐰', stars:0, days:{}, w:{}, review:[], log:[]};
+try{ Object.assign(S, JSON.parse(localStorage.getItem('eunseoFrench')||'{}')); }catch(e){}
+function save(){ try{ localStorage.setItem('eunseoFrench', JSON.stringify(S)); }catch(e){} }
+const $ = s => document.querySelector(s);
+const app = $('#app');
+const rnd = (a,b) => a + Math.floor(Math.random()*(b-a+1));
+const pick = a => a[rnd(0,a.length-1)];
+function shuffle(a){ for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];} return a; }
+const esc = s => String(s).replace(/[&<>"]/g, c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const W = id => (S.w[id] = S.w[id] || {box:0, ok:0, bad:0, seen:0, modes:{}, due:0});
+const showPr = quiz => S.pron==='on' || (S.pron==='quiz' && !quiz);
+
+// ---------- 그림 ----------
+function picHTML(it, size){
+  const p = it.pic;
+  if(p.startsWith('c:')) return `<div class="pic"><span class="dotc" style="width:${size}px;height:${size}px;background:${p.slice(2)}"></span></div>`;
+  if(p.startsWith('n:')) return `<div class="pic"><span class="numpic">${p.slice(2)}</span></div>`;
+  if(p.startsWith('t:')) return `<div class="pic"><span class="tpic">${esc(p.slice(2))}</span></div>`;
+  return `<div class="pic">${p}</div>`;
+}
+
+// ---------- 프랑스어 목소리 (퀘벡 목소리 우선) ----------
+let voices = [];
+function loadVoices(){ try{ voices = speechSynthesis.getVoices(); }catch(e){} }
+loadVoices(); try{ speechSynthesis.onvoiceschanged = loadVoices; }catch(e){}
+function frVoices(){ return voices.filter(v=>v.lang && v.lang.replace('_','-').toLowerCase().startsWith('fr')); }
+function voiceScore(v){
+  const n=(v.name||'').toLowerCase(); let sc=0;
+  if(/natural|neural/.test(n)) sc+=50;
+  if(/premium|enhanced|amélioré|향상|고품질/.test(n)) sc+=40;
+  if(/online/.test(n)) sc+=25;
+  if(/google/.test(n)) sc+=20;
+  if(/amélie|amelie|chantal|sylvie|antoine|jean|thomas|audrey|marie/.test(n)) sc+=10;
+  if(/fr-ca/i.test(v.lang.replace('_','-'))) sc+=15;
+  if(/compact|espeak|eloquence|grandma|grandpa|rocko|shelley|sandy|flo|reed|jacques/.test(n)) sc-=30;
+  if(!v.localService) sc+=5;
+  return sc;
+}
+function pickVoice(){
+  const list = frVoices(); if(!list.length) return null;
+  return (S.vname && list.find(x=>x.name===S.vname)) || list.slice().sort((a,b)=>voiceScore(b)-voiceScore(a))[0];
+}
+let sayToken=0;
+function utter(text, rate){
+  const u = new SpeechSynthesisUtterance(text);
+  u.lang='fr-CA'; const v=pickVoice(); if(v){ u.voice=v; u.lang=v.lang; }
+  u.rate=rate; return u;
+}
+// 천천히(slow): 기기마다 속도 설정을 무시하는 목소리가 있어서,
+// 단어를 하나씩 끊어 읽고 사이에 쉬는 방식으로 확실히 느리게 읽어요.
+function say(text, cb, slow, onWord){
+  const my = ++sayToken;
+  const done = () => { if(cb && my===sayToken) setTimeout(()=>{ if(my===sayToken) cb(); }, 400); };
+  if(S.voice!=='on' || !('speechSynthesis' in window)){ done(); return; }
+  try{
+    speechSynthesis.cancel();
+    if(!slow){
+      const u=utter(text, S.rate==='slow'?0.75:0.9);
+      if(cb){ let fired=false; const go=()=>{ if(!fired){fired=true; if(my===sayToken) cb();} }; u.onend=go; u.onerror=go;
+        setTimeout(go, Math.max(2500, text.length*150)); }
+      speechSynthesis.speak(u); return;
+    }
+    const words = text.split(/\s+/).filter(Boolean);
+    const speakable = w => /[a-zà-ÿœ0-9]/i.test(w);
+    // 한 단어만 있으면: 아주 천천히 두 번 읽어 줌
+    const parts = words.filter(speakable).length<=1 ? [text, text] : words;
+    let k=0;
+    const next = () => {
+      if(my!==sayToken) return;
+      if(k>=parts.length){ if(onWord) onWord(-1); done(); return; }
+      const idx=k, w=parts[k++];
+      if(!speakable(w)){ next(); return; }
+      if(onWord && parts!==words) onWord(-1); else if(onWord) onWord(idx);
+      const u=utter(w, 0.5);
+      let fired=false; const go=()=>{ if(fired) return; fired=true; setTimeout(next, parts===words?380:700); };
+      u.onend=go; u.onerror=go; setTimeout(go, 1200 + w.length*260);
+      speechSynthesis.speak(u);
+    };
+    next();
+  }catch(e){ done(); }
+}
+
+// ---------- 효과음 ----------
+let AC=null;
+function tone(f, st, dur, type, vol){
+  if(S.sfx!=='on') return;
+  try{
+    AC = AC || new (window.AudioContext||window.webkitAudioContext)();
+    const o=AC.createOscillator(), g=AC.createGain(), t0=AC.currentTime+st;
+    o.type=type||'sine'; o.frequency.value=f; g.gain.setValueAtTime(0.0001,t0);
+    g.gain.exponentialRampToValueAtTime(vol||0.22,t0+0.02); g.gain.exponentialRampToValueAtTime(0.0001,t0+dur);
+    o.connect(g); g.connect(AC.destination); o.start(t0); o.stop(t0+dur+0.05);
+  }catch(e){}
+}
+const sfx = {
+  pop(){ tone(660,0,.12,'triangle',.16); }, flip(){ tone(520,0,.08,'triangle',.12); },
+  right(){ tone(784,0,.18); tone(1047,.12,.3); }, soft(){ tone(330,0,.25,'sine',.12); },
+  fanfare(){ [523,659,784,1047].forEach((f,k)=>tone(f,k*.13,.35,'triangle',.2)); tone(1319,.55,.6,'triangle',.2); }
+};
+function confetti(n){
+  const cols=['#2B59C3','#FFFFFF','#E5484D','#FFD166','#7ED957','#B79CFF'];
+  for(let k=0;k<(n||40);k++){
+    const d=document.createElement('div'); d.className='conf';
+    d.style.left=Math.random()*100+'vw'; d.style.background=cols[k%cols.length];
+    d.style.animationDuration=(1.2+Math.random()*1.2)+'s'; d.style.animationDelay=(Math.random()*.3)+'s';
+    document.body.appendChild(d); setTimeout(()=>d.remove(),2800);
+  }
+}
+function celebrate(sym){ const d=document.createElement('div'); d.className='celebrate'; d.textContent=sym||'⭐'; document.body.appendChild(d); setTimeout(()=>d.remove(),950); }
+
+// ---------- 동물 친구 ----------
+const FRIENDS=[['🐰',0],['🐻',10],['🐱',25],['🐶',40],['🐼',60],['🦊',80],['🐧',100],['🦁',130],['🐬',160],['🦄',200]];
+const PRAISE_KO=['잘했어, 은서야!','은서 최고!','맞았어요!','우와, 대단해!','딩동댕!'];
+const PRAISE_FR=['Bravo !','Très bien !','Super !','Excellent !','Bravo, Eunseo !'];
+const CHEER=['괜찮아, 다시 들어 보자!','천천히 해도 돼!','힘내!'];
+let bubTimer=null;
+function buddySay(text, mood){
+  const b=$('#buddy'), bub=$('#bubble');
+  $('#buddyFace').textContent=S.buddy;
+  if(text){ bub.textContent=text; bub.classList.add('show'); clearTimeout(bubTimer); bubTimer=setTimeout(()=>bub.classList.remove('show'),2600); }
+  b.classList.remove('jump','sad'); void b.offsetWidth; if(mood) b.classList.add(mood);
+}
+function updateStars(){ $('#starCount').textContent=S.stars; }
+function awardStar(){ S.stars++; save(); updateStars(); }
+
+// ---------- 진도 · 암기 판단 ----------
+// 말 하나마다 "상자" 단계가 있어요. 처음부터 맞히면 한 단계 올라가고,
+// 다음 복습까지 기다리는 시간이 점점 길어져요 (10분 → 1일 → 3일 → 7일 → 14일 → 30일).
+// 기다리는 시간이 지나기 전에 또 맞히는 것은 연습으로만 치고 단계는 올라가지 않아요.
+const GAP = [0, 10*60e3, 864e5, 3*864e5, 7*864e5, 14*864e5, 30*864e5];
+const QUIZ_MODES = ['listen','read','write'];
+const ST = [{n:'새 말',i:'⚪'},{n:'익히는 중',i:'🌱'},{n:'외웠어요',i:'⭐'},{n:'오래 기억해요',i:'👑'}];
+function modesOK(w){ return QUIZ_MODES.filter(m=>w.modes&&w.modes[m]).length; }
+// 0 새 말 · 1 익히는 중 · 2 외웠어요(이틀 이상 + 두 가지 퀴즈) · 3 오래 기억해요(열흘 넘게 지나도 맞힘)
+function status(id){
+  const w=S.w[id]; if(!w || !(w.seen||w.ok||w.bad)) return 0;
+  if(w.box>=5 && modesOK(w)>=2) return 3;
+  if(w.box>=3 && modesOK(w)>=2) return 2;
+  return 1;
+}
+function isDue(id){ const w=S.w[id]; return !!w && w.box>=1 && Date.now() >= (w.due||0); }
+function grade(it, mode, first){
+  const w=W(it.id), now=Date.now(); w.last=now;
+  if(first){
+    w.ok++; w.modes=w.modes||{}; w.modes[mode]=1;
+    if(now >= (w.due||0)){ w.box=Math.min(6, w.box+1); w.due=now+GAP[w.box]; }
+    removeReview(it.id);
+  } else {
+    w.bad++; w.box = w.box>=3 ? 1 : 0; w.due = now; addReview(it.id);
+  }
+  S.log.push({d:now, id:it.id, m:mode, ok:first}); if(S.log.length>3000) S.log=S.log.slice(-3000);
+  save();
+}
+function mastery(th){
+  const n=th.items.length; let m=0, long=0;
+  th.items.forEach(it=>{ const s=status(it.id); if(s>=2) m++; if(s===3) long++; });
+  return {m, n, long, pct:Math.round(m/n*100)};
+}
+const levelItems = lv => THEMES.filter(t=>t.lv===lv).flatMap(t=>t.items);
+function levelPct(lv){ const it=levelItems(lv); return it.length ? Math.round(it.filter(x=>status(x.id)>=2).length/it.length*100) : 0; }
+const bundleItems = (lv,b) => THEMES.filter(t=>t.lv===lv&&t.b===b).flatMap(t=>t.items);
+function pctOf(items){ return items.length ? Math.round(items.filter(x=>status(x.id)>=2).length/items.length*100) : 0; }
+// 묶음은 순서대로 열려요: 앞 묶음을 80% 외우면 다음 묶음이 열림 (한 번 열리면 계속 열려 있음)
+function bOpen(idx){
+  if(idx<=0 || S.allLv==='on') return true;
+  S.unlB=S.unlB||{}; const B=BUNDLES[idx], key=B.lv+'-'+B.b;
+  if(S.unlB[key]) return true;
+  const P=BUNDLES[idx-1];
+  if(bOpen(idx-1) && pctOf(bundleItems(P.lv,P.b))>=80){ S.unlB[key]=1; save(); return true; }
+  return false;
+}
+const bIdx = (lv,b) => BUNDLES.findIndex(x=>x.lv===lv&&x.b===b);
+const bundleOpen = (lv,b) => bOpen(bIdx(lv,b));
+const themeOpen = th => bundleOpen(th.lv, th.b);
+function unlocked(lv){ return bundleOpen(lv,1); }
+function dueList(){
+  return THEMES.filter(themeOpen).flatMap(t=>t.items).filter(it=>isDue(it.id) || inReview(it.id));
+}
+function inReview(id){ return S.review.includes(id); }
+function addReview(id){ if(!inReview(id)) S.review.push(id); }
+function removeReview(id){ S.review = S.review.filter(x=>x!==id); }
+function miniPic(it){
+  const p=it.pic;
+  if(p.startsWith('c:')) return `<span class="dotc" style="width:18px;height:18px;background:${p.slice(2)}"></span>`;
+  if(p.startsWith('n:')||p.startsWith('t:')) return `<b>${esc(p.slice(2))}</b>`;
+  return p;
+}
+
+let autoTimer=null, G=null, timers=[];
+function later(fn, ms){ const t=setTimeout(fn, ms); timers.push(t); return t; }
+function stopAll(){
+  if(autoTimer){ clearInterval(autoTimer); autoTimer=null; }
+  timers.forEach(clearTimeout); timers=[]; sayToken++;
+  try{ speechSynthesis.cancel(); }catch(e){}
+}
+
+// ---------- 처음 화면 ----------
+function home(){
+  stopAll(); G=null; window.scrollTo(0,0);
+  S.curLv = S.curLv || 1;
+  let h = `<h1>은서의 <span class="flag"><i></i><i></i><i></i></span> 프랑스어 놀이</h1><p class="sub">Le français d’Eunseo</p><div class="lvtabs">`;
+  LEVELS.forEach(L=>{
+    const ok=unlocked(L.n), pct=levelPct(L.n);
+    h+=`<button class="lvt ${S.curLv===L.n?'on':''} ${ok?'':'locked'}" data-l="${L.n}" style="--lc:${L.color}">${ok?'':'🔒 '}${L.name}<small>${L.cefr}${ok?' · '+pct+'%':''}</small></button>`;
+  });
+  h+='</div>';
+  const due = dueList();
+  if(due.length) h += `<button class="big-btn reviewbtn" id="revBtn">🔁 오늘 복습할 말 (${due.length})</button>`;
+  if(!unlocked(S.curLv)){
+    const P=BUNDLES[bIdx(S.curLv,1)-1], pp=pctOf(bundleItems(P.lv,P.b));
+    h += `<div class="lockbox">🔒 <b>${LEVELS[S.curLv-1].name}</b>은 아직 잠겨 있어요.<br>${LEVELS[P.lv-1].name}의 마지막 묶음을 80% 외우면 열려요.<div class="rp-bar" style="height:16px;margin:12px 0 6px"><i style="width:${pp}%"></i></div>지금 ${pp}% · 조금만 더 힘내요!</div>`;
+  } else {
+    h += `<div class="themes">`;
+    THEMES.filter(t=>t.lv===S.curLv && themeOpen(t)).forEach(th=>{
+      const m=mastery(th);
+      h += `<button class="th" data-t="${th.id}" style="background:${th.color}">${m.pct===100?'<span class="crown">👑</span>':''}
+        <span class="big">${th.icon}</span>${th.ko}<span class="frn">${esc(th.fr)}</span><span class="meter"><i style="width:${m.pct}%"></i></span></button>`;
+    });
+    const nb = BUNDLES.find((B,i)=>B.lv===S.curLv && !bOpen(i));
+    if(nb){
+      const P=BUNDLES[bIdx(nb.lv,nb.b)-1], pp=pctOf(bundleItems(P.lv,P.b)), n=bundleItems(nb.lv,nb.b).length;
+      h += `<div class="th nextb"><span class="big">🎁</span>새 묶음 · ${n}개<span class="frn">지금 묶음 ${pp}% → 80%면 열려요</span><span class="meter"><i style="width:${Math.min(100,pp/0.8)}%"></i></span></div>`;
+    }
+    h += `</div>`;
+  }
+  h += `<button class="big-btn readbtn" id="readBtn">📚 읽기 연습 <small>Lecture · 소리 내어 읽기</small></button>
+  <button class="big-btn readbtn skbtn" id="skBtn">🧩 문장 실력 키우기 <small>동사 · 이야기 · 받아쓰기 · 말하기</small></button>
+  <div class="homerow">
+    <button class="big-btn" id="calBtn" style="background:var(--purple);color:#fff">📅 스티커판<br><small>🔥 ${streak()}일 연속!</small></button>
+    <button class="big-btn" id="frBtn" style="background:var(--orange)">${S.buddy} 내 친구들<br><small>${FRIENDS.filter(f=>S.stars>=f[1]).length} / ${FRIENDS.length}</small></button>
+  </div>`;
+  app.innerHTML = h;
+  S.seenB = S.seenB || ['1-1'];
+  const fresh = BUNDLES.filter((B,i)=>bOpen(i) && !S.seenB.includes(B.lv+'-'+B.b));
+  if(fresh.length){ fresh.forEach(B=>S.seenB.push(B.lv+'-'+B.b)); save();
+    if(S.allLv!=='on'){ later(()=>{ celebrate('🎁'); confetti(60); sfx.fanfare(); buddySay('새 단어 묶음이 열렸어요!','jump'); }, 300); } }
+  app.querySelectorAll('.lvt').forEach(b=>b.onclick=()=>{ S.curLv=+b.dataset.l; save(); sfx.pop(); home(); });
+  app.querySelectorAll('.th').forEach(b=>b.onclick=()=>{ sfx.pop(); themePage(b.dataset.t); });
+  if($('#revBtn')) $('#revBtn').onclick=()=>startQuiz('review', pick(['listen','read','write']));
+  $('#readBtn').onclick=()=>{ sfx.pop(); readingHome(); };
+  $('#skBtn').onclick=()=>{ sfx.pop(); skillsHome(); };
+  $('#calBtn').onclick=()=>calendar(0);
+  $('#frBtn').onclick=friends;
+  later(()=>buddySay(due.length?`복습할 말이 ${due.length}개 있어요!`:pick(['은서야, 안녕!','Bonjour, Eunseo!','오늘은 뭘 배울까?']),'jump'),400);
+}
+
+// ---------- 주제 화면 ----------
+function themePage(tid){
+  stopAll(); window.scrollTo(0,0);
+  const th=themeOf(tid), m=mastery(th);
+  let h = `<h1>${th.icon} ${th.ko}</h1><p class="sub">${esc(th.fr)} · ⭐ 외웠어요 ${m.m} / ${m.n}${m.long?` · 👑 ${m.long}`:''}</p>
+  <div class="modes">
+    <button style="background:var(--yellow)" data-m="learn"><span class="big">📖</span>배우기<small>보고 듣고 따라 말해요</small></button>
+    <button style="background:var(--blue)" data-m="listen"><span class="big">👂</span>듣고 고르기<small>소리를 듣고 그림 찾기</small></button>
+    <button style="background:var(--pink)" data-m="read"><span class="big">👀</span>보고 고르기<small>그림에 맞는 말 찾기</small></button>
+    <button style="background:var(--green)" data-m="write"><span class="big">✍️</span>써 보기<small>${th.sentence?'단어를 순서대로':'글자를 순서대로'}</small></button>
+    <button style="background:var(--purple)" data-m="memory" class="span2"><span class="big">🃏</span>짝 맞추기<small>그림과 말 짝 찾기</small></button>
+  </div>
+  <p class="stlegend">${ST.map(s=>`${s.i} ${s.n}`).join(' · ')}</p><div class="wordlist">`;
+  th.items.forEach(it=>{
+    const s=status(it.id);
+    h += `<button class="chip st${s}" data-id="${esc(it.id)}">${miniPic(it)} ${esc(it.fr)} <span class="lv">${ST[s].i}</span></button>`;
+  });
+  app.innerHTML = h + `</div>`;
+  app.querySelectorAll('.modes button').forEach(b=>b.onclick=()=>{
+    const md=b.dataset.m; sfx.pop();
+    if(md==='learn') learn(tid,0); else if(md==='memory') memory(tid); else startQuiz(tid, md);
+  });
+  app.querySelectorAll('.chip').forEach(b=>b.onclick=()=>{ const it=ITEM[b.dataset.id]; say(it.fr); buddySay(`${it.ko} · ${ST[status(it.id)].n}`); });
+}
+
+// ---------- 배우기 (단어 카드) ----------
+function learn(tid, i){
+  stopAll();
+  const th=themeOf(tid), items=th.items; i=(i+items.length)%items.length;
+  const it=items[i];
+  const w=W(it.id); w.seen++; save();
+  app.innerHTML = `<h1 style="font-size:28px">📖 ${th.ko}</h1>
+    <div class="card flip" id="card">${picHTML(it,130)}
+      <div class="fw">${esc(it.fr)}</div>
+      ${showPr(false)?`<div class="pr">${esc(it.pr)}</div>`:''}
+      ${S.ko==='on'?`<div class="ko">${esc(it.ko)}</div>`:''}
+    </div>
+    <div class="nav">
+      <button id="prev">◀</button><button class="alt" id="play">🔊</button><button class="alt" id="slow">🐢</button><button id="next">▶</button>
+    </div>
+    <div class="count">${i+1} / ${items.length}</div>
+    ${i===items.length-1?`<button class="big-btn" style="background:var(--green);margin-top:14px" id="toQuiz">👂 이제 퀴즈 해 볼까?</button>`:''}`;
+  const play=()=>say(it.fr), slow=()=>say(it.fr,null,true);
+  $('#card').onclick=play; $('#play').onclick=play; $('#slow').onclick=slow;
+  $('#prev').onclick=()=>{ sfx.flip(); learn(tid,i-1); };
+  $('#next').onclick=()=>{ sfx.flip(); learn(tid,i+1); };
+  if($('#toQuiz')) $('#toQuiz').onclick=()=>startQuiz(tid,'listen');
+  later(play, 250);
+  if(i===0) later(()=>buddySay('듣고 따라 말해 봐요!'),600);
+}
+
+// ---------- 퀴즈 ----------
+function chooseItems(tid, n){
+  let pool;
+  if(tid==='review'){ pool = dueList(); if(!pool.length) pool=THEMES[0].items; }
+  else if(tid==='dict'){ pool = dictPool(); }
+  else pool = themeOf(tid).items;
+  // 틀린 말 → 복습할 때가 된 말 → 덜 외운 말 순서로 먼저 나옴
+  const now=Date.now();
+  const scored = pool.map(it=>{ const w=W(it.id); const early = w.box>=1 && now < (w.due||0);
+    return {it, s:(inReview(it.id)?-4:0) + (isDue(it.id)?-2:0) + (early?w.box+2:w.box) + Math.random()*1.6}; }).sort((a,b)=>a.s-b.s);
+  const out=[]; let k=0;
+  while(out.length<n){ out.push(scored[k%scored.length].it); k++; }
+  return shuffle(out);
+}
+function startQuiz(tid, mode){
+  stopAll();
+  const n = tid==='review' ? Math.min(Math.max(dueList().length,3), 10) : S.nq;
+  G = {tid, mode, queue: chooseItems(tid, n).map(it=>({it})), i:0, total:n, earned:0, extra:0, results:[], startStars:S.stars};
+  nextQ();
+}
+function distractors(it, k){
+  const th=themeOf(it.th);
+  return shuffle(th.items.filter(x=>x.id!==it.id && x.ko!==it.ko)).slice(0,k);
+}
+function progressHTML(){
+  let h='<div class="progress">';
+  for(let k=0;k<G.queue.length;k++){ const r=G.results[k]; h+=`<span class="dot ${r===true?'done':(r===false?'miss':'')}"></span>`; }
+  return h+'</div>';
+}
+function requeue(q){
+  // 틀린 말은 두 문제 뒤에 한 번 더 나옴
+  if(!q.again){ G.queue.splice(Math.min(G.i+3, G.queue.length), 0, {it:q.it, again:true}); G.extra++; }
+  const p=$('.progress'); if(p) p.outerHTML = progressHTML();
+}
+function rightAnswer(it, mode, missed, hinted){
+  if(!missed && !hinted){ grade(it, mode, true); awardStar(); G.earned++; celebrate('⭐'); buddySay(pick(PRAISE_KO),'jump'); }
+  else { W(it.id).seen++; save(); buddySay(missed?'이제 알겠지? 좋아요!':'잘했어요! 다음엔 힌트 없이 해 봐요','jump'); }
+  G.results[G.i] = !missed && !hinted;
+  say((missed||hinted?'':pick(PRAISE_FR)+' ')+it.fr, ()=>later(()=>{ G.i++; nextQ(); }, 350));
+}
+function nextQ(){
+  stopAll();
+  if(G.i>=G.queue.length){ endGame(); return; }
+  const q=G.queue[G.i], it=q.it, th=themeOf(it.th);
+  const mode = G.mode;
+  if(mode==='write'||mode==='dict'){ writeQ(q); return; }
+  const opts = shuffle([it, ...distractors(it, S.nc-1)]);
+  let h = progressHTML() + (q.again?`<div class="again-tag">🔁 다시 나온 문제예요</div>`:'');
+  if(mode==='listen'){
+    h += `<p class="question">잘 듣고 맞는 그림을 골라요</p>
+      <div class="speak"><button id="play">🔊</button><button class="slow" id="slow">🐢</button></div>
+      <div class="choices ${opts.length===3?'c3':''}">` +
+      opts.map(o=>`<button class="choice" data-id="${esc(o.id)}">${picHTML(o,70)}${(th.sentence||S.ko==='on')?`<span class="ko">${esc(o.ko)}</span>`:''}</button>`).join('') + `</div>`;
+  } else {
+    h += `<p class="question">그림에 맞는 프랑스어를 골라요</p>
+      <div class="target">${picHTML(it,110)}${(th.sentence||S.ko==='on')?`<div class="ko">${esc(it.ko)}</div>`:''}</div>
+      <div class="choices text ${th.sentence?'long':(opts.length===3?'c3':'')}">` +
+      opts.map(o=>`<button class="choice" data-id="${esc(o.id)}"><span class="fw">${esc(o.fr)}</span>${showPr(true)?`<span class="pr">${esc(o.pr)}</span>`:''}</button>`).join('') + `</div>`;
+  }
+  app.innerHTML = h;
+  let locked=false, missed=false;
+  if(mode==='listen'){
+    const play=()=>{ const b=$('#play'); if(b){ b.classList.remove('ping'); void b.offsetWidth; b.classList.add('ping'); } say(it.fr); };
+    $('#play').onclick=play; $('#slow').onclick=()=>say(it.fr,null,true);
+    later(play, 350);
+  }
+  app.querySelectorAll('.choice').forEach(btn=>btn.onclick=()=>{
+    if(locked || btn.classList.contains('wrong')) return;
+    const o = ITEM[btn.dataset.id];
+    if(o.id===it.id){
+      locked=true; btn.classList.remove('hint'); btn.classList.add('right'); sfx.right();
+      rightAnswer(it, mode, missed, false);
+    } else {
+      btn.classList.add('wrong'); sfx.soft(); buddySay(pick(CHEER),'sad');
+      if(mode==='read') say(o.fr);
+      if(!missed){ missed=true; grade(it, mode, false); requeue(q); }
+      const wrongs = app.querySelectorAll('.choice.wrong').length;
+      if(wrongs>=2 || S.nc===3){
+        const right = app.querySelector(`.choice[data-id="${CSS.escape(it.id)}"]`);
+        if(right) right.classList.add('hint');
+        later(()=>say(it.fr), mode==='read'?1300:200);
+      } else if(mode==='listen') later(()=>say(it.fr), 300);
+    }
+  });
+}
+
+// ---------- ✍️ 써 보기 (글자·단어 순서 맞추기) ----------
+const isL = ch => /[a-zà-ÿœæ]/i.test(ch);
+function writeQ(q){
+  const it=q.it, th=themeOf(it.th), dict=G.mode==='dict', sentence=dict||!!th.sentence;
+  let pre='', slots=[];   // slots: {ans, fixed}
+  if(sentence){
+    it.fr.split(/\s+/).filter(Boolean).forEach(w=>slots.push({ans:w}));
+  } else {
+    const m = it.fr.match(/^((?:(?:un|une|le|la|les|des|du|de)\s+)?(?:l')?)(.*)$/i);
+    pre=m[1]; [...m[2]].forEach(ch=> slots.push(isL(ch)?{ans:ch}:{fixed:ch}));
+  }
+  const need = slots.map((s,i)=>s.fixed==null?i:-1).filter(i=>i>=0);
+  let tiles = need.map(i=>slots[i].ans);
+  if(dict){ // 받아쓰기: 헷갈리게 하는 단어 2개를 섞음
+    const others = shuffle(dictPool().filter(x=>x.id!==it.id).flatMap(x=>x.fr.split(/\s+/))).filter(w=>!tiles.some(t=>t.toLowerCase()===w.toLowerCase()));
+    tiles = tiles.concat([...new Set(others)].slice(0,2));
+  }
+  if(tiles.length>1){ let t; do{ t=shuffle(tiles.slice()); }while(t.join('|')===tiles.join('|') && new Set(tiles).size>1); tiles=t; }
+  const fill = {};      // 칸 번호 → 조각 번호
+  const used = new Set();
+  let missed=false, hinted=false, tries=0, locked=false;
+  app.innerHTML = progressHTML() + (q.again?`<div class="again-tag">🔁 다시 나온 문제예요</div>`:'') +
+    `<p class="question">${dict?'잘 듣고 들은 대로 단어를 놓아요':(sentence?'단어를 순서대로 놓아요':'글자를 순서대로 놓아요')}</p>
+     ${dict?'':`<div class="target wt">${picHTML(it,90)}${(sentence||S.ko==='on')?`<div class="ko">${esc(it.ko)}</div>`:''}</div>`}
+     <div class="speak sm"><button id="play">🔊</button><button class="slow" id="slow">🐢</button></div>
+     <div class="slots ${sentence?'ws':''}" id="slots"></div>
+     <div class="tiles ${sentence?'ws':''}" id="tiles"></div>
+     <div class="tools"><button class="small" id="hintB">💡 힌트</button><button class="small" id="clrB">🧽 다시</button></div>`;
+  const play=()=>say(it.fr);
+  $('#play').onclick=play; $('#slow').onclick=()=>say(it.fr,null,true); later(play,350);
+  function paint(state){
+    let s = pre ? `<span class="pre">${esc(pre)}</span>` : '';
+    slots.forEach((sl,i)=>{
+      if(sl.fixed!=null){ s += sl.fixed===' ' ? '<span class="gap"></span>' : `<span class="fix">${esc(sl.fixed)}</span>`; return; }
+      const t = fill[i];
+      const cls = state && state[i] ? state[i] : '';
+      s += `<button class="slot ${t!=null?'full':''} ${cls}" data-s="${i}">${t!=null?esc(tiles[t]):''}</button>`;
+    });
+    $('#slots').innerHTML = s;
+    $('#tiles').innerHTML = tiles.map((t,k)=>`<button class="tile ${used.has(k)?'used':''}" data-t="${k}">${esc(t)}</button>`).join('');
+    $('#slots').querySelectorAll('.slot').forEach(b=>b.onclick=()=>{ if(locked) return; const i=+b.dataset.s; if(fill[i]!=null){ used.delete(fill[i]); delete fill[i]; sfx.flip(); paint(); } });
+    $('#tiles').querySelectorAll('.tile').forEach(b=>b.onclick=()=>{
+      if(locked) return; const k=+b.dataset.t; if(used.has(k)) return;
+      const i = need.find(j=>fill[j]==null); if(i==null) return;
+      fill[i]=k; used.add(k); sfx.pop(); if(sentence) say(tiles[k]);
+      paint(); if(need.every(j=>fill[j]!=null)) check();
+    });
+  }
+  function check(){
+    const ok = need.every(i=>tiles[fill[i]].toLowerCase()===slots[i].ans.toLowerCase());
+    if(ok){
+      locked=true; const st={}; need.forEach(i=>st[i]='good'); paint(st); sfx.right();
+      if(dict) $('#slots').insertAdjacentHTML('afterend', `<div class="ko" style="font-size:22px;color:var(--soft)">${esc(it.ko)}</div>`);
+      rightAnswer(it, 'write', missed, hinted);
+      return;
+    }
+    tries++; sfx.soft();
+    if(!missed){ missed=true; grade(it,'write',false); requeue(q); }
+    const st={}; need.forEach(i=>st[i]= tiles[fill[i]].toLowerCase()===slots[i].ans.toLowerCase() ? 'good' : 'bad');
+    paint(st);
+    if(tries>=2){
+      // 두 번 틀리면 정답을 보여 줌
+      locked=true; buddySay('정답을 잘 보세요!','sad');
+      later(()=>{ used.clear(); need.forEach(i=>{ const k=tiles.findIndex((t,x)=>!used.has(x) && t.toLowerCase()===slots[i].ans.toLowerCase()); fill[i]=k; used.add(k); });
+        const g={}; need.forEach(i=>g[i]='good'); paint(g); say(it.fr, ()=>later(()=>{ G.results[G.i]=false; G.i++; nextQ(); }, 1200)); }, 900);
+    } else {
+      buddySay('빨간 칸을 눌러서 빼고 다시 해 봐요!','sad');
+      later(()=>{ need.forEach(i=>{ if(st[i]==='bad'){ used.delete(fill[i]); delete fill[i]; } }); paint(); }, 900);
+    }
+  }
+  $('#hintB').onclick=()=>{
+    if(locked) return;
+    const i = need.find(j=>fill[j]==null || tiles[fill[j]].toLowerCase()!==slots[j].ans.toLowerCase());
+    if(i==null) return;
+    if(fill[i]!=null){ used.delete(fill[i]); delete fill[i]; }
+    // 맞는 조각이 다른 칸에 잘못 들어가 있으면 빼 옴
+    let k = tiles.findIndex((t,x)=>!used.has(x) && t.toLowerCase()===slots[i].ans.toLowerCase());
+    if(k<0){ const j=need.find(j2=>fill[j2]!=null && tiles[fill[j2]].toLowerCase()===slots[i].ans.toLowerCase() && tiles[fill[j2]].toLowerCase()!==slots[j2].ans.toLowerCase()); if(j!=null){ k=fill[j]; used.delete(k); delete fill[j]; } }
+    if(k<0) return;
+    fill[i]=k; used.add(k); hinted=true; sfx.pop(); paint();
+    if(need.every(j=>fill[j]!=null)) check();
+  };
+  $('#clrB').onclick=()=>{ if(locked) return; Object.keys(fill).forEach(i=>delete fill[i]); used.clear(); paint(); };
+  paint();
+}
+
+// ---------- 짝 맞추기 ----------
+function memory(tid){
+  stopAll();
+  const th=themeOf(tid);
+  const items = chooseItems(tid, 6).filter((v,i,a)=>a.findIndex(x=>x.id===v.id)===i).slice(0,6);
+  const cards = shuffle(items.flatMap(it=>[{it,k:'p'},{it,k:'w'}]));
+  G = {tid, mode:'memory', earned:0, total:items.length, extra:0, startStars:S.stars, results:[]};
+  let h=`<h1 style="font-size:28px">🃏 짝 맞추기 · ${th.ko}</h1><p class="sub">그림과 프랑스어 말을 짝지어요</p><div class="mem">`;
+  cards.forEach((c,i)=>{
+    h+=`<button class="mc" data-i="${i}"><div class="in"><div class="f">?</div><div class="b">${
+      c.k==='p' ? picHTML(c.it,56) + (th.sentence?`<span class="pr">${esc(c.it.ko)}</span>`:'')
+                : `<span class="fw">${esc(c.it.fr)}</span>${showPr(true)?`<span class="pr">${esc(c.it.pr)}</span>`:''}`
+    }</div></div></button>`;
+  });
+  app.innerHTML = h+`</div>`;
+  let open=[], busy=false, found=0, tries=0;
+  const els=[...app.querySelectorAll('.mc')];
+  els.forEach(el=>el.onclick=()=>{
+    const i=+el.dataset.i; const c=cards[i];
+    if(busy || el.classList.contains('open') || el.classList.contains('done')) return;
+    el.classList.add('open'); sfx.flip();
+    if(c.k==='w') say(c.it.fr);
+    open.push(i);
+    if(open.length===2){
+      busy=true; tries++;
+      const [a,b]=open; open=[];
+      if(cards[a].it.id===cards[b].it.id){
+        later(()=>{
+          els[a].classList.add('done'); els[b].classList.add('done'); sfx.right(); found++;
+          const w=W(cards[a].it.id); w.seen++; save();
+          awardStar(); G.earned++; buddySay(pick(PRAISE_KO),'jump');
+          say(cards[a].it.fr, null);
+          busy=false;
+          if(found===items.length) later(endGame, 1500);
+        }, 450);
+      } else {
+        later(()=>{ els[a].classList.remove('open'); els[b].classList.remove('open'); sfx.soft(); busy=false; }, 1300);
+      }
+    }
+  });
+  later(()=>buddySay('카드를 두 장씩 뒤집어 봐요!'),400);
+}
+
+// ================= 📚 읽기 연습 =================
+// 소리 규칙: [글자, 한글 소리, 설명, 예시 단어들 [단어, 한글]]
+const RULES = [
+ {k:'ou', s:'우', c:'#2F7BEA', tip:'o와 u가 같이 있으면 "우"', ex:[['loup','루'],['poule','풀'],['rouge','루즈'],['bonjour','봉주르']]},
+ {k:'oi', s:'우아', c:'#8E5BE8', tip:'o와 i가 같이 있으면 "우아"', ex:[['moi','무아'],['roi','루아'],['noir','누아르'],['trois','트루아']]},
+ {k:'au · eau', s:'오', c:'#FF8A1F', tip:'au, eau는 "오"', ex:[['auto','오토'],['chaud','쇼'],['beau','보'],['gâteau','가토']]},
+ {k:'ai · ei', s:'에', c:'#E5484D', tip:'ai, ei는 "에"', ex:[['lait','레'],['maison','메종'],['neige','네주'],['j\'ai','제']]},
+ {k:'é · er · ez', s:'에', c:'#D6336C', tip:'é, 끝에 있는 er·ez는 "에"', ex:[['été','에테'],['café','카페'],['manger','망제'],['nez','네']]},
+ {k:'è · ê', s:'에', c:'#C2255C', tip:'è, ê도 "에"', ex:[['mère','메르'],['père','페르'],['tête','테트'],['fête','페트']]},
+ {k:'eu · œu', s:'외', c:'#0CA678', tip:'eu, œu는 "외"', ex:[['deux','되'],['bleu','블뢰'],['jeu','죄'],['sœur','쇠르']]},
+ {k:'u', s:'위', c:'#1098AD', tip:'u 혼자 있으면 "위" (입술을 둥글게!)', ex:[['tu','튀'],['lune','륀'],['rue','뤼'],['jus','쥐']]},
+ {k:'an · en', s:'앙', c:'#F08C00', tip:'an, en, am, em은 코로 내는 "앙"', ex:[['maman','마망'],['enfant','앙팡'],['dent','당'],['blanc','블랑']]},
+ {k:'on', s:'옹', c:'#5C940D', tip:'on, om은 코로 내는 "옹"', ex:[['bonbon','봉봉'],['non','농'],['mouton','무통'],['maison','메종']]},
+ {k:'in · ain · un', s:'앵', c:'#AE3EC9', tip:'in, ain, ein, un은 코로 내는 "앵"', ex:[['lapin','라팽'],['pain','팽'],['main','맹'],['un','앵']]},
+ {k:'ch', s:'ㅅ (슈)', c:'#364FC7', tip:'ch는 "슈" 소리', ex:[['chat','샤'],['chien','시앵'],['vache','바슈'],['chocolat','쇼콜라']]},
+ {k:'gn', s:'뉴', c:'#087F5B', tip:'gn은 "뉴" 소리', ex:[['montagne','몽타뉴'],['ligne','리뉴'],['signe','시뉴'],['champignon','샹피뇽']]},
+ {k:'ill', s:'이유', c:'#E67700', tip:'ill은 "이유" (l 소리가 안 나요)', ex:[['fille','피유'],['famille','파미유'],['feuille','푀유'],['billet','비예']]},
+ {k:'qu', s:'ㅋ', c:'#5F3DC4', tip:'qu는 "ㅋ" (u 소리가 안 나요)', ex:[['qui','키'],['quatre','카트르'],['quand','캉'],['musique','뮈지크']]},
+ {k:'ce · ci · ge · gi', s:'ㅅ · ㅈ', c:'#C92A2A', tip:'e, i 앞의 c는 "ㅅ", g는 "ㅈ"', ex:[['merci','메르시'],['ici','이시'],['rouge','루즈'],['girafe','지라프']]},
+ {k:'h', s:'(소리 없음)', c:'#ADB5BD', silent:true, tip:'h는 소리가 안 나요', ex:[['homme','옴'],['hôpital','오피탈'],['heure','외르'],['hibou','이부']]},
+ {k:'끝 자음', s:'(소리 없음)', c:'#ADB5BD', silent:true, tip:'끝의 s, t, d, x, z, p는 보통 소리가 안 나요', ex:[['petit','프티'],['grand','그랑'],['trois','트루아'],['lit','리']]},
+ {k:'끝 e', s:'(소리 없음)', c:'#ADB5BD', silent:true, tip:'단어 끝의 e는 소리가 안 나요', ex:[['pomme','폼'],['table','타블'],['lune','륀'],['école','에콜']]}
+];
+const R = Object.fromEntries(['ou','oi','au','ai','e1','e2','eu','u','an','on','in','ch','gn','ill','qu','soft','h','fin','fine'].map((n,i)=>[n,i]));
+const VOW = 'aeiouyéèêëàâîïôûùœ';
+// 단어 안의 소리 규칙을 찾아서 색칠
+function markWord(word, only){
+  const w = word.toLowerCase(), L = w.length; let out='', i=0;
+  const isV = ch => ch && VOW.includes(ch);
+  const nasalOK = j => { const nx=w[j]; return !nx || (!isV(nx) && nx!=='n' && nx!=='m' && /[a-zà-ÿœ]/.test(nx)) || !/[a-zà-ÿœ]/.test(nx); };
+  const letters = (w.match(/[a-zà-ÿœ]/g)||[]).length;
+  const span = (len, r) => { const txt=esc(word.substr(i,len)); i+=len;
+    if(r==null || (only!=null && r!==only)) return txt;
+    const rule=RULES[r]; return rule.silent ? `<span class="ph sil">${txt}</span>` : `<span class="ph" style="color:${rule.c}">${txt}</span>`; };
+  const lastLetter = j => !/[a-zà-ÿœ]/.test(w[j+1]||'');
+  while(i<L){
+    const s3=w.substr(i,3), s2=w.substr(i,2), ch=w[i];
+    if(!/[a-zà-ÿœ]/.test(ch)){ out+=span(1,null); continue; }
+    const start = i===0 || !/[a-zà-ÿœ]/.test(w[i-1]);
+    if(ch==='h' && start){ out+=span(1,R.h); continue; }
+    if(s3==='eau'){ out+=span(3,R.au); continue; }
+    if(s3==='ill' && i>0){ out+=span(3,R.ill); continue; }
+    if((s3==='ain'||s3==='ein'||s3==='aim') && nasalOK(i+3)){ out+=span(3,R.in); continue; }
+    if(s2==='ou'){ out+=span(2,R.ou); continue; }
+    if(s2==='oi'){ out+=span(2,R.oi); continue; }
+    if(s2==='au'){ out+=span(2,R.au); continue; }
+    if(s2==='ai'||s2==='ei'){ out+=span(2,R.ai); continue; }
+    if(s2==='œu' || s2==='eu'){ out+=span(2,R.eu); continue; }
+    if(s2==='en' && w[i-1]==='i' && nasalOK(i+2)){ out+=span(2,R.in); continue; }
+    if((s2==='an'||s2==='am'||s2==='en'||s2==='em') && nasalOK(i+2)){ out+=span(2,R.an); continue; }
+    if((s2==='on'||s2==='om') && nasalOK(i+2)){ out+=span(2,R.on); continue; }
+    if((s2==='in'||s2==='im'||s2==='un'||s2==='um') && nasalOK(i+2)){ out+=span(2,R.in); continue; }
+    if(s2==='ch'){ out+=span(2,R.ch); continue; }
+    if(s2==='gn'){ out+=span(2,R.gn); continue; }
+    if(s2==='qu'){ out+=span(2,R.qu); continue; }
+    if((s2==='er'||s2==='ez') && lastLetter(i+1) && letters>2){ out+=span(2,R.e1); continue; }
+    if(ch==='é'){ out+=span(1,R.e1); continue; }
+    if(ch==='è'||ch==='ê'){ out+=span(1,R.e2); continue; }
+    if(ch==='u'){ out+=span(1,R.u); continue; }
+    if((ch==='c'||ch==='g') && /[eiyéèê]/.test(w[i+1]||'')){ out+=span(1,R.soft); continue; }
+    if(s2==='es' && lastLetter(i+1) && letters>3){ out+=span(2,R.fin); continue; }
+    if(lastLetter(i) && letters>1){
+      if(ch==='e' && letters>2){ out+=span(1,R.fine); continue; }
+      if('stdxzp'.includes(ch)){ out+=span(1,R.fin); continue; }
+    }
+    out+=span(1,null);
+  }
+  return out;
+}
+
+// 읽기 글 (한글 발음은 문장 단위)
+const READINGS = [
+ {id:'moi', t:'나를 소개해요', icon:'😊', s:[
+  ['Bonjour ! Je m\'appelle Eunseo.','봉주르 주마펠 은서','안녕하세요! 제 이름은 은서예요.'],
+  ['J\'habite à Montréal.','자비트 아 몽레알','저는 몬트리올에 살아요.'],
+  ['J\'aime le chocolat.','젬 르 쇼콜라','저는 초콜릿을 좋아해요.']]},
+ {id:'ecole', t:'우리 학교', icon:'🏫', s:[
+  ['Voici mon école.','부아시 모네콜','여기가 우리 학교예요.'],
+  ['Dans mon sac, il y a un livre et un crayon.','당 몽 삭 일리아 앵 리브르 에 앵 크레용','내 가방 안에 책과 연필이 있어요.'],
+  ['Mon professeur est gentil.','몽 프로페쇠르 에 장티','우리 선생님은 친절해요.']]},
+ {id:'chat', t:'작은 고양이', icon:'🐱', s:[
+  ['Le chat est petit.','르 샤 에 프티','고양이는 작아요.'],
+  ['Il est noir et blanc.','일레 누아르 에 블랑','검은색과 흰색이에요.'],
+  ['Il aime le lait.','일렘 르 레','우유를 좋아해요.'],
+  ['Il dort sur le lit.','일 도르 쉬르 르 리','침대 위에서 자요.']]},
+ {id:'hiver', t:'겨울이에요', icon:'❄️', s:[
+  ['Il fait froid.','일페 프루아','추워요.'],
+  ['Il neige à Montréal.','일네주 아 몽레알','몬트리올에 눈이 와요.'],
+  ['Je mets mon manteau et ma tuque.','주메 몽 망토 에 마 튀크','외투를 입고 털모자를 써요.']]},
+ {id:'parc', t:'공원에 가요', icon:'🌳', s:[
+  ['Maman et moi, nous allons au parc.','마망 에 무아 누잘롱 오 파르크','엄마와 나는 공원에 가요.'],
+  ['Le soleil est jaune.','르 솔레유 에 존','해가 노래요.'],
+  ['Les oiseaux sont jolis.','레주아조 송 졸리','새들이 예뻐요.']]},
+ {id:'dieu', t:'하나님은 사랑', icon:'✝️', s:[
+  ['Dieu est amour.','디외 에 타무르','하나님은 사랑이시라.'],
+  ['Jésus m\'aime.','제쥐 멤','예수님은 나를 사랑하세요.'],
+  ['Merci, Seigneur !','메르시 세뇌르','주님, 감사합니다!']]},
+ {lv:2, id:'semaine', t:'나의 일주일', icon:'📅', s:[
+  ["Aujourd'hui, c'est lundi.",'오주르뒤 세 랭디','오늘은 월요일이에요.'],
+  ['Il fait froid et il neige.','일페 프루아 에 일 네주','춥고 눈이 와요.'],
+  ['Je mets mon manteau, mes bottes et mes gants.','주메 몽 망토 메 보트 에 메 강','외투를 입고 부츠를 신고 장갑을 껴요.'],
+  ['Le samedi, je reste à la maison.','르 삼디 주 레스트 아 라 메종','토요일에는 집에 있어요.'],
+  ["Le dimanche, je vais à l'église avec ma famille.",'르 디망슈 주 베 아 레글리즈 아베크 마 파미유','일요일에는 가족과 교회에 가요.']]},
+ {lv:2, id:'maison', t:'우리 집', icon:'🏠', s:[
+  ['Ma maison est petite.','마 메종 에 프티트','우리 집은 작아요.'],
+  ['Il y a trois chambres.','일리아 트루아 샹브르','방이 세 개 있어요.'],
+  ['Ma chambre est rose et blanche.','마 샹브르 에 로즈 에 블랑슈','내 방은 분홍색과 흰색이에요.'],
+  ['Dans la cuisine, maman fait du riz.','당 라 퀴진 마망 페 뒤 리','부엌에서 엄마가 밥을 해요.'],
+  ['Le soir, nous regardons la télé dans le salon.','르 수아르 누 르가르동 라 텔레 당 르 살롱','저녁에 우리는 거실에서 TV를 봐요.']]},
+ {lv:2, id:'lea', t:'레아의 생일', icon:'🎂', s:[
+  ['Voici Léa.','부아시 레아','이 아이는 레아예요.'],
+  ['Elle a douze ans.','엘라 두잔','레아는 열두 살이에요.'],
+  ['Son anniversaire est le dix juin.','소나니베르세르 에 르 디 쥐앵','레아의 생일은 6월 10일이에요.'],
+  ["Elle est contente parce qu'elle a un gâteau.",'엘레 콩탕트 파르스켈라 앵 가토','케이크가 있어서 기뻐요.'],
+  ['Il est quatre heures. La fête commence !','일레 카트뢰르 라 페트 코망스','4시예요. 파티가 시작돼요!']]},
+ {lv:3, id:'samedi', t:'토요일', icon:'🚲', s:[
+  ['Le samedi matin, je me lève à neuf heures.','르 삼디 마탱 주 므 레브 아 뇌뵈르','토요일 아침에는 9시에 일어나요.'],
+  ['Je déjeune avec ma famille.','주 데죈 아베크 마 파미유','가족과 아침을 먹어요.'],
+  ['Ensuite, je vais au parc à vélo.','앙스위트 주 베 오 파르크 아 벨로','그다음 자전거를 타고 공원에 가요.'],
+  ['Mon amie joue au soccer avec moi.','모나미 주 오 소케르 아베크 무아','친구가 나랑 축구를 해요.'],
+  ["L'après-midi, je lis un livre à la bibliothèque.",'라프레미디 주 리 앵 리브르 아 라 비블리오테크','오후에는 도서관에서 책을 읽어요.']]},
+ {lv:3, id:'depanneur', t:'편의점에서', icon:'🏪', s:[
+  ['Je vais au dépanneur avec papa.','주 베 오 데파뇌르 아베크 파파','아빠와 편의점에 가요.'],
+  ['Je veux du lait et des biscuits.','주 뵈 뒤 레 에 데 비스퀴','우유와 과자를 사고 싶어요.'],
+  ['Combien ça coûte ?','콩비앵 사 쿠트','얼마예요?'],
+  ['Ça coûte six dollars.','사 쿠트 시 돌라르','6달러예요.'],
+  ['Papa paie et nous rentrons à la maison.','파파 페 에 누 랑트롱 아 라 메종','아빠가 계산하고 우리는 집에 와요.']]},
+ {lv:3, id:'ecole2', t:'학교의 하루', icon:'🏫', s:[
+  ['Mon école commence à huit heures.','모네콜 코망스 아 위퇴르','우리 학교는 8시에 시작해요.'],
+  ["Le matin, j'ai français et maths.",'르 마탱 제 프랑세 에 마트','오전에는 프랑스어와 수학이 있어요.'],
+  ['À midi, je mange mon dîner avec mes amies.','아 미디 주 망주 몽 디네 아베크 메자미','12시에 친구들과 점심을 먹어요.'],
+  ['À la récréation, nous jouons dehors.','알라 레크레아시옹 누 주옹 드오르','쉬는 시간에 우리는 밖에서 놀아요.'],
+  ["Après l'école, je fais mes devoirs.",'아프레 레콜 주 페 메 드부아르','학교가 끝나면 숙제를 해요.']]},
+ {lv:4, id:'weekend', t:'지난 주말', icon:'⛰️', s:[
+  ['Le week-end dernier, je suis allée à la montagne.','르 위켄드 데르니에 주 쉬잘레 알라 몽타뉴','지난 주말에 산에 갔어요.'],
+  ['Il a fait beau et chaud.','일라 페 보 에 쇼','날씨가 좋고 따뜻했어요.'],
+  ["J'ai marché avec ma famille.",'제 마르셰 아베크 마 파미유','가족과 함께 걸었어요.'],
+  ['Nous avons mangé des sandwichs près du lac.','누자봉 망제 데 상드위치 프레 뒤 라크','호숫가에서 샌드위치를 먹었어요.'],
+  ["Le soir, j'étais fatiguée mais contente.",'르 수아르 제테 파티게 메 콩탕트','저녁에는 피곤했지만 기뻤어요.']]},
+ {lv:4, id:'malade', t:'아팠던 날', icon:'🤒', s:[
+  ["Ce matin, je ne suis pas allée à l'école.",'스 마탱 주느 쉬 파잘레 아 레콜','오늘 아침에는 학교에 가지 않았어요.'],
+  ["J'avais mal à la tête et à la gorge.",'자베 말 알라 테트 에 알라 고르주','머리와 목이 아팠어요.'],
+  ['Maman a appelé le médecin.','마망 아 아플레 르 메드생','엄마가 의사 선생님께 전화했어요.'],
+  ["J'ai bu beaucoup d'eau et j'ai dormi.",'제 뷔 보쿠 도 에 제 도르미','물을 많이 마시고 잤어요.'],
+  ['Maintenant, je me sens mieux !','맹트낭 주 므 상 미외','이제 좀 나아졌어요!']]},
+ {lv:4, id:'noel', t:'곧 성탄절', icon:'🎄', s:[
+  ["Bientôt, c'est Noël.",'비앵토 세 노엘','곧 성탄절이에요.'],
+  ["Nous allons chanter à l'église.",'누잘롱 샹테 아 레글리즈','우리는 교회에서 찬양할 거예요.'],
+  ['Je vais donner un cadeau à mon amie.','주 베 도네 앵 카도 아 모나미','친구에게 선물을 줄 거예요.'],
+  ['Jésus est né pour nous.','제쥐 에 네 푸르 누','예수님은 우리를 위해 태어나셨어요.'],
+  ['Dieu nous aime beaucoup.','디외 누젬 보쿠','하나님은 우리를 많이 사랑하세요.']]}
+];
+READINGS.forEach(r=>r.lv=r.lv||1);
+
+function legendHTML(){
+  return `<div class="legend">${RULES.filter((r,i)=>!r.silent||i===R.fin).map(r=>`<span style="color:${r.silent?'#ADB5BD':r.c}">${esc(r.silent?'흐린 글자':r.k)} <small>${esc(r.silent?'소리 없음':r.s)}</small></span>`).join('')}</div>`;
+}
+
+function readingHome(){
+  stopAll(); window.scrollTo(0,0);
+  S.myTexts = S.myTexts || [];
+  let h = `<h1>📚 읽기 연습</h1><p class="sub">Lecture · 소리 내어 읽어 봐요</p>
+    <div class="modes">
+      <button style="background:var(--yellow)" id="rules"><span class="big">🔤</span>소리 규칙<small>글자가 내는 소리 배우기</small></button>
+      <button style="background:var(--blue)" id="sq"><span class="big">👂</span>소리 퀴즈<small>듣고 맞는 글자 찾기</small></button>
+    </div>
+    <button class="big-btn" style="background:var(--green);width:100%;max-width:640px;margin-top:14px" id="addTxt">✏️ 은서 책 문장 넣기</button>
+    <div class="rp-h">📖 읽기 글</div><div class="rlist">`;
+  LEVELS.forEach(L=>{
+    const list=READINGS.filter(r=>r.lv===L.n); if(!list.length) return;
+    h+=`<div class="rlv">${L.name} · ${L.cefr}</div>`;
+    if(!unlocked(L.n)){ h+=`<p class="rp-note" style="align-self:center">🔒 ${L.name}이 열리면 읽을 수 있어요</p>`; return; }
+    list.forEach(r=>{ const d=(S.readDone||{})[r.id]; h+=`<button class="ritem" data-r="${r.id}"><span class="ri">${r.icon}</span><span class="rt">${esc(r.t)}<small>${esc(r.s[0][0])}</small></span>${d?'<span class="rd">✅</span>':''}</button>`; });
+  });
+  if(S.myTexts.length) h+=`<div class="rlv">📗 은서 책</div>`;
+  S.myTexts.forEach((r,i)=>{ h+=`<button class="ritem mine" data-m="${i}"><span class="ri">📗</span><span class="rt">${esc(r.title||'내 책')}<small>${esc(r.text.slice(0,40))}</small></span><span class="rx" data-x="${i}">✕</span></button>`; });
+  h += `</div>`;
+  app.innerHTML = h;
+  $('#rules').onclick=()=>rulesPage(); $('#sq').onclick=()=>soundQuiz();
+  app.querySelectorAll('.ritem[data-r]').forEach(b=>b.onclick=()=>readPage(READINGS.find(r=>r.id===b.dataset.r)));
+  app.querySelectorAll('.ritem[data-m]').forEach(b=>b.onclick=e=>{
+    const i=+b.dataset.m;
+    if(e.target.dataset.x!=null){
+      if(e.target.textContent==='✕'){ e.target.textContent='지울까요?'; e.target.classList.add('ask'); return; }
+      S.myTexts.splice(i,1); save(); readingHome(); return;
+    }
+    readPage(myToReading(S.myTexts[i]));
+  });
+  $('#addTxt').onclick=addText;
+  later(()=>buddySay('글자 색깔을 보면 소리가 보여요!','jump'),400);
+}
+function myToReading(m){
+  const parts = m.text.replace(/\r/g,'').split(/\n+|(?<=[.!?…])\s+/).map(x=>x.trim()).filter(Boolean);
+  return {id:'mine', t:m.title||'내 책', icon:'📗', mine:true, s:parts.map(p=>[p,'',''])};
+}
+function addText(){
+  stopAll();
+  app.innerHTML = `<h1>✏️ 책 문장 넣기</h1><p class="sub">은서가 읽는 책의 문장을 그대로 적어 주세요</p>
+    <input id="tTitle" class="tin" placeholder="제목 (예: 3과 – Ma maison)">
+    <textarea id="tText" class="tin" rows="8" placeholder="Voici ma maison. Elle est grande.\nJ'aime ma chambre."></textarea>
+    <p class="rp-note">문장마다 따로 읽을 수 있게 마침표(.)나 줄바꿈으로 나눠요. 이 기기에만 저장돼요.</p>
+    <div class="row" style="display:flex;gap:12px;margin-top:10px"><button class="big-btn" style="background:var(--green)" id="tSave">저장</button><button class="big-btn" style="background:#fff" id="tCancel">취소</button></div>`;
+  $('#tSave').onclick=()=>{ const text=$('#tText').value.trim(); if(!text){ $('#tText').focus(); return; }
+    S.myTexts=S.myTexts||[]; S.myTexts.push({title:$('#tTitle').value.trim(), text}); save(); readPage(myToReading(S.myTexts[S.myTexts.length-1])); };
+  $('#tCancel').onclick=readingHome;
+}
+
+function rulesPage(sel){
+  stopAll(); window.scrollTo(0,0);
+  let h=`<h1>🔤 소리 규칙</h1><p class="sub">글자를 누르면 예시가 나와요</p><div class="rules">`;
+  RULES.forEach((r,i)=>{ const ok=(S.ph||{})[i]>=3; h+=`<button class="rule ${sel===i?'on':''}" data-i="${i}" style="--c:${r.c}"><b>${esc(r.k)}</b><span>${esc(r.s)}</span>${ok?'<em>⭐</em>':''}</button>`; });
+  h+='</div><div id="ruleBox"></div>';
+  app.innerHTML=h;
+  app.querySelectorAll('.rule').forEach(b=>b.onclick=()=>{ sfx.pop(); showRule(+b.dataset.i); app.querySelectorAll('.rule').forEach(x=>x.classList.toggle('on',x===b)); });
+  if(sel!=null) showRule(sel);
+}
+function showRule(i){
+  const r=RULES[i];
+  $('#ruleBox').innerHTML = `<div class="rulebox" style="--c:${r.c}"><div class="rk">${esc(r.k)} → <span>${esc(r.s)}</span></div><div class="rtip">${esc(r.tip)}</div>
+    <div class="rex">${r.ex.map(e=>`<button class="exw" data-w="${esc(e[0])}"><span class="fw">${markWord(e[0], i)}</span>${showPr(false)?`<span class="pr">${esc(e[1])}</span>`:''}</button>`).join('')}</div></div>`;
+  $('#ruleBox').querySelectorAll('.exw').forEach(b=>b.onclick=()=>say(b.dataset.w));
+  $('#ruleBox').scrollIntoView({behavior:'smooth', block:'nearest'});
+  say(r.ex.map(e=>e[0]).join(', '), null, true);
+}
+
+// 소리 퀴즈: 소리를 듣고 맞는 단어 고르기 (규칙이 다른 단어들 중에서)
+function soundQuiz(){
+  stopAll();
+  const n=S.nq, q=[];
+  const weight = i => 3 - Math.min(3, (S.ph||{})[i]||0) + Math.random()*2;
+  const order = RULES.map((r,i)=>i).sort((a,b)=>weight(b)-weight(a));
+  for(let k=0;k<n;k++){ const ri=order[k%order.length]; q.push({ri, ex:pick(RULES[ri].ex)}); }
+  G={tid:'sound', mode:'sound', queue:shuffle(q), i:0, earned:0, extra:0, total:n, startStars:S.stars, results:[]};
+  soundQ();
+}
+function soundQ(){
+  stopAll();
+  if(G.i>=G.queue.length){ endGame(); return; }
+  const q=G.queue[G.i];
+  const others = shuffle(RULES.map((r,i)=>i).filter(i=>i!==q.ri)).slice(0,S.nc-1).map(i=>({ri:i, ex:pick(RULES[i].ex.filter(e=>e[0]!==q.ex[0]))}));
+  const opts = shuffle([q, ...others]);
+  app.innerHTML = progressHTML() + (q.again?`<div class="again-tag">🔁 다시 나온 문제예요</div>`:'') +
+    `<p class="question">잘 듣고 맞는 글자를 골라요</p>
+     <div class="speak"><button id="play">🔊</button><button class="slow" id="slow">🐢</button></div>
+     <div class="choices text ${opts.length===3?'c3':''}">${opts.map((o,k)=>`<button class="choice" data-k="${k}"><span class="fw">${markWord(o.ex[0], o.ri)}</span></button>`).join('')}</div>`;
+  const play=()=>{ const b=$('#play'); b.classList.remove('ping'); void b.offsetWidth; b.classList.add('ping'); say(q.ex[0]); };
+  $('#play').onclick=play; $('#slow').onclick=()=>say(q.ex[0],null,true); later(play,350);
+  let locked=false, missed=false;
+  app.querySelectorAll('.choice').forEach(btn=>btn.onclick=()=>{
+    if(locked||btn.classList.contains('wrong')) return;
+    const o=opts[+btn.dataset.k];
+    S.ph=S.ph||{};
+    if(o===q){
+      locked=true; btn.classList.remove('hint'); btn.classList.add('right'); sfx.right();
+      if(!missed){ S.ph[q.ri]=(S.ph[q.ri]||0)+1; awardStar(); G.earned++; celebrate('⭐'); buddySay(pick(PRAISE_KO),'jump'); }
+      G.results[G.i]=!missed; save();
+      btn.insertAdjacentHTML('beforeend', `<span class="pr" style="color:#fff">${esc(q.ex[1])}</span>`);
+      say((missed?'':pick(PRAISE_FR)+' ')+q.ex[0], ()=>later(()=>{ G.i++; soundQ(); },500));
+    } else {
+      btn.classList.add('wrong'); sfx.soft(); buddySay(`"${RULES[q.ri].k}" 소리를 잘 들어 봐요`,'sad'); say(o.ex[0], ()=>later(()=>say(q.ex[0]),300));
+      if(!missed){ missed=true; S.ph[q.ri]=0; save(); if(!q.again){ G.queue.splice(Math.min(G.i+3,G.queue.length),0,{...q, again:true}); G.extra++; } $('.progress').outerHTML=progressHTML(); }
+      if(app.querySelectorAll('.choice.wrong').length>=2 || S.nc===3){ app.querySelector(`.choice[data-k="${opts.indexOf(q)}"]`).classList.add('hint'); }
+    }
+  });
+}
+
+// 글 읽기 화면
+const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
+let recog=null;
+function norm(s){ return s.toLowerCase().replace(/[’`]/g,"'").normalize('NFD').replace(/[̀-ͯ]/g,'').replace(/œ/g,'oe').split(/[^a-z0-9]+/).filter(Boolean); }
+function readPage(rd){
+  stopAll(); window.scrollTo(0,0);
+  if(S.phcolor==null) S.phcolor='on';
+  const color = S.phcolor==='on';
+  let h=`<h1>${rd.icon} ${esc(rd.t)}</h1>
+    <div class="tools"><button class="small" id="all">🔊 전체 듣기</button><button class="small" id="allSlow">🐢 천천히</button><button class="small" id="col">🎨 색깔 ${color?'끄기':'켜기'}</button></div>`;
+  rd.s.forEach((s,i)=>{
+    const words = s[0].split(/\s+/).filter(Boolean);
+    h+=`<div class="sent" id="s${i}">
+      <div class="swords">${words.map((w,j)=>`<span class="wd" data-w="${esc(w)}" data-j="${j}">${color?markWord(w):esc(w)}</span>`).join(' ')}</div>
+      ${s[1]&&showPr(false)?`<div class="spr">${esc(s[1])}</div>`:''}
+      ${s[2]&&S.ko==='on'?`<div class="sko">${esc(s[2])}</div>`:''}
+      <div class="sbtn"><button class="small" data-p="${i}">🔊</button><button class="small" data-sl="${i}">🐢</button><button class="small mic" data-mic="${i}">🎤 내가 읽기</button></div>
+      <div class="heard" id="h${i}"></div>
+    </div>`;
+  });
+  if(color) h+=legendHTML();
+  if(rd.q) h+=`<button class="big-btn" style="background:var(--green);margin-top:8px" id="toQ">❓ 질문 풀기 (${rd.q.length}개)</button>`;
+  if(rd.mine) h+=`<p class="rp-note">💡 이 글의 한글 발음이 필요하면 아빠가 Claude에게 책 사진을 보내 주세요. 발음을 붙여서 넣어 드려요.</p>`;
+  app.innerHTML=h;
+  const sentBox = i => $('#s'+i);
+  const playOne = (i, slow, cb) => { app.querySelectorAll('.sent').forEach(x=>x.classList.remove('now')); sentBox(i).classList.add('now');
+    const ws=sentBox(i).querySelectorAll('.wd'); say(rd.s[i][0], cb, slow, j=>ws.forEach((el,x)=>el.classList.toggle('say', x===j))); };
+  const playAll = slow => { let i=0; const go=()=>{ if(i>=rd.s.length || !document.body.contains(sentBox(0))){ app.querySelectorAll('.sent').forEach(x=>x.classList.remove('now')); return; } playOne(i++, slow, ()=>later(go,500)); }; go(); };
+  $('#all').onclick=()=>playAll(false); $('#allSlow').onclick=()=>playAll(true);
+  $('#col').onclick=()=>{ S.phcolor=color?'off':'on'; save(); readPage(rd); };
+  app.querySelectorAll('[data-p]').forEach(b=>b.onclick=()=>playOne(+b.dataset.p,false));
+  app.querySelectorAll('[data-sl]').forEach(b=>b.onclick=()=>playOne(+b.dataset.sl,true));
+  app.querySelectorAll('.wd').forEach(w=>w.onclick=()=>{ w.classList.remove('tap'); void w.offsetWidth; w.classList.add('tap'); say(w.dataset.w.replace(/[«»"“”()]/g,''), null, S.rate==='slow'); });
+  app.querySelectorAll('[data-mic]').forEach(b=>b.onclick=()=>listenSentence(rd, +b.dataset.mic, b));
+  if($('#toQ')) $('#toQ').onclick=()=>storyQuiz(rd);
+}
+function listenSentence(rd, i, btn){
+  const box=$('#h'+i);
+  if(!SR){ box.innerHTML='이 기기(또는 이 화면)에서는 마이크로 들을 수 없어요. 🔊로 듣고 따라 읽어 보세요.'; return; }
+  try{ speechSynthesis.cancel(); }catch(e){}
+  if(recog){ try{ recog.abort(); }catch(e){} recog=null; }
+  const r = new SR(); recog=r;
+  r.lang='fr-CA'; r.interimResults=false; r.maxAlternatives=5; r.continuous=false;
+  btn.classList.add('listening'); btn.textContent='👂 듣고 있어요…'; box.textContent='';
+  buddySay('천천히 또박또박 읽어 봐요!');
+  const reset=()=>{ btn.classList.remove('listening'); btn.textContent='🎤 내가 읽기'; };
+  r.onresult = e => {
+    const alts=[...e.results[0]].map(a=>a.transcript);
+    const target=rd.s[i][0];
+    // 가장 많이 맞은 후보로 비교
+    let best=null;
+    alts.forEach(t=>{ const heard=norm(t); const res=scoreWords(target, heard); if(!best||res.score>best.score) best={...res, t}; });
+    const spans=$('#s'+i).querySelectorAll('.wd');
+    spans.forEach((sp,j)=>{ sp.classList.remove('got','miss'); sp.classList.add(best.words[j]?'got':'miss'); });
+    const pct=Math.round(best.score*100);
+    box.innerHTML = `들린 말: <i>${esc(best.t)}</i> · <b>${pct}%</b>`;
+    if(pct>=80){
+      sfx.right(); awardStar(); celebrate('⭐'); buddySay(pick(PRAISE_KO),'jump'); say(pick(PRAISE_FR));
+      S.readDone=S.readDone||{}; if(!rd.mine){ S.readDone[rd.id]=1; } recordToday(); save();
+    } else { sfx.soft(); buddySay('빨간 단어를 🔊로 듣고 다시 읽어 봐요!','sad'); }
+  };
+  r.onerror = e => { reset(); box.textContent = e.error==='not-allowed'||e.error==='service-not-allowed' ? '마이크를 허용해 주세요 (브라우저 설정에서 마이크 허용).' : (e.error==='no-speech' ? '소리가 안 들렸어요. 다시 해 볼까요?' : '잘 안 들렸어요. 다시 해 볼까요?'); };
+  r.onend = reset;
+  try{ r.start(); }catch(e){ reset(); box.textContent='마이크를 시작할 수 없어요.'; }
+}
+function scoreWords(target, heard){
+  const pool=heard.slice(), ws=target.split(/\s+/).filter(Boolean);
+  const words=ws.map(w=>{ const toks=norm(w); if(!toks.length) return true;
+    return toks.every(t=>{ const k=pool.indexOf(t); if(k>=0){ pool.splice(k,1); return true; } return false; }); });
+  const real=ws.filter(w=>norm(w).length).length, okN=ws.filter((w,j)=>words[j]&&norm(w).length).length;
+  return {words, score: real? okN/real : 0};
+}
+
+// ================= 🧩 문장 실력 키우기 =================
+const PR = ['je','tu','il','elle','nous','vous','ils'];
+const PR_KO = ['나는','너는','그는','그녀는','우리는','당신(너희)은','그들은'];
+// [동사 부분, 한글 발음(대명사 포함)]
+const VERBS = [
+ {v:'être', ko:'~이다', lv:2, f:[['suis','주 쉬'],['es','튀 에'],['est','일레'],['est','엘레'],['sommes','누 솜'],['êtes','부제트'],['sont','일 송']]},
+ {v:'avoir', ko:'가지고 있다', lv:2, f:[['ai','제'],['as','튀 아'],['a','일라'],['a','엘라'],['avons','누자봉'],['avez','부자베'],['ont','일송']]},
+ {v:'aller', ko:'가다', lv:2, f:[['vais','주 베'],['vas','튀 바'],['va','일 바'],['va','엘 바'],['allons','누잘롱'],['allez','부잘레'],['vont','일 봉']]},
+ {v:'parler', ko:'말하다', lv:2, f:[['parle','주 파를'],['parles','튀 파를'],['parle','일 파를'],['parle','엘 파를'],['parlons','누 파를롱'],['parlez','부 파를레'],['parlent','일 파를']]},
+ {v:'manger', ko:'먹다', lv:2, f:[['mange','주 망주'],['manges','튀 망주'],['mange','일 망주'],['mange','엘 망주'],['mangeons','누 망종'],['mangez','부 망제'],['mangent','일 망주']]},
+ {v:'aimer', ko:'좋아하다', lv:2, f:[['aime','젬'],['aimes','튀 엠'],['aime','일렘'],['aime','엘렘'],['aimons','누제몽'],['aimez','부제메'],['aiment','일젬']]},
+ {v:'faire', ko:'하다', lv:3, f:[['fais','주 페'],['fais','튀 페'],['fait','일 페'],['fait','엘 페'],['faisons','누 프종'],['faites','부 페트'],['font','일 퐁']]},
+ {v:'venir', ko:'오다', lv:3, f:[['viens','주 비앵'],['viens','튀 비앵'],['vient','일 비앵'],['vient','엘 비앵'],['venons','누 브농'],['venez','부 브네'],['viennent','일 비엔']]},
+ {v:'prendre', ko:'잡다 (타다)', lv:3, f:[['prends','주 프랑'],['prends','튀 프랑'],['prend','일 프랑'],['prend','엘 프랑'],['prenons','누 프르농'],['prenez','부 프르네'],['prennent','일 프렌']]},
+ {v:'pouvoir', ko:'할 수 있다', lv:3, f:[['peux','주 푀'],['peux','튀 푀'],['peut','일 푀'],['peut','엘 푀'],['pouvons','누 푸봉'],['pouvez','부 푸베'],['peuvent','일 푀브']]},
+ {v:'vouloir', ko:'원하다', lv:3, f:[['veux','주 뵈'],['veux','튀 뵈'],['veut','일 뵈'],['veut','엘 뵈'],['voulons','누 불롱'],['voulez','부 불레'],['veulent','일 뵐']]},
+ {v:'finir', ko:'끝내다', lv:3, f:[['finis','주 피니'],['finis','튀 피니'],['finit','일 피니'],['finit','엘 피니'],['finissons','누 피니송'],['finissez','부 피니세'],['finissent','일 피니스']]},
+ {v:'manger', tense:'과거', ko:'먹었다', lv:4, f:[['ai mangé','제 망제'],['as mangé','튀 아 망제'],['a mangé','일라 망제'],['a mangé','엘라 망제'],['avons mangé','누자봉 망제'],['avez mangé','부자베 망제'],['ont mangé','일송 망제']]},
+ {v:'aller', tense:'과거', ko:'갔다', lv:4, f:[['suis allée','주 쉬잘레'],['es allé','튀 에잘레'],['est allé','일레탈레'],['est allée','엘레탈레'],['sommes allés','누 솜잘레'],['êtes allés','부제트잘레'],['sont allés','일 송탈레']]},
+ {v:'jouer', tense:'미래', ko:'놀 거예요', lv:4, f:[['vais jouer','주 베 주에'],['vas jouer','튀 바 주에'],['va jouer','일 바 주에'],['va jouer','엘 바 주에'],['allons jouer','누잘롱 주에'],['allez jouer','부잘레 주에'],['vont jouer','일 봉 주에']]}
+];
+const phrase = (k, vp) => (k===0 && /^[aeiouéèêh]/i.test(vp)) ? "j'"+vp : PR[k]+' '+vp;
+const verbName = V => V.v + (V.tense ? ` (${V.tense})` : '');
+
+// 이야기 읽고 답하기: 질문 [프랑스어, 한국어, [정답, 오답, 오답]]
+const STORIES = [
+ {lv:1, id:'st-chat', t:'레아의 고양이', icon:'🐈', s:[
+  ['Léa a un petit chat.','레아 아 앵 프티 샤','레아는 작은 고양이가 있어요.'],
+  ["Le chat s'appelle Max.",'르 샤 사펠 막스','고양이 이름은 막스예요.'],
+  ['Max est noir et blanc.','막스 에 누아르 에 블랑','막스는 검은색과 흰색이에요.'],
+  ['Il aime le lait.','일렘 르 레','막스는 우유를 좋아해요.'],
+  ["Il n'aime pas l'eau.",'일 넴 파 로','물은 싫어해요.'],
+  ['Le matin, Max mange avec Léa.','르 마탱 막스 망주 아베크 레아','아침에 막스는 레아와 함께 먹어요.'],
+  ['Le soir, il dort sur le lit de Léa.','르 수아르 일 도르 쉬르 르 리 드 레아','저녁에는 레아의 침대 위에서 자요.'],
+  ['Léa dit bonne nuit à Max.','레아 디 본뉘 아 막스','레아는 막스에게 잘 자라고 말해요.']],
+  q:[["Comment s'appelle le chat ?",'고양이 이름은 뭐예요?',['Max','Léa','Milo']],
+     ['De quelle couleur est Max ?','막스는 무슨 색이에요?',['noir et blanc','rouge et bleu','jaune']],
+     ["Qu'est-ce que Max aime ?",'막스는 무엇을 좋아해요?',['le lait',"l'eau",'le jus']],
+     ['Où dort Max ?','막스는 어디서 자요?',['sur le lit','dans la cuisine',"à l'école"]]]},
+ {lv:2, id:'st-hiver', t:'겨울의 하루', icon:'⛄', s:[
+  ["Aujourd'hui, c'est samedi.",'오주르뒤 세 삼디','오늘은 토요일이에요.'],
+  ['Il neige beaucoup à Montréal.','일 네주 보쿠 아 몽레알','몬트리올에 눈이 많이 와요.'],
+  ['Sofia met son manteau, sa tuque et ses mitaines.','소피아 메 송 망토 사 튀크 에 세 미텐','소피아는 외투를 입고 털모자를 쓰고 벙어리장갑을 껴요.'],
+  ['Elle va au parc avec son frère.','엘 바 오 파르크 아베크 송 프레르','남동생과 공원에 가요.'],
+  ['Ils font un bonhomme de neige.','일 퐁 앵 보놈 드 네주','눈사람을 만들어요.'],
+  ['Il fait très froid, moins dix degrés !','일페 트레 프루아 무앵 디 드그레','아주 추워요. 영하 10도예요!'],
+  ['À midi, ils rentrent à la maison.','아 미디 일 랑트르 아 라 메종','12시에 집에 돌아와요.'],
+  ['Maman fait une soupe chaude.','마망 페 윈 수프 쇼드','엄마가 따뜻한 수프를 만들어요.']],
+  q:[['Quel jour est-ce ?','무슨 요일이에요?',['samedi','lundi','dimanche']],
+     ['Où va Sofia ?','소피아는 어디에 가요?',['au parc',"à l'école",'au magasin']],
+     ["Qu'est-ce qu'ils font au parc ?",'공원에서 무엇을 만들어요?',['un bonhomme de neige','un gâteau','un cerf-volant']],
+     ["Qu'est-ce que maman fait ?",'엄마는 무엇을 만들어요?',['une soupe','une pizza','du pain']]]},
+ {lv:2, id:'st-ecole', t:'민지의 새 학교', icon:'🎒', s:[
+  ["Je m'appelle Minji.",'주마펠 민지','내 이름은 민지예요.'],
+  ['Je viens de Corée.','주 비앵 드 코레','한국에서 왔어요.'],
+  ["Maintenant, j'habite à Montréal avec ma famille.",'맹트낭 자비트 아 몽레알 아베크 마 파미유','지금은 가족과 몬트리올에 살아요.'],
+  ['Mon école est grande.','모네콜 에 그랑드','우리 학교는 커요.'],
+  ['Dans ma classe, il y a quinze élèves.','당 마 클라스 일리아 캥즈 엘레브','우리 반에는 학생이 15명 있어요.'],
+  ["Ma professeure s'appelle Madame Tremblay.",'마 프로페쇠르 사펠 마담 트랑블레','우리 선생님은 트랑블레 선생님이에요.'],
+  ['Elle est très gentille.','엘레 트레 장티유','아주 친절하세요.'],
+  ["J'apprends le français tous les jours.",'자프랑 르 프랑세 투 레 주르','나는 매일 프랑스어를 배워요.']],
+  q:[["D'où vient Minji ?",'민지는 어디에서 왔어요?',['de Corée','du Japon','de France']],
+     ['Où habite Minji ?','민지는 어디에 살아요?',['à Montréal','à Québec','à Paris']],
+     ["Combien d'élèves sont dans la classe ?",'반에 학생이 몇 명이에요?',['quinze','cinq','trente']],
+     ['Comment est la professeure ?','선생님은 어떤 분이에요?',['gentille','méchante','fatiguée']]]},
+ {lv:3, id:'st-dep', t:'토마의 편의점', icon:'🏪', s:[
+  ["Après l'école, Thomas a faim.",'아프레 레콜 토마 아 팽','학교가 끝나고 토마는 배가 고파요.'],
+  ['Il va au dépanneur à pied.','일 바 오 데파뇌르 아 피에','걸어서 편의점에 가요.'],
+  ['Il veut un jus et des biscuits.','일 뵈 앵 쥐 에 데 비스퀴','주스와 과자를 사고 싶어요.'],
+  ['Il demande le prix au vendeur.','일 드망드 르 프리 오 방되르','판매원에게 가격을 물어요.'],
+  ['Le vendeur dit que ça coûte quatre dollars.','르 방되르 디 크 사 쿠트 카트르 돌라르','판매원은 4달러라고 해요.'],
+  ['Thomas a seulement trois dollars.','토마 아 쇨망 트루아 돌라르','토마는 3달러밖에 없어요.'],
+  ['Alors, il prend seulement le jus.','알로르 일 프랑 쇨망 르 쥐','그래서 주스만 사요.'],
+  ['Il dit merci et il rentre à la maison.','일 디 메르시 에 일 랑트르 아 라 메종','고맙다고 말하고 집에 돌아가요.']],
+  q:[['Pourquoi Thomas va au dépanneur ?','토마는 왜 편의점에 가요?',['Il a faim.','Il est malade.','Il a froid.']],
+     ['Comment va-t-il au dépanneur ?','어떻게 가요?',['à pied','en autobus','à vélo']],
+     ["Combien d'argent a Thomas ?",'토마는 돈이 얼마 있어요?',['trois dollars','quatre dollars','dix dollars']],
+     ["Qu'est-ce qu'il achète ?",'무엇을 사요?',['le jus','les biscuits','le lait']]]},
+ {lv:3, id:'st-julie', t:'줄리의 토요일', icon:'🏊‍♀️', s:[
+  ['Le samedi, Julie se lève à neuf heures.','르 삼디 쥘리 스 레브 아 뇌뵈르','토요일에 줄리는 9시에 일어나요.'],
+  ['Elle déjeune avec ses parents.','엘 데죈 아베크 세 파랑','부모님과 아침을 먹어요.'],
+  ['Ensuite, elle range sa chambre.','앙스위트 엘 랑주 사 샹브르','그다음 방을 정리해요.'],
+  ["L'après-midi, elle va à la piscine avec son amie Chloé.",'라프레미디 엘 바 아 라 피신 아베크 소나미 클로에','오후에는 친구 클로에와 수영장에 가요.'],
+  ["Julie nage bien, mais Chloé a peur de l'eau.",'쥘리 나주 비앵 메 클로에 아 푀르 드 로','줄리는 수영을 잘하지만 클로에는 물을 무서워해요.'],
+  ['Julie aide son amie.','쥘리 에드 소나미','줄리는 친구를 도와줘요.'],
+  ['Le soir, toute la famille regarde un film.','르 수아르 투트 라 파미유 르가르드 앵 필름','저녁에는 온 가족이 영화를 봐요.'],
+  ['Julie est fatiguée mais contente.','쥘리 에 파티게 메 콩탕트','줄리는 피곤하지만 기뻐요.']],
+  q:[['À quelle heure Julie se lève ?','줄리는 몇 시에 일어나요?',['à neuf heures','à six heures','à midi']],
+     ["Qu'est-ce qu'elle fait après le déjeuner ?",'아침을 먹고 무엇을 해요?',['Elle range sa chambre.','Elle dort.',"Elle va à l'école."]],
+     ["Qui a peur de l'eau ?",'누가 물을 무서워해요?',['Chloé','Julie','maman']],
+     ["Qu'est-ce que la famille fait le soir ?",'저녁에 가족은 무엇을 해요?',['Elle regarde un film.','Elle va au restaurant.','Elle va au parc.']]]},
+ {lv:4, id:'st-quebec', t:'여름방학 이야기', icon:'🚆', s:[
+  ["L'été passé, je suis allée à Québec avec ma famille.",'레테 파세 주 쉬잘레 아 케베크 아베크 마 파미유','작년 여름에 가족과 퀘벡시에 갔어요.'],
+  ['Nous avons pris le train.','누자봉 프리 르 트랭','우리는 기차를 탔어요.'],
+  ['Il a fait beau et chaud.','일라 페 보 에 쇼','날씨가 좋고 더웠어요.'],
+  ['Nous avons visité le Vieux-Québec.','누자봉 비지테 르 비외 케베크','퀘벡 구시가지를 구경했어요.'],
+  ["J'ai mangé une crème glacée à l'érable.",'제 망제 윈 크렘 글라세 아 레라블','메이플 아이스크림을 먹었어요.'],
+  ['Mon frère a pris beaucoup de photos.','몽 프레르 아 프리 보쿠 드 포토','남동생이 사진을 많이 찍었어요.'],
+  ["L'été prochain, nous allons aller à la mer.",'레테 프로섕 누잘롱 알레 아 라 메르','다음 여름에는 바다에 갈 거예요.'],
+  ['Je vais apprendre à nager !','주 베 아프랑드르 아 나제','나는 수영을 배울 거예요!']],
+  q:[["Où est-elle allée l'été passé ?",'작년 여름에 어디에 갔어요?',['à Québec','à Toronto','à la mer']],
+     ['Comment ont-ils voyagé ?','무엇을 타고 갔어요?',['en train','en avion','en auto']],
+     ["Qu'est-ce qu'elle a mangé ?",'무엇을 먹었어요?',['une crème glacée','une pizza','une poutine']],
+     ["Où vont-ils aller l'été prochain ?",'다음 여름에는 어디에 갈 거예요?',['à la mer','à la montagne','à Québec']]]},
+ {lv:4, id:'st-eglise', t:'일요일의 교회', icon:'⛪', s:[
+  ["Le dimanche matin, ma famille va à l'église.",'르 디망슈 마탱 마 파미유 바 아 레글리즈','일요일 아침에 우리 가족은 교회에 가요.'],
+  ['Mon père est pasteur.','몽 페르 에 파스퇴르','우리 아빠는 목사님이에요.'],
+  ['Nous chantons des louanges ensemble.','누 샹통 데 루앙주 앙상블','우리는 함께 찬양해요.'],
+  ['Après le culte, nous mangeons avec nos amis.','아프레 르 퀼트 누 망종 아베크 노자미','예배가 끝나면 친구들과 함께 먹어요.'],
+  ["Hier, j'ai lu une histoire de la Bible.",'이에르 제 뤼 위니스투아르 드 라 비블','어제 성경 이야기를 읽었어요.'],
+  ["C'est l'histoire de David et Goliath.",'세 리스투아르 드 다비드 에 골리아트','다윗과 골리앗 이야기예요.'],
+  ['David était petit, mais il avait confiance en Dieu.','다비드 에테 프티 메 일 아베 콩피앙스 앙 디외','다윗은 작았지만 하나님을 믿었어요.'],
+  ['Dieu est toujours avec nous.','디외 에 투주르 아베크 누','하나님은 언제나 우리와 함께하세요.']],
+  q:[["Quand la famille va-t-elle à l'église ?",'가족은 언제 교회에 가요?',['le dimanche','le lundi','le samedi']],
+     ["Qu'est-ce qu'ils font ensemble ?",'함께 무엇을 해요?',['Ils chantent.','Ils dorment.','Ils nagent.']],
+     ['Quelle histoire a-t-elle lue ?','어떤 이야기를 읽었어요?',['David et Goliath','Noé et l\'arche','Jonas et le poisson']],
+     ['Qui est toujours avec nous ?','누가 언제나 우리와 함께해요?',['Dieu','le professeur','le chat']]]}
+];
+
+// 말하기 연습: key = 대답에 들어가야 하는 말 (각 묶음에서 하나 이상)
+const SPEAK = [
+ {lv:1, q:"Comment tu t'appelles ?", qpr:'코망 튀 타펠', qko:'이름이 뭐야?', a:"Je m'appelle Eunseo.", apr:'주마펠 은서', key:[['appelle']]},
+ {lv:1, q:'Ça va ?', qpr:'사바', qko:'잘 지내?', a:'Oui, ça va bien, merci.', apr:'위 사바 비앵 메르시', key:[['va','bien']]},
+ {lv:1, q:'Tu as un chat ?', qpr:'튀 아 앵 샤', qko:'고양이 있어?', a:"Non, je n'ai pas de chat.", apr:'농 주 네 파 드 샤', key:[['oui','non']]},
+ {lv:1, q:'Tu aimes le chocolat ?', qpr:'튀 엠 르 쇼콜라', qko:'초콜릿 좋아해?', a:"Oui, j'aime le chocolat.", apr:'위 젬 르 쇼콜라', key:[['aime','oui','non']]},
+ {lv:2, q:'Quel âge as-tu ?', qpr:'켈라주 아튀', qko:'몇 살이야?', a:"J'ai douze ans.", apr:'제 두잔', key:[['ans']], note:'예시예요. 은서 나이로 말해요.'},
+ {lv:2, q:'Où habites-tu ?', qpr:'우 아비트튀', qko:'어디 살아?', a:"J'habite à Montréal.", apr:'자비트 아 몽레알', key:[['habite']]},
+ {lv:2, q:"Quel temps fait-il aujourd'hui ?", qpr:'켈 탕 페틸 오주르뒤', qko:'오늘 날씨 어때?', a:'Il fait froid.', apr:'일페 프루아', key:[['fait','neige','pleut']]},
+ {lv:2, q:'Quel jour sommes-nous ?', qpr:'켈 주르 솜누', qko:'오늘 무슨 요일이야?', a:'Nous sommes lundi.', apr:'누 솜 랭디', key:[['lundi','mardi','mercredi','jeudi','vendredi','samedi','dimanche']]},
+ {lv:2, q:"Qu'est-ce que tu aimes manger ?", qpr:'케스크 튀 엠 망제', qko:'뭐 먹는 거 좋아해?', a:"J'aime manger de la pizza.", apr:'젬 망제 들라 피자', key:[['aime','adore']]},
+ {lv:3, q:"Qu'est-ce que tu fais le samedi ?", qpr:'케스크 튀 페 르 삼디', qko:'토요일에 뭐 해?', a:'Le samedi, je joue au parc.', apr:'르 삼디 주 주 오 파르크', key:[['joue','vais','fais','regarde','lis','dors','mange','reste','nage','dessine']]},
+ {lv:3, q:"Comment vas-tu à l'école ?", qpr:'코망 바튀 아 레콜', qko:'학교에 어떻게 가?', a:"Je vais à l'école en autobus.", apr:'주 베 아 레콜 앙 노토뷔스', key:[['autobus','pied','auto','metro','velo']]},
+ {lv:3, q:'Quelle est ta matière préférée ?', qpr:'켈레 타 마티에르 프레페레', qko:'제일 좋아하는 과목은?', a:"Ma matière préférée, c'est la musique.", apr:'마 마티에르 프레페레 세 라 뮈지크', key:[['maths','francais','anglais','sciences','arts','musique','education']]},
+ {lv:4, q:"Qu'est-ce que tu as fait hier ?", qpr:'케스크 튀 아 페 이에르', qko:'어제 뭐 했어?', a:"Hier, j'ai joué avec mes amies.", apr:'이에르 제 주에 아베크 메자미', key:[['ai','suis']]},
+ {lv:4, q:"Qu'est-ce que tu vas faire demain ?", qpr:'케스크 튀 바 페르 드맹', qko:'내일 뭐 할 거야?', a:"Demain, je vais aller à l'église.", apr:'드맹 주 베 알레 아 레글리즈', key:[['vais']]},
+ {lv:4, q:'Pourquoi tu aimes Montréal ?', qpr:'푸르쿠아 튀 엠 몽레알', qko:'몬트리올이 왜 좋아?', a:"J'aime Montréal parce que c'est beau.", apr:'젬 몽레알 파르스크 세 보', key:[['parce']]}
+];
+
+function skillsHome(){
+  stopAll(); window.scrollTo(0,0);
+  const nV=VERBS.filter(V=>unlocked(V.lv)).length, nS=STORIES.filter(s=>unlocked(s.lv)).length, nP=SPEAK.filter(s=>unlocked(s.lv)).length, nD=dictPool().length;
+  app.innerHTML = `<h1>🧩 문장 실력 키우기</h1><p class="sub">동사 · 이야기 · 받아쓰기 · 말하기</p>
+   <div class="modes">
+    <button style="background:var(--yellow)" id="sk1"><span class="big">🔁</span>동사 바꾸기<small>je·tu·nous에 맞게 · ${nV}/${VERBS.length}</small></button>
+    <button style="background:var(--blue)" id="sk2"><span class="big">📖</span>이야기 읽고 답하기<small>읽고 질문 풀기 · ${nS}/${STORIES.length}</small></button>
+    <button style="background:var(--green)" id="sk3"><span class="big">✍️</span>받아쓰기<small>듣고 단어 놓기 · ${nD}문장</small></button>
+    <button style="background:var(--pink)" id="sk4"><span class="big">🎤</span>말하기 연습<small>질문에 대답하기 · ${nP}/${SPEAK.length}</small></button>
+   </div>
+   <p class="rp-note" style="align-self:center;margin-top:14px">🔒 단계가 열릴수록 동사·이야기·질문이 더 생겨요.</p>`;
+  $('#sk1').onclick=()=>conjHome(); $('#sk2').onclick=()=>storiesPage();
+  $('#sk3').onclick=()=>{ if(!dictPool().length) return; startQuiz('dict','dict'); }; $('#sk4').onclick=()=>speakPage(0);
+  later(()=>buddySay('오늘은 문장으로 해 볼까?','jump'),400);
+}
+
+// ---------- 🔁 동사 바꾸기 ----------
+function conjHome(){
+  stopAll(); window.scrollTo(0,0);
+  S.cj=S.cj||{};
+  let h=`<h1>🔁 동사 바꾸기</h1><p class="sub">누가 하느냐에 따라 동사 모양이 바뀌어요</p>
+    <button class="big-btn" style="background:var(--green);width:100%;max-width:640px;margin-bottom:14px" id="cjAll">🎲 열린 동사 모두 섞어서 하기</button><div class="rlist">`;
+  VERBS.forEach((V,i)=>{ const ok=unlocked(V.lv), r=S.cj[i]||{ok:0,bad:0};
+    h+=`<button class="ritem" data-v="${i}" ${ok?'':'disabled style="opacity:.5"'}><span class="ri">${ok?(V.tense==='과거'?'⏪':V.tense==='미래'?'⏩':'🔤'):'🔒'}</span><span class="rt">${esc(verbName(V))} · ${esc(V.ko)}<small>${ok?`맞힘 ${r.ok} · 틀림 ${r.bad}`:LEVELS[V.lv-1].name+'이 열리면 할 수 있어요'}</small></span></button>`; });
+  app.innerHTML=h+'</div>';
+  $('#cjAll').onclick=()=>conjQuiz(null);
+  app.querySelectorAll('.ritem[data-v]').forEach(b=>b.onclick=()=>{ if(!b.disabled) conjTable(+b.dataset.v); });
+}
+function conjTable(i){
+  stopAll(); window.scrollTo(0,0);
+  const V=VERBS[i];
+  let h=`<h1>🔤 ${esc(verbName(V))}</h1><p class="sub">${esc(V.ko)} · 누르면 소리가 나요</p><div class="cjtab">`;
+  V.f.forEach((f,k)=>{ const ph=phrase(k,f[0]); h+=`<button class="cjrow" data-p="${esc(ph)}"><span class="cjp">${esc(PR_KO[k])}</span><span class="fw">${markWord(ph)}</span>${showPr(false)?`<span class="pr">${esc(f[1])}</span>`:''}</button>`; });
+  h+=`</div><div class="row" style="display:flex;gap:12px;margin-top:16px;flex-wrap:wrap;justify-content:center"><button class="big-btn" style="background:var(--yellow)" id="cjPlay">🔊 모두 듣기</button><button class="big-btn" style="background:var(--green)" id="cjGo">✏️ 퀴즈 하기</button></div>`;
+  app.innerHTML=h;
+  app.querySelectorAll('.cjrow').forEach(b=>b.onclick=()=>say(b.dataset.p));
+  $('#cjPlay').onclick=()=>{ let k=0; const rows=[...app.querySelectorAll('.cjrow')]; const go=()=>{ rows.forEach(r=>r.classList.remove('now')); if(k>=rows.length) return; rows[k].classList.add('now'); say(rows[k++].dataset.p, ()=>later(go,250)); }; go(); };
+  $('#cjGo').onclick=()=>conjQuiz(i);
+}
+function conjQuiz(vi){
+  stopAll();
+  const open = VERBS.map((V,i)=>i).filter(i=>unlocked(VERBS[i].lv));
+  const n=S.nq, q=[];
+  for(let k=0;k<n;k++){ const i = vi!=null ? vi : pick(open); q.push({i, k:rnd(0,6)}); }
+  G={tid:'conj', mode:'conj', queue:q, i:0, total:n, earned:0, extra:0, startStars:S.stars, results:[],
+     again:()=>conjQuiz(vi), back:()=> vi!=null ? conjTable(vi) : conjHome()};
+  conjQ();
+}
+function conjQ(){
+  stopAll();
+  if(G.i>=G.queue.length){ endGame(); return; }
+  const q=G.queue[G.i], V=VERBS[q.i], right=V.f[q.k][0];
+  const forms=[...new Set(V.f.map(f=>f[0]))].filter(x=>x!==right);
+  const opts=shuffle([right, ...shuffle(forms).slice(0, Math.min(S.nc-1, forms.length))]);
+  app.innerHTML = progressHTML() + (q.again?`<div class="again-tag">🔁 다시 나온 문제예요</div>`:'') +
+    `<p class="question">알맞은 모양을 골라요</p>
+     <div class="target cjq"><div class="cjbig"><b>${esc(PR[q.k])}</b> + ${esc(V.v)}</div><div class="ko">${esc(PR_KO[q.k])} · ${esc(V.ko)}${V.tense?` · ${V.tense}`:''}</div></div>
+     <div class="choices text ${opts.length===3?'c3':''}">${opts.map(o=>`<button class="choice" data-o="${esc(o)}"><span class="fw">${esc(phrase(q.k,o))}</span></button>`).join('')}</div>`;
+  let locked=false, missed=false;
+  S.cj=S.cj||{}; const r=S.cj[q.i]=S.cj[q.i]||{ok:0,bad:0};
+  app.querySelectorAll('.choice').forEach(btn=>btn.onclick=()=>{
+    if(locked||btn.classList.contains('wrong')) return;
+    if(btn.dataset.o===right){
+      locked=true; btn.classList.remove('hint'); btn.classList.add('right'); sfx.right();
+      btn.insertAdjacentHTML('beforeend', showPr(true)?`<span class="pr" style="color:#fff">${esc(V.f[q.k][1])}</span>`:'');
+      if(!missed){ r.ok++; awardStar(); G.earned++; celebrate('⭐'); buddySay(pick(PRAISE_KO),'jump'); }
+      G.results[G.i]=!missed; save();
+      say(phrase(q.k,right), ()=>later(()=>{ G.i++; conjQ(); },500));
+    } else {
+      btn.classList.add('wrong'); sfx.soft(); buddySay(`${PR[q.k]}에 맞는 모양을 찾아봐요`,'sad');
+      if(!missed){ missed=true; r.bad++; save(); if(!q.again){ G.queue.splice(Math.min(G.i+3,G.queue.length),0,{...q, again:true}); G.extra++; } $('.progress').outerHTML=progressHTML(); }
+      if(app.querySelectorAll('.choice.wrong').length>=2 || S.nc===3){ const c=app.querySelector(`.choice[data-o="${CSS.escape(right)}"]`); if(c) c.classList.add('hint'); }
+    }
+  });
+}
+
+// ---------- 📖 이야기 읽고 답하기 ----------
+function storiesPage(){
+  stopAll(); window.scrollTo(0,0);
+  S.stq=S.stq||{};
+  let h=`<h1>📖 이야기 읽고 답하기</h1><p class="sub">먼저 읽고 들은 다음, 질문에 답해요</p><div class="rlist">`;
+  STORIES.forEach(st=>{ const ok=unlocked(st.lv), best=S.stq[st.id];
+    h+=`<button class="ritem" data-s="${st.id}" ${ok?'':'disabled style="opacity:.5"'}><span class="ri">${ok?st.icon:'🔒'}</span><span class="rt">${esc(st.t)}<small>${ok?esc(st.s[0][0]):LEVELS[st.lv-1].name+'이 열리면 읽을 수 있어요'}</small></span>${best!=null?`<span class="rd">${'⭐'.repeat(best)}</span>`:''}</button>`; });
+  app.innerHTML=h+'</div>';
+  app.querySelectorAll('.ritem[data-s]').forEach(b=>b.onclick=()=>{ if(!b.disabled) readPage(STORIES.find(s=>s.id===b.dataset.s)); });
+}
+function storyQuiz(st){
+  stopAll();
+  G={tid:'story', mode:'story', st, queue:st.q.map(q=>({q})), i:0, total:st.q.length, earned:0, extra:0, startStars:S.stars, results:[],
+     again:()=>storyQuiz(st), back:()=>storiesPage(), againLabel:'다시 풀기', otherLabel:'📖 다시 읽기', other:()=>readPage(st)};
+  storyQ();
+}
+function storyQ(){
+  stopAll();
+  if(G.i>=G.queue.length){ S.stq=S.stq||{}; S.stq[G.st.id]=Math.max(S.stq[G.st.id]||0, G.earned); save(); endGame(); return; }
+  const [qf,qk,ans]=G.queue[G.i].q, right=ans[0], opts=shuffle(ans.slice(0, Math.max(2,S.nc)));
+  app.innerHTML = progressHTML() + `<p class="question" style="font-size:20px;color:var(--soft)">${esc(G.st.icon)} ${esc(G.st.t)} · 질문 ${G.i+1}</p>
+    <div class="target sq"><div class="fw">${esc(qf)}</div>${S.ko==='on'?`<div class="ko">${esc(qk)}</div>`:''}</div>
+    <div class="speak sm"><button id="play">🔊</button><button class="slow" id="slow">🐢</button></div>
+    <div class="choices text long">${opts.map(o=>`<button class="choice" data-o="${esc(o)}"><span class="fw">${esc(o)}</span></button>`).join('')}</div>
+    <button class="small" id="peek" style="margin-top:14px">📖 이야기 다시 보기</button><div id="peekBox"></div>`;
+  $('#play').onclick=()=>say(qf); $('#slow').onclick=()=>say(qf,null,true); later(()=>say(qf),350);
+  $('#peek').onclick=()=>{ $('#peekBox').innerHTML=`<div class="sent" style="margin-top:10px">${G.st.s.map(s=>`<div style="font-size:20px;line-height:1.5">${esc(s[0])}</div>`).join('')}</div>`; G.peeked=true; };
+  let locked=false, missed=false;
+  app.querySelectorAll('.choice').forEach(btn=>btn.onclick=()=>{
+    if(locked||btn.classList.contains('wrong')) return;
+    if(btn.dataset.o===right){
+      locked=true; btn.classList.remove('hint'); btn.classList.add('right'); sfx.right();
+      if(!missed){ awardStar(); G.earned++; celebrate('⭐'); buddySay(pick(PRAISE_KO),'jump'); }
+      G.results[G.i]=!missed; save();
+      say(right, ()=>later(()=>{ G.i++; storyQ(); },600));
+    } else {
+      btn.classList.add('wrong'); sfx.soft(); say(btn.dataset.o); buddySay('이야기를 다시 보고 찾아봐요!','sad');
+      if(!missed){ missed=true; G.results[G.i]=false; $('.progress').outerHTML=progressHTML(); }
+      if(app.querySelectorAll('.choice.wrong').length>=2 || opts.length===3&&S.nc===3){ const c=app.querySelector(`.choice[data-o="${CSS.escape(right)}"]`); if(c) c.classList.add('hint'); }
+    }
+  });
+}
+
+// ---------- ✍️ 받아쓰기 ----------
+function dictPool(){ return THEMES.filter(t=>t.sentence && themeOpen(t)).flatMap(t=>t.items).filter(it=>it.fr.split(/\s+/).length>=2); }
+
+// ---------- 🎤 말하기 연습 ----------
+function speakPage(i){
+  stopAll(); window.scrollTo(0,0);
+  const list=SPEAK.filter(s=>unlocked(s.lv)); if(!list.length) return;
+  i=(i+list.length)%list.length; const P=list[i];
+  S.sp=S.sp||{};
+  app.innerHTML=`<h1>🎤 말하기 연습</h1><p class="sub">질문을 듣고 프랑스어로 대답해요 · ${i+1} / ${list.length}</p>
+    <div class="card" id="qcard"><div class="pic" style="font-size:70px;height:80px">💬</div>
+      <div class="fw" style="font-size:40px">${esc(P.q)}</div>${showPr(false)?`<div class="pr">${esc(P.qpr)}</div>`:''}<div class="ko">${esc(P.qko)}</div></div>
+    <div class="nav"><button id="prev">◀</button><button class="alt" id="play">🔊</button><button class="mic big" id="mic">🎤</button><button id="next">▶</button></div>
+    <div class="heard" id="heard" style="font-size:18px;text-align:center;margin-top:10px"></div>
+    <button class="small" id="show" style="margin-top:12px">💡 예시 대답 보기</button>
+    <div id="ans"></div>`;
+  const play=()=>say(P.q); $('#qcard').onclick=play; $('#play').onclick=play; later(play,300);
+  $('#prev').onclick=()=>speakPage(i-1); $('#next').onclick=()=>speakPage(i+1);
+  const showAns=()=>{ $('#ans').innerHTML=`<div class="sent" style="margin-top:12px;text-align:center"><div class="swords" style="font-size:30px">${P.a.split(/\s+/).map(w=>`<span class="wd" data-w="${esc(w)}">${markWord(w)}</span>`).join(' ')}</div>
+      ${showPr(false)?`<div class="spr">${esc(P.apr)}</div>`:''}${P.note?`<div class="sko">${esc(P.note)}</div>`:''}
+      <div class="sbtn" style="justify-content:center"><button class="small" id="aplay">🔊</button><button class="small" id="aslow">🐢</button></div></div>`;
+    $('#aplay').onclick=()=>say(P.a); $('#aslow').onclick=()=>say(P.a,null,true);
+    app.querySelectorAll('#ans .wd').forEach(w=>w.onclick=()=>say(w.dataset.w)); };
+  $('#show').onclick=()=>{ showAns(); say(P.a); };
+  $('#mic').onclick=()=>{
+    const box=$('#heard'), btn=$('#mic');
+    if(!SR){ box.innerHTML='이 화면에서는 마이크로 들을 수 없어요. 소리 내어 대답해 보고, 💡 예시 대답과 비교해 보세요.'; return; }
+    try{ speechSynthesis.cancel(); }catch(e){}
+    if(recog){ try{ recog.abort(); }catch(e){} }
+    const r=new SR(); recog=r; r.lang='fr-CA'; r.interimResults=false; r.maxAlternatives=5;
+    btn.classList.add('listening'); box.textContent='👂 듣고 있어요… 대답해 보세요!';
+    r.onresult=e=>{
+      const alts=[...e.results[0]].map(a=>a.transcript);
+      const ok=alts.find(t=>{ const w=norm(t); return P.key.every(g=>g.some(k=>w.includes(norm(k)[0]))) && w.length>=2; });
+      const said=ok||alts[0];
+      if(ok){ box.innerHTML=`들린 말: <i>${esc(said)}</i><br><b style="color:#2F9E44">잘 대답했어요! ⭐</b>`; sfx.right(); awardStar(); celebrate('⭐'); buddySay(pick(PRAISE_KO),'jump');
+        S.sp[P.q]=(S.sp[P.q]||0)+1; recordToday(); save(); say(pick(PRAISE_FR)); }
+      else { box.innerHTML=`들린 말: <i>${esc(said)}</i><br>조금 더 길게 문장으로 대답해 봐요. 💡 예시를 듣고 따라 해 보세요.`; sfx.soft(); buddySay('예시 대답을 듣고 다시 해 봐요!','sad'); showAns(); }
+    };
+    r.onerror=e=>{ box.textContent = (e.error==='not-allowed'||e.error==='service-not-allowed') ? '마이크를 허용해 주세요.' : '잘 안 들렸어요. 다시 해 볼까요?'; };
+    r.onend=()=>btn.classList.remove('listening');
+    try{ r.start(); }catch(e){ btn.classList.remove('listening'); box.textContent='마이크를 시작할 수 없어요.'; }
+  };
+}
+
+// ---------- 스티커판 ----------
+const STK=['🌟','🦄','🌈','🐰','🍓','🌻','🐻','🎀','🐳','🍭','🦋','🐥','🥐','🥖'];
+function dayKey(d){ d=d||new Date(); return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0'); }
+function stickerFor(key){ let h=0; for(const c of key) h=(h*31+c.charCodeAt(0))%997; return STK[h%STK.length]; }
+function recordToday(){ const k=dayKey(); const first=!S.days[k]; S.days[k]=(S.days[k]||0)+1; save(); return first; }
+function streak(){ let n=0; const d=new Date(); if(!S.days[dayKey(d)]) d.setDate(d.getDate()-1); while(S.days[dayKey(d)]){ n++; d.setDate(d.getDate()-1); } return n; }
+function calendar(offset){
+  stopAll(); window.scrollTo(0,0);
+  const now=new Date(), base=new Date(now.getFullYear(), now.getMonth()+offset, 1);
+  const y=base.getFullYear(), m=base.getMonth(), daysIn=new Date(y,m+1,0).getDate();
+  let cells=['일','월','화','수','목','금','토'].map(w=>`<div class="cal-h">${w}</div>`).join('');
+  for(let k=0;k<base.getDay();k++) cells+='<div></div>';
+  let count=0;
+  for(let d=1; d<=daysIn; d++){
+    const key=dayKey(new Date(y,m,d)), done=S.days[key]; if(done) count++;
+    cells+=`<div class="cal-d ${done?'got':''} ${key===dayKey()?'today':''}"><span class="n">${d}</span>${done?`<span class="s">${stickerFor(key)}</span>`:''}</div>`;
+  }
+  app.innerHTML=`<h1>📅 스티커판</h1>
+    <div class="cal-top"><button class="small" id="pm">◀</button><span>${y}년 ${m+1}월</span><button class="small" id="nm" ${offset>=0?'disabled style="opacity:.3"':''}>▶</button></div>
+    <div class="cal">${cells}</div>
+    <p class="question" style="margin-top:16px">이번 달 스티커 ${count}개</p><p class="question" style="margin:0">🔥 ${streak()}일 연속!</p>`;
+  $('#pm').onclick=()=>calendar(offset-1);
+  if(offset<0) $('#nm').onclick=()=>calendar(offset+1);
+}
+function friends(){
+  stopAll(); window.scrollTo(0,0);
+  let h=`<h1>${S.buddy} 내 친구들</h1><p class="sub">별을 모으면 새 친구가 생겨요</p><div class="friends">`;
+  FRIENDS.forEach(([e,n])=>{ const ok=S.stars>=n;
+    h+=`<button class="fr ${ok?'':'locked'} ${S.buddy===e?'me':''}" data-e="${e}" ${ok?'':'disabled'}><span class="fe">${ok?e:'🔒'}</span><span class="fn">${ok?'':'⭐ '+n}</span></button>`; });
+  app.innerHTML=h+'</div>';
+  app.querySelectorAll('.fr:not(.locked)').forEach(b=>b.onclick=()=>{ S.buddy=b.dataset.e; save(); sfx.pop(); friends(); buddySay('Salut !','jump'); say('Salut, Eunseo !'); });
+}
+
+// ---------- 끝 ----------
+function endGame(){
+  stopAll();
+  const first=recordToday(), g=G;
+  const fresh=FRIENDS.filter(f=>f[1]>g.startStars && f[1]<=S.stars).map(f=>f[0]);
+  const newF=fresh[fresh.length-1]; if(newF){ S.buddy=newF; save(); }
+  const total = g.mode==='memory' ? g.total : g.queue.length - g.extra;
+  const title = newF?'새 친구가 생겼어요!':(first?'오늘 스티커를 받았어요!':'다 했어요!');
+  if(g.mode==='dict'){ g.again=()=>startQuiz('dict','dict'); g.back=skillsHome; }
+  const again = g.again || (() => g.mode==='memory' ? memory(g.tid) : (g.mode==='sound' ? soundQuiz() : startQuiz(g.tid, g.mode)));
+  app.innerHTML=`<div class="end">
+    <div class="trophy">${newF||(first?stickerFor(dayKey()):'🏆')}</div>
+    <h1>${title}</h1>
+    <div style="font-size:40px">${'⭐'.repeat(Math.min(g.earned,12))}${'☆'.repeat(Math.max(0,Math.min(total,12)-g.earned))}</div>
+    <p class="question" style="font-size:22px;margin-top:10px" id="cd"></p>
+    <div class="row">
+      <button class="big-btn" style="background:var(--green)" id="again">${g.againLabel||'한 번 더'}</button>
+      ${g.other?`<button class="big-btn" style="background:var(--blue)" id="other">${g.otherLabel}</button>`:''}
+      ${(!g.back && g.tid!=='review'&&g.mode!=='sound')?`<button class="big-btn" style="background:var(--blue)" id="other">${{listen:'👀 보고 고르기',read:'✍️ 써 보기',write:'👂 듣고 고르기'}[g.mode]||'👂 듣고 고르기'}</button>`:''}
+      <button class="big-btn" style="background:var(--yellow)" id="goHome">그만하기</button>
+    </div></div>`;
+  celebrate(newF||(first?stickerFor(dayKey()):'🎉')); sfx.fanfare(); confetti(80);
+  say(pick(['Bravo, Eunseo !','Très bien, Eunseo !','Super travail !']));
+  buddySay(newF?'Salut ! 나는 새 친구야!':'정말 잘했어요!','jump');
+  $('#again').onclick=again;
+  if($('#other')) $('#other').onclick= g.other || (()=>startQuiz(g.tid, {listen:'read',read:'write',write:'listen'}[g.mode]||'listen'));
+  $('#goHome').onclick=()=> g.back ? g.back() : (g.tid==='review'?home():(g.mode==='sound'?readingHome():themePage(g.tid)));
+  if(S.auto==='on' && g.mode!=='memory' && g.mode!=='story'){
+    let n=newF?14:8; $('#cd').textContent=`${n}초 뒤에 다음 판이 시작돼요`;
+    autoTimer=setInterval(()=>{ n--; const el=$('#cd'); if(!el){ stopAll(); return; }
+      if(n<=0){ clearInterval(autoTimer); autoTimer=null; again(); } else el.textContent=`${n}초 뒤에 다음 판이 시작돼요`; },1000);
+  }
+}
+
+// ---------- 학습 보고서 (부모님용) ----------
+function report(){
+  stopAll(); window.scrollTo(0,0);
+  const all=THEMES.flatMap(t=>t.items);
+  const cnt=[0,0,0,0]; all.forEach(it=>cnt[status(it.id)]++);
+  const since=Date.now()-7*864e5, wk=S.log.filter(l=>l.d>=since);
+  const acc = wk.length ? Math.round(wk.filter(l=>l.ok).length/wk.length*100)+'%' : '–';
+  const now=new Date(), mk=now.getFullYear()+'-'+String(now.getMonth()+1).padStart(2,'0');
+  const monthDays=Object.keys(S.days).filter(k=>k.startsWith(mk)).length;
+  const bar = arr => { const t=arr.reduce((a,b)=>a+b,0)||1; return `<div class="sbar">${[3,2,1].map(s=>`<i class="s${s}" style="width:${arr[s]/t*100}%"></i>`).join('')}</div>`; };
+  let h=`<h1>📊 학습 보고서</h1>
+    <div class="rp-sum"><div><b>${cnt[2]+cnt[3]}</b><span>⭐ 외운 말 / ${all.length}</span></div><div><b>${cnt[3]}</b><span>👑 오래 기억</span></div>
+    <div><b>${dueList().length}</b><span>🔁 오늘 복습할 말</span></div><div><b>${acc}</b><span>최근 7일 정답률 (${wk.length}문제)</span></div></div>
+    <p class="rp-note">이번 달 공부한 날 ${monthDays}일 · 🔥 ${streak()}일 연속</p>
+    <div class="rp-h">단계별 진도</div>`;
+  LEVELS.forEach(L=>{
+    const its=levelItems(L.n), c=[0,0,0,0]; its.forEach(it=>c[status(it.id)]++);
+    const bs=BUNDLES.filter(B=>B.lv===L.n), ob=bs.filter(B=>bundleOpen(B.lv,B.b)).length;
+    h+=`<div class="rp-row"><div class="rp-top"><span>${unlocked(L.n)?'':'🔒 '}${L.name} · ${L.cefr} <small style="color:var(--soft)">묶음 ${ob}/${bs.length}</small></span><span>⭐ ${c[2]+c[3]} / ${its.length}</span></div>${bar(c)}
+      <div class="rp-meta">👑 ${c[3]} · ⭐ ${c[2]} · 🌱 ${c[1]} · ⚪ ${c[0]}</div></div>`;
+  });
+  h+=`<div class="rp-h">주제별</div>`;
+  LEVELS.forEach(L=>{ THEMES.filter(t=>t.lv===L.n && themeOpen(t)).forEach(th=>{ const m=mastery(th);
+    h+=`<div class="rp-row"><div class="rp-top"><span>${th.icon} ${th.ko}</span><span>${m.m} / ${m.n}</span></div><div class="rp-bar"><i style="width:${m.pct}%"></i></div></div>`; }); });
+  const weak=all.filter(it=>(S.w[it.id]||{}).bad>0).sort((a,b)=>(S.w[b.id].bad-S.w[b.id].ok)-(S.w[a.id].bad-S.w[a.id].ok)).slice(0,12);
+  h+=`<div class="rp-h">자주 틀린 말</div>`;
+  h+= weak.length ? `<div class="rp-weak">${weak.map(it=>`<span>${esc(it.fr)} <small>${esc(it.ko)} · 틀림 ${S.w[it.id].bad} / 맞음 ${S.w[it.id].ok}</small></span>`).join('')}</div>` : `<p class="rp-note">아직 틀린 말이 없어요.</p>`;
+  h+=`<div class="rp-h">외웠는지 어떻게 아나요?</div>
+  <div class="rp-explain">
+   <p>🌱 <b>익히는 중</b> — 퀴즈를 시작한 말. 같은 날 여러 번 맞혀도 여기까지만 올라가요.</p>
+   <p>⭐ <b>외웠어요</b> — <b>서로 다른 날</b>에 처음부터 맞혔고(10분 뒤 → 다음 날 다시 확인), 듣고 고르기·보고 고르기·써 보기 중 <b>두 가지 이상</b>에서 맞힌 말.</p>
+   <p>👑 <b>오래 기억해요</b> — 그 뒤 <b>3일, 7일이 지나서</b> 다시 물어봐도 맞힌 말. 이후 14일, 30일 뒤에도 다시 확인해요.</p>
+   <p>❌ 틀리면 다시 🌱로 내려가고, 처음 화면의 "오늘 복습할 말"에 들어가요. 복습할 때가 되기 전에 맞힌 것은 연습으로만 쳐요.</p>
+   <p>🎁 단어는 묶음으로 들어 있어요. 지금 묶음의 말을 80% 외우면(⭐ 이상) 다음 묶음이 열리고, 한 단계의 마지막 묶음까지 마치면 다음 단계가 열려요.</p>
+  </div>`;
+  app.innerHTML=h;
+}
+
+// ---------- 설정 ----------
+function paintSettings(){
+  loadVoices(); const list=frVoices().sort((a,b)=>voiceScore(b)-voiceScore(a)), cur=pickVoice();
+  $('#vsel').innerHTML = list.length ? list.map(v=>`<option value="${esc(v.name)}" ${cur&&cur.name===v.name?'selected':''}>${esc(v.name)} (${v.lang})${voiceScore(v)>=40?' ⭐':''}</option>`).join('')
+    : `<option>이 기기에 프랑스어 목소리가 없어요</option>`;
+  document.querySelectorAll('.seg').forEach(seg=>{ const k=seg.dataset.key; seg.querySelectorAll('button').forEach(b=>b.classList.toggle('on', String(S[k])===b.dataset.v)); });
+}
+document.querySelectorAll('.seg').forEach(seg=>seg.querySelectorAll('button').forEach(b=>b.onclick=()=>{
+  const k=seg.dataset.key; S[k]=(k==='nq'||k==='nc')?+b.dataset.v:b.dataset.v; save(); paintSettings(); if(k==='rate') $('#vtest').click();
+}));
+let gateAns=0, gateVal='';
+function openGate(){ const a=rnd(6,9), b=rnd(6,9); gateAns=a*b; gateVal=''; $('#gateEq').textContent=`${a} × ${b} = ?`; $('#gateIn').textContent=''; $('#gate').classList.add('open'); }
+$('#pad').innerHTML=[1,2,3,4,5,6,7,8,9,'⌫',0,'OK'].map(k=>`<button data-k="${k}">${k}</button>`).join('');
+$('#pad').querySelectorAll('button').forEach(b=>b.onclick=()=>{
+  const k=b.dataset.k;
+  if(k==='⌫') gateVal=gateVal.slice(0,-1);
+  else if(k==='OK'){
+    if(+gateVal===gateAns){ $('#gate').classList.remove('open'); paintSettings(); $('#modal').classList.add('open'); return; }
+    $('#gateIn').classList.add('shake'); setTimeout(()=>{ $('#gateIn').classList.remove('shake'); openGate(); },450); return;
+  } else if(gateVal.length<3) gateVal+=k;
+  $('#gateIn').textContent=gateVal;
+});
+$('#gateCancel').onclick=()=>$('#gate').classList.remove('open');
+$('#setBtn').onclick=()=>{ stopAll(); openGate(); };
+$('#vsel').onchange=e=>{ S.vname=e.target.value; save(); say('Bonjour, Eunseo !'); };
+$('#vtest').onclick=()=>say('Bonjour, Eunseo ! Un, deux, trois. Très bien !');
+$('#reportBtn').onclick=()=>{ $('#modal').classList.remove('open'); report(); };
+$('#closeSet').onclick=()=>{ $('#modal').classList.remove('open'); home(); };
+$('#homeBtn').onclick=home;
+$('#buddy').onclick=()=>{ sfx.pop(); const m=pick(['Bonjour !','Salut, Eunseo !','Ça va ?','Très bien !']); buddySay(m,'jump'); say(m); };
+
+updateStars(); home(); buddySay(null);
+</script>
+</body>
+</html>
