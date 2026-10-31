@@ -185,9 +185,13 @@
   .cal-d{background:#fff;border-radius:14px;aspect-ratio:1;display:flex;flex-direction:column;align-items:center;justify-content:center;position:relative;box-shadow:0 2px 0 #0001}
   .cal-d .n{font-size:16px;color:var(--soft);position:absolute;top:4px;left:8px}
   .cal-d .s{font-size:34px}
+  .cal-d .s.multi{font-size:17px;display:grid;grid-template-columns:1fr 1fr;line-height:1.15;margin-top:14px;gap:0 2px} .cal-d .s i{font-style:normal;text-align:center}
+  .cal-d .cnt{position:absolute;right:4px;bottom:3px;background:var(--pink);color:#fff;border-radius:10px;font-size:13px;padding:0 6px}
+  .todaystk{width:100%;max-width:560px;background:#fff;border-radius:20px;padding:12px 14px;margin-top:14px;box-shadow:0 3px 0 #0001}
+  .todaystk b{font-size:22px} .todaystk div{font-size:36px;display:flex;flex-wrap:wrap;gap:4px;margin-top:6px}
   .cal-d.got{background:#FFF3C4}
   .cal-d.today{outline:3px solid var(--purple)}
-  @media (max-width:560px){ .cal-d .s{font-size:24px} .cal-d .n{font-size:12px} }
+  @media (max-width:560px){ .cal-d .s{font-size:24px} .cal-d .s.multi{font-size:12px;margin-top:14px} .cal-d .n{font-size:12px} .cal-d .cnt{font-size:10px} .todaystk div{font-size:28px} }
   @media (max-width:560px){
     .frame{grid-template-columns:repeat(5,50px)} .frame.short{grid-template-columns:repeat(var(--cols),50px)}
     .obj{width:50px;height:50px;font-size:36px}
@@ -296,7 +300,7 @@ const T = {
       vname:'목소리 고르기 (⭐ = 더 자연스러운 목소리)', rateL:'말 빠르기', slow:'천천히', normal:'보통', noVoice:'이 기기에 한국어 목소리가 없어요',
       gate:'부모님 확인', gateQ:'곱셈 답을 입력하세요', cancel:'취소', sfx:'효과음',
       chartTap:'숫자를 누르면 읽어 줘요 · 한 번 더 누르면 크게 보여요', seq:'다음 숫자', seqQ:last=>last?'다음 숫자는 뭘까요?':'빈칸에 들어갈 숫자는?', chart:'🔢 숫자판', kostyle:'한국어 숫자 읽기',
-      again2:'다시 나온 문제예요', stop:'그만하기', sticker:'스티커판', todaySticker:'오늘 스티커를 받았어요!',
+      again2:'다시 나온 문제예요', stop:'그만하기', sticker:'스티커판', todaySticker:'오늘 스티커를 받았어요!', gotSticker:n=>`스티커를 받았어요! 오늘 ${n}개째`, todayList:'오늘 받은 스티커',
       autoNext:n=>`${n}초 뒤에 다음 판이 시작돼요`, week:['일','월','화','수','목','금','토'],
       month:(y,m)=>`${y}년 ${m+1}월`, monthCount:n=>`이번 달 스티커 ${n}개`, streak:n=>`${n}일 연속 연습!`, auto:'끝나면 자동으로 다음 판',
       set:'설정 (부모님용)', lang:'언어', max:'숫자 범위', nq:'한 번에 풀 문제 수', voice:'목소리', on:'🔊 켜기', off:'🔇 끄기',
@@ -319,7 +323,7 @@ const T = {
       vname:'Choisir la voix (⭐ = plus naturelle)', rateL:'Vitesse', slow:'Lente', normal:'Normale', noVoice:'Aucune voix française sur cet appareil',
       gate:'Vérification parent', gateQ:'Entrez la réponse', cancel:'Annuler', sfx:'Effets sonores',
       chartTap:'Touche un nombre pour l’entendre · encore une fois pour le voir en grand', seq:'Nombre suivant', seqQ:last=>last?'Quel nombre vient après?':'Quel nombre manque?', chart:'🔢 Tableau', kostyle:'Lecture coréenne',
-      again2:'On réessaie celle-ci', stop:'Arrêter', sticker:'Mes autocollants', todaySticker:'Autocollant du jour!',
+      again2:'On réessaie celle-ci', stop:'Arrêter', sticker:'Mes autocollants', todaySticker:'Autocollant du jour!', gotSticker:n=>`Un autocollant! C’est le numéro ${fr(n)} aujourd’hui`, todayList:'Aujourd’hui',
       autoNext:n=>`Prochaine partie dans ${n} s`, week:['D','L','M','M','J','V','S'],
       month:(y,m)=>['janvier','février','mars','avril','mai','juin','juillet','août','septembre','octobre','novembre','décembre'][m]+' '+y,
       monthCount:n=>`${n} autocollant${n>1?'s':''} ce mois-ci`, streak:n=>`${n} jour${n>1?'s':''} de suite!`, auto:'Partie suivante automatique',
@@ -952,9 +956,11 @@ function nextQ(){
 const STK = ['🌟','🦄','🌈','🐰','🍓','🌻','🐻','🎀','🐳','🍭','🦋','🐥'];
 function dayKey(d){ d=d||new Date(); return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0'); }
 function stickerFor(key){ let h=0; for(const c of key) h=(h*31+c.charCodeAt(0))%997; return STK[h%STK.length]; }
+// 한 판을 끝낼 때마다 스티커 1개 (판마다 다른 그림)
+function stickerN(key,i){ return stickerFor(key+'#'+i); }
 function recordToday(){
-  S.days = S.days || {}; const k = dayKey(); const first = !S.days[k];
-  S.days[k] = (S.days[k]||0) + 1; save(); return first;
+  S.days = S.days || {}; const k = dayKey();
+  S.days[k] = (S.days[k]||0) + 1; save(); return S.days[k];
 }
 function streak(){
   const days=S.days||{}; let n=0; const d=new Date();
@@ -971,13 +977,15 @@ function calendar(offset){
   for(let k=0;k<base.getDay();k++) cells+='<div></div>';
   let count=0;
   for(let d=1; d<=daysIn; d++){
-    const key=dayKey(new Date(y,m,d)); const done=days[key]; if(done) count++;
+    const key=dayKey(new Date(y,m,d)); const done=days[key]||0; count+=done;
     const today = key===dayKey();
-    cells += `<div class="cal-d ${done?'got':''} ${today?'today':''}"><span class="n">${d}</span>${done?`<span class="s">${stickerFor(key)}</span>`:''}</div>`;
+    const show=[]; for(let i=1;i<=Math.min(done,4);i++) show.push(stickerN(key,i));
+    cells += `<div class="cal-d ${done?'got':''} ${today?'today':''}"><span class="n">${d}</span>${done?`<span class="s ${done>1?'multi':''}">${show.map(e=>`<i>${e}</i>`).join('')}</span>${done>1?`<span class="cnt">${done}</span>`:''}`:''}</div>`;
   }
   app.innerHTML = `<h1>📅 ${L.sticker}</h1>
     <div class="cal-top"><button class="small" id="pm">◀</button><span>${L.month(y,m)}</span><button class="small" id="nm" ${offset>=0?'disabled style="opacity:.3"':''}>▶</button></div>
     <div class="cal">${cells}</div>
+    ${(days[dayKey()]||0)?`<div class="todaystk"><b>${L.todayList}</b><div>${Array.from({length:days[dayKey()]},(_,i)=>`<span>${stickerN(dayKey(),i+1)}</span>`).join('')}</div></div>`:''}
     <p class="question" style="font-size:28px;margin-top:16px">${L.monthCount(count)}</p>
     <p class="question" style="font-size:28px;margin:0">🔥 ${L.streak(streak())}</p>`;
   $('#pm').onclick=()=>calendar(offset-1);
@@ -986,15 +994,15 @@ function calendar(offset){
 }
 
 function endGame(){
-  const firstToday = recordToday();
+  const nToday = recordToday(); const stk = stickerN(dayKey(), nToday);
   const total = G.total!=null ? G.total : S.nq + G.extra;
   const m=G.mode, L=t();
   const fresh = FRIENDS.filter(f=>f[1]>G.startStars && f[1]<=S.stars).map(f=>f[0]);
   const newF = fresh[fresh.length-1];
   if(newF){ S.buddy=newF; save(); }
   app.innerHTML = `<div class="end">
-    <div class="trophy ${newF?'spin':''}">${newF||(firstToday?stickerFor(dayKey()):'🏆')}</div>
-    <h1>${newF?L.newFriend:(firstToday?L.todaySticker:L.done)}</h1>
+    <div class="trophy spin">${newF||stk}</div>
+    <h1>${newF?L.newFriend:L.gotSticker(nToday)}</h1>
     <div style="font-size:44px">${'⭐'.repeat(G.earned)}${'☆'.repeat(Math.max(0,total-G.earned))}</div>
     <p class="question" style="font-size:26px;margin-top:10px" id="cd"></p>
     <div class="row">
@@ -1002,8 +1010,8 @@ function endGame(){
       <button class="big-btn" style="background:var(--pink)" id="toCal">📅 ${L.sticker}</button>
       <button class="big-btn" style="background:var(--yellow)" id="goHome">${L.stop}</button>
     </div></div>`;
-  celebrate(newF||(firstToday?stickerFor(dayKey()):'🎉')); sfx.fanfare(); confetti(80);
-  say(newF ? L.newFriend : (firstToday ? L.todaySticker : L.endSay(Math.max(G.earned,1))));
+  celebrate(newF||stk); sfx.fanfare(); confetti(80);
+  say(newF ? L.newFriend : L.gotSticker(nToday));
   buddySay(newF ? L.hi[0] : L.praise[0], 'jump');
   $('#again').onclick=()=>startGame(m);
   $('#toCal').onclick=()=>calendar(0);
